@@ -4,6 +4,7 @@ const apiLinks = {
   customer: {
     getProfile: `${urlServerSide}/users`,
     loginWithCustomerEmail: `${urlServerSide}/auth/signInForCustomer`,
+    loginWithAdminDoctorEmail: `${urlServerSide}/auth/signInForDocAndAdmin`,
     loginWithGoogle: `${urlServerSide}/auth/google/login/customer`,
     loginWithGoogleByAdminDoctor: `${urlServerSide}/auth/google/login/doctor-admin`,
     getAllDoctorByGuest: `${urlServerSide}/users/all/doctors`,

@@ -131,6 +131,7 @@ const AccountPage = () => {
                             : dataUser?.avatar_url
                         }
                         alt="avatar"
+                        loading="lazy"
                       />
                     </div>
 
@@ -293,6 +294,7 @@ const AccountPage = () => {
                           <img
                             src={scheduled.doctor_id.avatar_url}
                             alt={scheduled.doctor_id.fullname}
+                            loading="lazy"
                           />
                         </div>
 

@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import "@/styles/spinner-loading.scss"
 import "@/styles/account.scss"
+import "@/styles/manage-style.scss"
 import "react-toastify/dist/ReactToastify.css";
 import "react-calendar/dist/Calendar.css";
 import "swiper/css";

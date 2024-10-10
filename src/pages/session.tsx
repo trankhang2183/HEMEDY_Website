@@ -151,6 +151,7 @@ const SessionPage: React.FC = () => {
                             src={item.image}
                             alt={item.product_name}
                             className="w-full h-full object-cover"
+                            loading="lazy"
                           />
                         </div>
                         <h1 className="text-center text-3xl font-medium mb-3 mt-4">

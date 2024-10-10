@@ -156,6 +156,7 @@ const DoctorDetail = () => {
                     <img
                       src={doctorItem?.avatar_url}
                       alt={doctorItem?.fullname}
+                      loading="lazy"
                     />
                     <div className="intro-info text-center">
                       <p className="font-semibold text-2xl">

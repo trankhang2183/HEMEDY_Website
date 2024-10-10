@@ -24,7 +24,7 @@ const DoctorItem: React.FC<Props> = (props) => {
 
   return (
     <div className="doctor-item" onClick={handleViewDetail}>
-      <img src={doctorItem.avatar_url} />
+      <img src={doctorItem.avatar_url} loading="lazy"/>
       <div className="doctor-information px-8 py-10 bg-white">
         <p className="text-2xl font-bold">{doctorItem.fullname}</p>
         <p className=" text-xl font-semibold mt-2">{doctorItem.career}</p>

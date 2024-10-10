@@ -8,6 +8,7 @@ import { signIn } from "next-auth/react";
 import { message } from "antd";
 import { useRouter } from "next/navigation";
 import { emailRegex } from "@utils/helpers";
+import { ROLE_CUSTOMER } from "@utils/constants";
 
 interface Props {
   setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
@@ -59,6 +60,7 @@ const LoginSection: React.FC<Props> = (props) => {
         redirect: false,
         email: email,
         password: password,
+        role: ROLE_CUSTOMER,
       });
 
       if (response?.error) {

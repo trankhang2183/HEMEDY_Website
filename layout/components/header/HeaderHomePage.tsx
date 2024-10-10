@@ -13,6 +13,9 @@ import {
   isExpiredTimeTokenSecondHandle,
 } from "@utils/helpers";
 
+const callback_url = "http://localhost:3000";
+// const callback_url = "http://hemedy.onrender.com";
+
 const HeaderHomePage = () => {
   const router = useRouter();
   const [userData, setUserData] = React.useState<any | null>(null);
@@ -29,8 +32,8 @@ const HeaderHomePage = () => {
     );
   };
 
-// console.log("token", token)
-// console.log("session", session)
+  // console.log("token", token)
+  // console.log("session", session)
 
   const getNavItems = () => {
     if (userData && userData.role_name) {
@@ -95,13 +98,14 @@ const HeaderHomePage = () => {
                       : session?.user?.image
                   }
                   alt="avatar"
+                  loading="lazy"
                 />
 
                 <p className="name">{session.user.name}</p>
               </div>
               <BiLogOut
                 onClick={() => {
-                  signOut({ callbackUrl: "http://localhost:3000/" });
+                  signOut();
                 }}
                 className="logout-icon w-5 h-5 cursor-pointer"
               />

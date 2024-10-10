@@ -21,6 +21,7 @@ const PaymentOption = ({
       height: "64px",
       width: "64px",
     }}
+    loading="lazy"
   />
 );
 

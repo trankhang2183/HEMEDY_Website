@@ -4,11 +4,12 @@ import GoogleProvider from "next-auth/providers/google";
 import moment from "moment";
 import customer from "@services/customer";
 import { jwtDecode } from "jwt-decode";
+import { ROLE_ADMIN, ROLE_CUSTOMER } from "@utils/constants";
 
 interface DecodedToken {
   fullname: string;
   email: string;
-  roles: string;
+  role_name: string;
 }
 
 export default NextAuth({
@@ -23,18 +24,20 @@ export default NextAuth({
       credentials: {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
+        role: { label: "Role", type: "text" },
       },
       async authorize(credentials) {
-        var result = await customer.loginWithCustomerEmail(
-          credentials?.email!,
-          credentials?.password!
-        );
+        const { email, password, role }: any = credentials;
+        var result;
 
-        console.log("result: ", result);
+        if (role === ROLE_CUSTOMER) {
+          result = await customer.loginWithCustomerEmail(email, password);
+        } else if (role === ROLE_ADMIN) {
+          result = await customer.loginWithAdminDoctorEmail(email, password);
+        }
 
         if (result) {
           const decodedToken = jwtDecode<DecodedToken>(result.accessToken);
-          console.log("decodedToken: ", decodedToken);
           const user = {
             id: result.userId,
             name: decodedToken.fullname,
@@ -46,7 +49,7 @@ export default NextAuth({
             tokenType: result.tokenType,
             currenNoticeCount: result.currenNoticeCount,
             email: decodedToken.email,
-            roles: decodedToken.roles,
+            roles: decodedToken.role_name,
           } as User;
           return user;
         } else {
