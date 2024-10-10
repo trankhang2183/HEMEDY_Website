@@ -14,6 +14,9 @@ interface Props {
   setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+// const callback_url = "http://localhost:3000/manage";
+const callback_url = "http://hemedy.onrender.com";
+
 const LoginSection: React.FC<Props> = (props) => {
   const { setIsLogin } = props;
   const router = useRouter();
@@ -27,7 +30,7 @@ const LoginSection: React.FC<Props> = (props) => {
   const handleLoginWithGoogle = async () => {
     try {
       setIsLoading(true);
-      signIn("google", { callbackUrl: "http://localhost:3000/" });
+      signIn("google", { callbackUrl: `${callback_url}` });
     } catch (err) {
       setIsLoading(false);
     } finally {

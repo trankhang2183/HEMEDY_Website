@@ -13,9 +13,6 @@ import {
   isExpiredTimeTokenSecondHandle,
 } from "@utils/helpers";
 
-const callback_url = "http://localhost:3000";
-// const callback_url = "http://hemedy.onrender.com";
-
 const HeaderHomePage = () => {
   const router = useRouter();
   const [userData, setUserData] = React.useState<any | null>(null);
