@@ -9,7 +9,7 @@ import { MdOutlineTravelExplore } from "react-icons/md";
 import { MdOutlineRequestPage } from "react-icons/md";
 import { GrTransaction } from "react-icons/gr";
 
-import { ROLE_ADMIN, ROLE_STAFF } from "./constants";
+import { ROLE_ADMIN } from "./constants";
 
 export interface SliderMenuItem {
   key: string;
