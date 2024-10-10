@@ -1,0 +1,234 @@
+.account-page {
+  .account-info-container {
+    width: 100%;
+    background-color: var(--semi-dark-green);
+
+    .account-info {
+      padding: 50px 120px;
+      .left {
+        .avatar {
+          width: 233px;
+          height: 233px;
+          border-radius: 50%;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid var(--light-yellow);
+          }
+        }
+
+        .wallet {
+          .btn-plus {
+            height: 25px;
+            width: 25px;
+            background-color: var(--medium-green);
+            border-radius: 50%;
+            cursor: pointer;
+
+            .icon-plus {
+              color: var(--light-yellow);
+            }
+          }
+        }
+
+        p {
+          color: var(--light-yellow);
+        }
+      }
+
+      .right {
+        .header-name {
+          h2 {
+            color: var(--light-yellow);
+          }
+
+          .rank-user {
+            color: white;
+            padding: 3px 10px;
+            background: linear-gradient(90deg, #188f05 0%, #7ba486 100%);
+            border-radius: 5px;
+          }
+        }
+
+        .table-info {
+          margin-top: 50px;
+          width: 659px;
+          border: 1px solid var(--light-yellow);
+
+          .table-header {
+            border-bottom: 1px solid var(--light-yellow);
+            padding: 7px 10px;
+          }
+
+          .table-body {
+            padding: 7px 10px;
+          }
+        }
+
+        p {
+          color: var(--light-yellow);
+        }
+      }
+    }
+  }
+
+  .account-transactions {
+    .transaction-table {
+      table {
+        border-collapse: separate;
+        border-spacing: 0 12px;
+      }
+      thead {
+        tr {
+          th {
+            font-size: 20px;
+            color: #7f7f7f;
+          }
+        }
+      }
+
+      tbody {
+        tr {
+          background-color: #dee7d4;
+
+          td {
+            color: #3b524c;
+            font-weight: 500;
+            border: none;
+            padding: 18px 16px;
+          }
+        }
+      }
+    }
+  }
+
+  .title-section {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+
+    h1 {
+      font-size: 30px;
+      color: #3b524c;
+    }
+
+    .icon {
+      color: var(--normal-green);
+      width: 34px;
+      height: 34px;
+    }
+  }
+
+  .account-scheduled {
+    .btn-register-more {
+      background: linear-gradient(90deg, #1ed500 0%, #95c082 100%);
+      border-radius: 20px;
+      color: white;
+      padding: 10px 20px;
+      cursor: pointer;
+
+      .plus-btn {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background-color: #188f05;
+      }
+    }
+
+    .list-scheduled {
+      .scheduled-item {
+        border: 1px solid #188f05;
+        border-radius: 15px;
+        padding: 15px;
+
+        .left {
+          img {
+            width: 191px;
+            height: 191px;
+            object-fit: cover;
+            object-position: top;
+            border-radius: 50%;
+          }
+        }
+
+        .right {
+          p {
+            color: #666666;
+          }
+        }
+      }
+    }
+  }
+}
+
+.add-funds-section {
+  margin-bottom: 15px;
+  width: fit-content;
+  height: fit-content;
+  padding: 50px 50px;
+  background-color: #79a486;
+  border-radius: 15px;
+  img {
+    width: 473px;
+    object-fit: cover;
+  }
+
+  .list-option-price {
+    .option-price {
+      text-align: center;
+      background-color: var(--semi-dark-green);
+      color: white;
+      padding: 15px 30px;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: 0.3s ease-in-out;
+      border: 1px solid var(--semi-dark-green);
+    }
+
+    .option-price:hover {
+      background-color: var(--light-green);
+      border: 1px solid white;
+      transition: 0.3s ease-in-out;
+    }
+
+    .selected {
+      border: 1px solid white;
+    }
+  }
+
+  .another-option {
+    input {
+      border-radius: 25px;
+      background-color: var(--semi-dark-green);
+      outline: none;
+      padding: 15px 20px;
+      border: 1px solid var(--semi-dark-green);
+      width: 535px;
+    }
+
+    input::placeholder {
+      color: white;
+      opacity: 0.3;
+    }
+
+    input:focus {
+      border: 1px solid white;
+    }
+
+    input:is(:focus, :valid) {
+      font-size: 15px;
+      color: white;
+    }
+  }
+
+  .btn-confirm-add-fund {
+    background: linear-gradient(90deg, #1ed500 0%, #95c082 100%);
+    border-radius: 20px;
+    color: white;
+    padding: 10px 30px;
+    cursor: pointer;
+  }
+}
