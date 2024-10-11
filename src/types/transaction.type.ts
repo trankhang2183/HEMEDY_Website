@@ -10,24 +10,19 @@ export interface TransactionType {
   updatedAt: string;
 }
 
-export interface PayProductByMoMo {
+interface PaymentDetailsBase  {
   amount: number;
   product_type: string;
 }
 
-export interface PayProductByStripe {
-  amount: number;
-  product_type: string;
+export interface PayProductByMoMo extends PaymentDetailsBase  {}
+
+export interface PayProductByStripe extends PaymentDetailsBase  {
   name: string;
   image: string;
   description: string;
 }
 
-export interface PayProductByVnPay {
-  amount: number;
-  product_type: string;
-}
+export interface PayProductByVnPay extends PaymentDetailsBase  {}
 
-export interface AddFundsType {
-  amount: number;
-}
+export interface AddFundsType extends Omit<PaymentDetailsBase , "product_type"> {}

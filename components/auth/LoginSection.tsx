@@ -38,11 +38,14 @@ const LoginSection: React.FC<Props> = (props) => {
     }
   };
 
-  const isValidEmail = (email) => {
+  const isValidEmail = (email: string) => {
     return emailRegex.test(email);
   };
 
-  const handleLoginWithEmailPassword = async () => {
+  const handleLoginWithEmailPassword = async (
+    e?: React.FormEvent<HTMLFormElement>
+  ) => {
+    if (e) e.preventDefault(); 
     try {
       setIsLoading(true);
       setError("");
@@ -102,55 +105,59 @@ const LoginSection: React.FC<Props> = (props) => {
 
           <div className="line-text font-medium my-7">Hoặc</div>
 
-          <div className="input-field relative">
-            <input
-              type="text"
-              required
-              placeholder="Nhập email"
-              className="font-semibold text-lg"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <MdOutlineMail className="absolute left-3 w-6 h-6 opacity-30" />
-          </div>
-
-          <div className="input-field relative mt-6">
-            <input
-              type="password"
-              required
-              placeholder="Mật khẩu"
-              className="font-semibold text-lg"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <GrSecure className="absolute left-3 w-6 h-6 opacity-30" />
-          </div>
-
-          {error && <p className="text-red-500 text-center mt-2">{error}</p>}
-
-          <div className="my-6 flex flex-row items-center justify-between">
-            <div>
+          <form onSubmit={handleLoginWithEmailPassword}>
+            <div className="input-field relative">
               <input
-                type="checkbox"
-                id="forgot-checkbox"
-                className="cursor-pointer"
+                type="text"
+                required
+                placeholder="Nhập email"
+                className="font-semibold text-lg"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
-              <label
-                htmlFor="forgot-checkbox"
-                className="cursor-pointer font-semibold ml-2"
-              >
-                Ghi nhớ
-              </label>
+              <MdOutlineMail className="absolute left-3 w-6 h-6 opacity-30" />
             </div>
-            <p className="forgot font-semibold">Quên mật khẩu?</p>
-          </div>
 
-          <div
-            className="btn-action-login-register text-center text-lg cursor-pointer"
-            onClick={handleLoginWithEmailPassword}
-          >
-            Đăng nhập
-          </div>
+            <div className="input-field relative mt-6">
+              <input
+                type="password"
+                required
+                placeholder="Mật khẩu"
+                className="font-semibold text-lg"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <GrSecure className="absolute left-3 w-6 h-6 opacity-30" />
+            </div>
+
+            {error && <p className="text-red-500 text-center mt-2">{error}</p>}
+
+            <div className="my-6 flex flex-row items-center justify-between">
+              <div>
+                <input
+                  type="checkbox"
+                  id="forgot-checkbox"
+                  className="cursor-pointer"
+                />
+                <label
+                  htmlFor="forgot-checkbox"
+                  className="cursor-pointer font-semibold ml-2"
+                >
+                  Ghi nhớ
+                </label>
+              </div>
+              <p className="forgot font-semibold">Quên mật khẩu?</p>
+            </div>
+
+            <button
+              type="submit"
+              className="btn-action-login-register text-center text-lg cursor-pointer"
+              disabled={isLoading}
+            >
+              Đăng nhập
+            </button>
+          </form>
+
           <p className="text-center mt-6 text-register font-semibold">
             Chưa phải thành viên?{" "}
             <span onClick={() => setIsLogin(false)}>Hãy đăng ký tài khoản</span>

@@ -25,5 +25,13 @@ export async function middleware(req: NextRequest) {
       ) {
         return NextResponse.redirect(`${process.env.NEXTAUTH_URL}/login`);
       }
+    case "/admin/dashboard":
+      if (
+        !token ||
+        isExpiredTimeToken(token.loginDate, token.expiresIn) ||
+        isExpiredTimeTokenSecondHandle(token.iat, token.exp)
+      ) {
+        return NextResponse.redirect(`${process.env.NEXTAUTH_URL}/manage`);
+      }
   }
 }

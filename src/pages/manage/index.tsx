@@ -26,7 +26,10 @@ const ManageLoginPage = () => {
     return emailRegex.test(email);
   };
 
-  const handleLoginWithEmailPassword = async () => {
+  const handleLoginWithEmailPassword = async (
+    e?: React.FormEvent<HTMLFormElement>
+  ) => {
+    if (e) e.preventDefault();
     try {
       setIsLoading(true);
       setError("");
@@ -49,7 +52,6 @@ const ManageLoginPage = () => {
         password: password,
         role: ROLE_ADMIN,
       });
-      console.log("response", response)
 
       if (response?.error) {
         return message.error("Đăng nhập thất bại!", 1.5);
@@ -57,9 +59,9 @@ const ManageLoginPage = () => {
         message.success("Đăng nhập thành công!", 1.5);
 
         if (email.includes("admin")) {
-          router.push("/admin/dashboard");  
+          router.push("/admin/dashboard");
         } else {
-          router.push("/doctor/calendar");  
+          router.push("/doctor/calendar");
         }
       }
     } catch (error) {
@@ -93,7 +95,7 @@ const ManageLoginPage = () => {
                 aria-disabled={isLoading}
                 className="mt-7 btn-login-gg flex items-center justify-center gap-2"
                 onClick={() => {
-                  toast.error("Tính năng chưa hỗ trợ vui lòng thử lại sau!")
+                  toast.error("Tính năng chưa hỗ trợ vui lòng thử lại sau!");
                 }}
               >
                 <FcGoogle className="w-5 h-5" />{" "}
@@ -102,44 +104,47 @@ const ManageLoginPage = () => {
 
               <div className="line-text font-medium my-7">Hoặc</div>
 
-              <div className="input-field relative">
-                <input
-                  type="text"
-                  required
-                  placeholder="Nhập email"
-                  className="font-semibold text-lg"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <MdOutlineMail className="absolute left-3 w-6 h-6 opacity-30" />
-              </div>
+              <form onSubmit={handleLoginWithEmailPassword}>
+                <div className="input-field relative">
+                  <input
+                    type="text"
+                    required
+                    placeholder="Nhập email"
+                    className="font-semibold text-lg"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                  <MdOutlineMail className="absolute left-3 w-6 h-6 opacity-30" />
+                </div>
 
-              <div className="input-field relative mt-6">
-                <input
-                  type="password"
-                  required
-                  placeholder="Mật khẩu"
-                  className="font-semibold text-lg"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <GrSecure className="absolute left-3 w-6 h-6 opacity-30" />
-              </div>
+                <div className="input-field relative mt-6">
+                  <input
+                    type="password"
+                    required
+                    placeholder="Mật khẩu"
+                    className="font-semibold text-lg"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <GrSecure className="absolute left-3 w-6 h-6 opacity-30" />
+                </div>
 
-              {error && (
-                <p className="text-red-500 text-center mt-2">{error}</p>
-              )}
+                {error && (
+                  <p className="text-red-500 text-center mt-2">{error}</p>
+                )}
 
-              <div className="my-6 flex flex-row items-center justify-between">
-                <p className="forgot font-semibold">Quên mật khẩu?</p>
-              </div>
+                <div className="my-6 flex flex-row items-center justify-between">
+                  <p className="forgot font-semibold">Quên mật khẩu?</p>
+                </div>
 
-              <div
-                className="btn-action-login-register text-center text-lg cursor-pointer"
-                onClick={handleLoginWithEmailPassword}
-              >
-                Đăng nhập
-              </div>
+                <button
+                  type="submit"
+                  className="btn-action-login-register text-center text-lg cursor-pointer"
+                  disabled={isLoading}
+                >
+                  Đăng nhập
+                </button>
+              </form>
             </div>
           </div>
         </div>

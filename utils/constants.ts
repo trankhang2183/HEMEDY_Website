@@ -215,20 +215,20 @@ const list_doctor_tmp: DoctorType[] = [
 ];
 
 export const depressionResults = [
-  {
-    minScore: 0,
-    maxScore: 5,
-    result: "Không có triệu chứng",
-    suggestion:
-      "Bạn không có dấu hiệu của trầm cảm. Hãy duy trì lối sống lành mạnh và chăm sóc sức khỏe tâm lý.",
-  },
-  {
-    minScore: 6,
-    maxScore: 10,
-    result: "Trầm cảm nhẹ",
-    suggestion:
-      "Bạn có một vài triệu chứng của trầm cảm. Nên theo dõi tâm trạng của mình và cân nhắc thay đổi lối sống lành mạnh hơn.",
-  },
+    {
+      minScore: 0,
+      maxScore: 5,
+      result: "Không có triệu chứng",
+      suggestion:
+        "Bạn không có dấu hiệu của trầm cảm. Hãy duy trì lối sống lành mạnh và chăm sóc sức khỏe tâm lý.",
+    },
+    {
+      minScore: 6,
+      maxScore: 10,
+      result: "Trầm cảm nhẹ",
+      suggestion:
+        "Bạn có một vài triệu chứng của trầm cảm. Nên theo dõi tâm trạng của mình và cân nhắc thay đổi lối sống lành mạnh hơn.",
+    },
   {
     minScore: 11,
     maxScore: 15,

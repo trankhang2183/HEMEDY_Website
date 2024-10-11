@@ -10,7 +10,7 @@ interface Props {
   content: ReactNode;
 }
 
-const AntdLayout: React.FC<Props> = (props) => {
+const AdminLayout: React.FC<Props> = (props) => {
   const { content } = props;
   const {
     token: { colorBgContainer },
@@ -36,4 +36,4 @@ const AntdLayout: React.FC<Props> = (props) => {
   );
 };
 
-export default AntdLayout;
+export default AdminLayout;
