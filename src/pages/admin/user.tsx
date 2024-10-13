@@ -234,7 +234,7 @@ const User = () => {
         <div>
           <div className="header-order">
             <SearchFilterHeader
-              searchPlaceholder="Tìm kiếm người mua"
+              searchPlaceholder="Tìm kiếm người dùng"
               searchValue={searchText}
               onSearchChange={setSearchText}
               filters={[

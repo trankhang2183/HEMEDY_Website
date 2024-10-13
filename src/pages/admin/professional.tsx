@@ -250,7 +250,7 @@ const Professional = () => {
         <div>
           <div className="header-order">
             <SearchFilterHeader
-              searchPlaceholder="Tìm kiếm người mua"
+              searchPlaceholder="Tìm kiếm chuyên gia"
               searchValue={searchText}
               onSearchChange={setSearchText}
               filters={[
