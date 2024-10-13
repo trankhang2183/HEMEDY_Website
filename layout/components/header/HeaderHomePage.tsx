@@ -29,10 +29,10 @@ const HeaderHomePage = () => {
     );
   };
 
-  if(session?.user.roles! === ROLE_ADMIN) {
-    return router.push("/admin/dashboard")
-  }else if (session?.user.roles! === ROLE_DOCTOR){
-    return router.push("/doctor/calendar")
+  if (session?.user.roles! === ROLE_ADMIN) {
+    return router.push("/admin/dashboard");
+  } else if (session?.user.roles! === ROLE_DOCTOR) {
+    return router.push("/doctor/calendar");
   }
 
   // console.log("token", token)
@@ -48,6 +48,10 @@ const HeaderHomePage = () => {
       return NAV_ITEMS_GENERAL;
     }
   };
+
+  useEffect(() => {
+    document.title = `Hemedy | ${session?.user.roles}`;
+  }, []);
 
   const navList = (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">

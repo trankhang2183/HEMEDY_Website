@@ -6,7 +6,6 @@ const MyDocument = () => {
   return (
     <Html lang="en">
       <Head>
-        <title>Hemedy</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link

@@ -2,7 +2,7 @@ import { ROLE_ADMIN } from "@utils/constants";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import { IoIosLogOut, IoIosNotificationsOutline } from "react-icons/io";
 import { IoPersonCircleOutline } from "react-icons/io5";
 
@@ -13,6 +13,10 @@ const HeaderManagePage = () => {
   const route = useRouter();
   const { data: session } = useSession();
 
+  useEffect(() => {
+    document.title = `Hemedy | ${session?.user.roles}`;
+  }, []);
+  
   return (
     <div
       className="header-manage-page"
@@ -57,7 +61,7 @@ const HeaderManagePage = () => {
               {session?.user.name || session?.user.fullname}
             </div>
             <div className="icon-person flex justify-center items-center">
-              <IoPersonCircleOutline className="w-7 h-7"/>
+              <IoPersonCircleOutline className="w-7 h-7" />
             </div>
           </div>
         </div>
