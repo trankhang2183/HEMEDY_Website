@@ -1,5 +1,6 @@
 import moment from "moment";
 import dayjs from "dayjs";
+import { ProductType, ProductVietNameseType } from "./enum";
 
 export const areInArray = (arr: any, ...elements: any[]) => {
   for (let element of elements) {
@@ -92,4 +93,43 @@ export const generateFallbackAvatar = (
   `;
   const dataUrl = `data:image/svg+xml;base64,${btoa(svgString)}`;
   return dataUrl;
+};
+
+export const getProductVietNameseType = (productType: ProductType): string => {
+  switch (productType) {
+    case ProductType.YogaLesson:
+      return ProductVietNameseType.YogaLesson;
+    case ProductType.MeditationLesson:
+      return ProductVietNameseType.MeditationLesson;
+    case ProductType.BothLesson:
+      return ProductVietNameseType.BothLesson;
+    case ProductType.BasicMedicalExamination:
+      return ProductVietNameseType.BasicMedicalExamination;
+    case ProductType.VipMedicalExamination:
+      return ProductVietNameseType.VipMedicalExamination;
+    default:
+      return "Không xác định"; 
+  }
+};
+
+export const getPaymentStatusVietNameseType = (paymentType: string): string => {
+  switch (paymentType) {
+    case "Success":
+      return "Đã thanh toán";
+    case "Failure":
+      return "Thanh toán thất bại";
+    default:
+      return "Không xác định"; 
+  }
+};
+
+export const getAccountStatusVietNamese = (status: boolean): string => {
+  switch (status) {
+    case true:
+      return "Đã bị ban";
+    case false:
+      return "Đang hoạt động";
+    default:
+      return "Không xác định"; 
+  }
 };

@@ -97,7 +97,7 @@ export const LIST_PRODUCT_SESSION: ProductSession[] = [
       "Hỗ trợ 24/7",
     ],
     image:
-      "https://lh3.googleusercontent.com/proxy/uj2kMAS9NRs4IcH30KwmyS_1ZBmvo9mNM6Wd7kZ0KpAG5CR9UAilXoKp28X8EcSImirPO2F5hfcCPSIbpvciNMuwX84006dIb7H19itUwVr0cU6jd7gJGEumYvD7Y5mRnSF7Wrn1BVNHHaz3ginKCc0T2b4pQ4mS2c41iaXO",
+      "https://bizweb.dktcdn.net/100/262/937/files/thuc-hanh-thien-vipassana-ket-hop-yoga.jpg?v=1676267248821",
     description:
       "Gói học kết hợp Yoga và Thiền, mang lại lợi ích toàn diện cho cơ thể và tinh thần.",
   },
@@ -215,20 +215,20 @@ const list_doctor_tmp: DoctorType[] = [
 ];
 
 export const depressionResults = [
-    {
-      minScore: 0,
-      maxScore: 5,
-      result: "Không có triệu chứng",
-      suggestion:
-        "Bạn không có dấu hiệu của trầm cảm. Hãy duy trì lối sống lành mạnh và chăm sóc sức khỏe tâm lý.",
-    },
-    {
-      minScore: 6,
-      maxScore: 10,
-      result: "Trầm cảm nhẹ",
-      suggestion:
-        "Bạn có một vài triệu chứng của trầm cảm. Nên theo dõi tâm trạng của mình và cân nhắc thay đổi lối sống lành mạnh hơn.",
-    },
+  {
+    minScore: 0,
+    maxScore: 5,
+    result: "Không có triệu chứng",
+    suggestion:
+      "Bạn không có dấu hiệu của trầm cảm. Hãy duy trì lối sống lành mạnh và chăm sóc sức khỏe tâm lý.",
+  },
+  {
+    minScore: 6,
+    maxScore: 10,
+    result: "Trầm cảm nhẹ",
+    suggestion:
+      "Bạn có một vài triệu chứng của trầm cảm. Nên theo dõi tâm trạng của mình và cân nhắc thay đổi lối sống lành mạnh hơn.",
+  },
   {
     minScore: 11,
     maxScore: 15,

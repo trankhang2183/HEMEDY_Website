@@ -14,9 +14,9 @@ const HeaderManagePage = () => {
   const { data: session } = useSession();
 
   useEffect(() => {
-    document.title = `Hemedy | ${session?.user.roles}`;
-  }, []);
-  
+    document.title = `Hemedy | ${session?.user.roles ?? ""}`;
+  }, [session?.user.roles]);
+
   return (
     <div
       className="header-manage-page"

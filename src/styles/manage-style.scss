@@ -155,6 +155,7 @@
   align-items: center;
   justify-content: center;
   background-color: var(--light-gray) !important;
+  min-height: 86vh;
 
   .ant-layout-sider-children {
     width: fit-content;
@@ -183,4 +184,3 @@
     }
   }
 }
-

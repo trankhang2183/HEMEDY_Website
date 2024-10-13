@@ -1,4 +1,4 @@
-import { AccountProfileType, DoctorType } from "@/types/user.type";
+import { UserType, DoctorType } from "@/types/user.type";
 import { useRouter } from "next/router";
 import React from "react";
 import { GoDeviceCameraVideo } from "react-icons/go";
@@ -6,7 +6,7 @@ import { PiChatTextLight } from "react-icons/pi";
 import { SlCalender } from "react-icons/sl";
 
 interface Props {
-  doctorItem: AccountProfileType;
+  doctorItem: UserType;
 }
 
 const DoctorItem: React.FC<Props> = (props) => {

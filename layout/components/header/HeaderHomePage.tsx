@@ -50,8 +50,8 @@ const HeaderHomePage = () => {
   };
 
   useEffect(() => {
-    document.title = `Hemedy | ${session?.user.roles}`;
-  }, []);
+    document.title = `Hemedy | ${session?.user.roles ?? ""}`;
+  }, [session?.user.roles]);
 
   const navList = (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">

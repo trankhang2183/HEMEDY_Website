@@ -18,14 +18,17 @@ export enum ProductType {
   VipMedicalExamination = "vip_medical_examination",
 }
 
-export enum PaymentType {
-  MoMo = "MoMo",
-  VNPay = "VNPay",
+export enum ProductVietNameseType {
+  YogaLesson = "Khóa học Yoga",
+  MeditationLesson = "Khóa học Thiền định",
+  BothLesson = "Khóa học Yoga + Thiền định",
+  BasicMedicalExamination = "Tư vấn cơ bản",
+  VipMedicalExamination = "Tư vấn chuyên sâu",
 }
 
 export enum TransactionTypeEnum {
   AddFunds = "AddFunds",
-  PayProduct = "PayProduct",
+  Pay = "Pay",
 }
 
 export enum PaymentMethodEnum {

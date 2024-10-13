@@ -11,7 +11,7 @@ export interface DoctorType {
   career: string;
 }
 
-export interface AccountProfileType {
+export interface UserType {
   _id: string;
   fullname: string;
   dob?: string;
@@ -29,10 +29,17 @@ export interface AccountProfileType {
   certificate?: string;
   career?: string;
   otherInformation?: string;
+  role_name?: string;
+  is_ban?: boolean;
 }
 
-//get all doctor by guest
-export type ResponseGetAllDoctorType = [TotalListType, AccountProfileType[]];
+export interface TotalUsers {
+  totalUsers: number
+}
+
+export type ResponseGetALlUserByAdmin = [TotalUsers, UserType[]]
+
+export type ResponseGetAllDoctorType = [TotalListType, UserType[]];
 
 export interface TotalListType {
   totalUsers: number;

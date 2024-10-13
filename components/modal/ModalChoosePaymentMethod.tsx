@@ -66,7 +66,7 @@ const ModalChoosePaymentMethod: React.FC<Props> = (props) => {
                 break;
 
               case PaymentMethodEnum.WALLET:
-                if (paymentPurpose === TransactionTypeEnum.PayProduct) {
+                if (paymentPurpose === TransactionTypeEnum.Pay) {
                   // do something
                 }
                 break;
@@ -140,7 +140,7 @@ const ModalChoosePaymentMethod: React.FC<Props> = (props) => {
           handlePaymentSelection={handlePaymentSelection}
         />
 
-        {paymentPurpose === TransactionTypeEnum.PayProduct && (
+        {paymentPurpose === TransactionTypeEnum.Pay && (
           <PaymentOption
             src="https://static.vecteezy.com/system/resources/previews/035/692/634/non_2x/wallet-icon-design-template-simple-and-clean-vector.jpg"
             alt="Wallet"

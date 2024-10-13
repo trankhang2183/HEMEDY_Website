@@ -1,8 +1,8 @@
-import { AccountProfileType } from "./user.type";
+import { UserType } from "./user.type";
 
 export interface ScheduledType {
   _id: string;
-  doctor_id: AccountProfileType;
+  doctor_id: UserType;
   appointment_date: string;
   slot: string;
   customer_id: string;

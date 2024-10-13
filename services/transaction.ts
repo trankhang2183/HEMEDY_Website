@@ -18,6 +18,16 @@ const getAllTransactionOfCustomer = async (
   return response.data;
 };
 
+const getAllTransactionByAdmin = async (
+  token: string
+): Promise<TransactionType[]> => {
+  const response = await httpClient.get({
+    url: `${apiLinks.transaction.getAllTransactionByAdmin}`,
+    token: token,
+  });
+  return response.data;
+};
+
 const payProductByMoMo = async (
   token: string,
   model: PayProductByMoMo
@@ -92,6 +102,7 @@ const addFundsByVnPay = async (
 
 const transaction = {
   getAllTransactionOfCustomer,
+  getAllTransactionByAdmin,
   payProductByMoMo,
   addFundsByMoMo,
   payProductByStripe,

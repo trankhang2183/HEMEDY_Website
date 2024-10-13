@@ -22,6 +22,7 @@ import {
 } from "react-icons/io5";
 import { LuFileEdit } from "react-icons/lu";
 import { FaUserDoctor } from "react-icons/fa6";
+import { toast } from "react-toastify";
 
 export interface SliderMenuItem {
   key: string;
@@ -32,57 +33,63 @@ export interface SliderMenuItem {
 
 export const sliderMenu = [
   {
-    key: "/admin/dashboard",
+    key: "admin/dashboard",
     icon: <AiOutlineDashboard />,
     label: "Dashboard",
     roles: [ROLE_ADMIN],
   },
   {
-    key: "/admin/order",
+    key: "admin/order",
     icon: <IoCartOutline />,
     label: "Đơn hàng",
     roles: [ROLE_ADMIN],
   },
   {
-    key: "/admin/user",
+    key: "admin/user",
     icon: <IoPersonCircleOutline />,
     label: "Người dùng",
     roles: [ROLE_ADMIN],
   },
   {
-    key: "/admin/content",
-    icon: <LuFileEdit />,
-    label: "Nội dung",
-    roles: [ROLE_ADMIN],
-  },
-  {
-    key: "/admin/professional",
+    key: "admin/professional",
     icon: <FaUserDoctor />,
     label: "Chuyên gia",
     roles: [ROLE_ADMIN],
   },
   {
-    key: "/doctor/calendar",
+    key: "admin/content",
+    icon: <LuFileEdit />,
+    label: "Nội dung",
+    roles: [ROLE_ADMIN],
+  },
+  {
+    key: "doctor/calendar",
     icon: <IoCalendarOutline />,
     label: "Quản lý lịch hẹn",
     roles: [ROLE_DOCTOR],
   },
   {
-    key: "/doctor/patient",
+    key: "doctor/patient",
     icon: <MdOutlinePersonPin />,
     label: "Quản lý bệnh nhân",
     roles: [ROLE_DOCTOR],
   },
   {
-    key: "/doctor/call",
+    key: "doctor/call",
     icon: <MdOutlineVideoCameraFront />,
     label: "Cuộc gọi Video",
     roles: [ROLE_DOCTOR],
   },
   {
-    key: "/doctor/setting",
+    key: "doctor/setting",
     icon: <IoSettingsOutline />,
     label: "Cài đặt",
     roles: [ROLE_DOCTOR],
   },
 ] as SliderMenuItem[];
+
+export const handleActionNotSupport = () => {
+  toast.warning("Tính năng chưa hỗ trợ", {
+    autoClose: 2000,
+  });
+};

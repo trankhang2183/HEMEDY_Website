@@ -8,10 +8,12 @@ const apiLinks = {
     loginWithGoogle: `${urlServerSide}/auth/google/login/customer`,
     loginWithGoogleByAdminDoctor: `${urlServerSide}/auth/google/login/doctor-admin`,
     getAllDoctorByGuest: `${urlServerSide}/users/all/doctors`,
+    getAllUsersByAdmin: `${urlServerSide}/users`,
     registerByCustomer: `${urlServerSide}/auth/signup`,
   },
   transaction: {
     getAllTransaction: `${urlServerSide}/transaction/all-courses`,
+    getAllTransactionByAdmin: `${urlServerSide}/transaction/admin`,
     addFundsByMoMo: `${urlServerSide}/transaction/MoMo/addFunds`,
     payProductByMoMo: `${urlServerSide}/transaction/MoMo/payProduct`,
     addFundsByStripe: `${urlServerSide}/transaction/stripe/addFunds`,

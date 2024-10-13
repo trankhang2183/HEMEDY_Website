@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import customer from "@services/customer";
 import { useSession } from "next-auth/react";
-import { AccountProfileType } from "@/types/user.type";
+import { UserType } from "@/types/user.type";
 import {
   displayValue,
   formatDate,
@@ -32,7 +32,7 @@ const ITEMS_PER_PAGE = 4;
 const AccountPage = () => {
   const router = useRouter();
 
-  const [dataUser, setDataUser] = useState<AccountProfileType>();
+  const [dataUser, setDataUser] = useState<UserType>();
   const [transactionList, setTransactionList] = useState<TransactionType[]>();
   const [scheduledList, setScheduledList] = useState<ScheduledType[]>();
   const [isLoading, setIsLoading] = useState(true);

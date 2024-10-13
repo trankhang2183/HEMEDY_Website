@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { FaUserDoctor } from "react-icons/fa6";
 import DoctorItem from "@components/connectionComponent/DoctorItem";
 import {
-  AccountProfileType,
+  UserType,
   DoctorType,
   ResponseGetAllDoctorType,
 } from "@/types/user.type";
@@ -77,7 +77,7 @@ const ConnectionPage: React.FC = () => {
                 <div className="container grid gap-10 grid-cols-3">
                   {doctorList && doctorList[1] && doctorList[1].length > 0 ? (
                     doctorList[1].map(
-                      (doctorItem: AccountProfileType, index) => (
+                      (doctorItem: UserType, index) => (
                         <DoctorItem doctorItem={doctorItem} key={index} />
                       )
                     )

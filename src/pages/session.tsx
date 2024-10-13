@@ -10,7 +10,11 @@ import { ProductSession } from "@/types/session.type";
 import { FaCheck } from "react-icons/fa";
 import transaction from "@services/transaction";
 import { useSession } from "next-auth/react";
-import { PayProductByMoMo, PayProductByStripe, PayProductByVnPay } from "@/types/transaction.type";
+import {
+  PayProductByMoMo,
+  PayProductByStripe,
+  PayProductByVnPay,
+} from "@/types/transaction.type";
 import { moneyStringToNumber } from "@utils/helpers";
 import { toast } from "react-toastify";
 import SpinnerLoading from "@components/loading/SpinnerLoading";
@@ -117,6 +121,14 @@ const SessionPage: React.FC = () => {
   const [isOpenModalChoosePaymentMethod, setIsOpenModalChoosePaymentMethod] =
     React.useState<boolean>(false);
 
+  const handleCheckLoginBeforePayProduct = () => {
+    if (!token?.user.access_token) {
+      toast.error("Vui lòng đăng nhập trước khi đăng ký mua khóa học!");
+    } else {
+      setIsOpenModalChoosePaymentMethod(true);
+    }
+  };
+
   return (
     <HomeLayoutNoSSR
       content={
@@ -182,9 +194,7 @@ const SessionPage: React.FC = () => {
                         </div>
                         <div
                           className="btn-register-session mt-12"
-                          onClick={() =>
-                            setIsOpenModalChoosePaymentMethod(true)
-                          }
+                          onClick={() => handleCheckLoginBeforePayProduct()}
                         >
                           Đăng ký ngay
                         </div>
@@ -195,7 +205,7 @@ const SessionPage: React.FC = () => {
                             onClose={() =>
                               setIsOpenModalChoosePaymentMethod(false)
                             }
-                            paymentPurpose={TransactionTypeEnum.PayProduct}
+                            paymentPurpose={TransactionTypeEnum.Pay}
                             title={`Bạn có chắc muốn mua khóa học "${item?.product_name}" này?`}
                             handlePaymentByMoMo={() =>
                               handleRedirectToMoMo(item)

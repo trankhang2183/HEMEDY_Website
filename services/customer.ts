@@ -1,21 +1,8 @@
-import { ResponseGetAllDoctorType } from "@/types/user.type";
-import { ParamGet, ParamGetWithId } from "@models/base";
 import {
-  CustomerCreateModel,
-  CustomerUpdateModel,
-  CustomerData,
-  CusParam,
-  ChangePassword,
-} from "@models/customer";
-import {
-  DriverCreateModel,
-  LoginResponse,
-  RegisterDriverByAdminModel,
-  UpdatePriorityModel,
-  User,
-  UserId,
-  UserListData,
-} from "@models/user";
+  ResponseGetAllDoctorType,
+  ResponseGetALlUserByAdmin,
+} from "@/types/user.type";
+import { LoginResponse } from "@models/user";
 import apiLinks from "@utils/api-links";
 import httpClient from "@utils/http-client";
 
@@ -33,6 +20,16 @@ const getCustomerProfile = async (
 const getAllDoctorByGuest = async (): Promise<ResponseGetAllDoctorType> => {
   const response = await httpClient.get({
     url: `${apiLinks.customer.getAllDoctorByGuest}`,
+  });
+  return response.data;
+};
+
+const getAllUsersByAdmin = async (
+  token: string
+): Promise<ResponseGetALlUserByAdmin> => {
+  const response = await httpClient.get({
+    url: `${apiLinks.customer.getAllUsersByAdmin}`,
+    token: token,
   });
   return response.data;
 };
@@ -108,6 +105,7 @@ const customer = {
   loginWithAdminDoctorEmail,
   loginWithGoogleByAdminDoctor,
   getAllDoctorByGuest,
+  getAllUsersByAdmin,
   registerByCustomer,
 };
 

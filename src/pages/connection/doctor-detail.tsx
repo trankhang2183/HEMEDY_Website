@@ -4,7 +4,7 @@ import Image from "next/image";
 import { IoReturnUpBack } from "react-icons/io5";
 import { useRouter } from "next/router";
 import { FaUserDoctor } from "react-icons/fa6";
-import { AccountProfileType } from "@/types/user.type";
+import { UserType } from "@/types/user.type";
 import Calendar from "react-calendar";
 import { TIME_SLOT } from "@utils/constants";
 import scheduled from "@services/scheduled";
@@ -29,7 +29,7 @@ const DoctorDetail = () => {
   const { id } = router.query;
   const { data: token } = useSession();
 
-  const [doctorItem, setDoctorItem] = useState<AccountProfileType | null>(null);
+  const [doctorItem, setDoctorItem] = useState<UserType | null>(null);
   const [isScheduleMode, setIsScheduleMode] = useState(false);
   const [selectedDate, onChange] = useState<Value>(new Date());
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
