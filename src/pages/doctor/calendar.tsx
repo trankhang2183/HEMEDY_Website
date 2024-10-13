@@ -1,21 +1,12 @@
-import { signOut } from "next-auth/react";
+import dynamic from "next/dynamic";
 import React from "react";
 
-// const callback_url = "http://localhost:3000/manage";
-const callback_url = "http://hemedy.onrender.com/manage";
+const ManagerLayoutNoSSR = dynamic(() => import("@layout/ManagerLayout"), {
+  ssr: false,
+});
 
-const calendar = () => {
-  return (
-    <div>
-      {" "}
-      calendar
-      <div
-        onClick={() => {
-          signOut({ callbackUrl: `${callback_url}` });
-        }}
-      >Sign out</div>
-    </div>
-  );
+const Calendar = () => {
+  return <ManagerLayoutNoSSR content={<div>Calendar</div>} />;
 };
 
-export default calendar;
+export default Calendar;

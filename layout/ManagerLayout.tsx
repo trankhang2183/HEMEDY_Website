@@ -3,6 +3,7 @@ import React, { ReactNode } from "react";
 import { Layout, theme } from "antd";
 import SliderComponent from "@layout/components/slider/Slider";
 import { Footer } from "antd/es/layout/layout";
+import HeaderManagePage from "./components/header/HeaderManagePage";
 
 const { Content } = Layout;
 
@@ -10,7 +11,7 @@ interface Props {
   content: ReactNode;
 }
 
-const AdminLayout: React.FC<Props> = (props) => {
+const ManagerLayout: React.FC<Props> = (props) => {
   const { content } = props;
   const {
     token: { colorBgContainer },
@@ -18,6 +19,7 @@ const AdminLayout: React.FC<Props> = (props) => {
 
   return (
     <Layout className="max-h-screen">
+      <HeaderManagePage/>
       <Layout>
         <SliderComponent />
         <Content
@@ -36,4 +38,4 @@ const AdminLayout: React.FC<Props> = (props) => {
   );
 };
 
-export default AdminLayout;
+export default ManagerLayout;

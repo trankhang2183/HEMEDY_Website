@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import Link from "next/link";
-
+import { ROLE_ADMIN, ROLE_CUSTOMER, ROLE_DOCTOR } from "@utils/constants";
 import { usePathname, useRouter } from "next/navigation";
 import { NAV_ITEMS_GENERAL } from "@utils/constants";
 import Image from "next/image";
@@ -28,6 +28,12 @@ const HeaderHomePage = () => {
       isExpiredTimeTokenSecondHandle(token.iat, token.exp)
     );
   };
+
+  if(session?.user.roles! === ROLE_ADMIN) {
+    return router.push("/admin/dashboard")
+  }else if (session?.user.roles! === ROLE_DOCTOR){
+    return router.push("/doctor/calendar")
+  }
 
   // console.log("token", token)
   // console.log("session", session)

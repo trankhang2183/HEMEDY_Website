@@ -1,9 +1,12 @@
-import React from 'react'
+import dynamic from "next/dynamic";
+import React from "react";
 
-const professional = () => {
-  return (
-    <div>professional</div>
-  )
-}
+const ManagerLayoutNoSSR = dynamic(() => import("@layout/ManagerLayout"), {
+  ssr: false,
+});
 
-export default professional
+const Professional = () => {
+  return <ManagerLayoutNoSSR content={<div>Professional</div>} />;
+};
+
+export default Professional;

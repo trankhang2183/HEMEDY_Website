@@ -1,20 +1,24 @@
 "use client";
 
 import SpinnerLoading from "@components/loading/SpinnerLoading";
+import { setSliderMenuItemSelectedKey } from "@slices/global";
 import { ROLE_ADMIN, ROLE_DOCTOR } from "@utils/constants";
 import { emailRegex } from "@utils/helpers";
 import { message } from "antd";
 import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { GrSecure } from "react-icons/gr";
 import { MdOutlineMail } from "react-icons/md";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
 const ManageLoginPage = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const { data: session } = useSession();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -59,8 +63,10 @@ const ManageLoginPage = () => {
         message.success("Đăng nhập thành công!", 1.5);
 
         if (email.includes("admin")) {
+          dispatch(setSliderMenuItemSelectedKey("/admin/dashboard"));
           router.push("/admin/dashboard");
         } else {
+          dispatch(setSliderMenuItemSelectedKey("/doctor/calendar"));
           router.push("/doctor/calendar");
         }
       }
@@ -70,6 +76,16 @@ const ManageLoginPage = () => {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (session?.user.roles) {
+      const role = session.user.roles;
+      const path =
+        role === ROLE_ADMIN ? "/admin/dashboard" : "/doctor/calendar";
+      dispatch(setSliderMenuItemSelectedKey(path));
+      router.push(path);
+    }
+  }, [session]);
 
   return (
     <div className="manage-login-page flex justify-center items-center">

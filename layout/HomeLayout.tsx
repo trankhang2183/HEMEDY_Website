@@ -12,9 +12,6 @@ interface Props {
 
 const HomeLayout: React.FC<Props> = (props) => {
   const { content } = props;
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
 
   return (
     <div className="h-auto background-main">

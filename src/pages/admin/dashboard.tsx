@@ -1,31 +1,32 @@
+"use client";
+
 import { signOut } from "next-auth/react";
 import dynamic from "next/dynamic";
-import React from "react";
+import React, { useEffect } from "react";
 
-const AdminLayoutNoSSR = dynamic(() => import("@layout/AdminLayout"), {
+const ManagerLayoutNoSSR = dynamic(() => import("@layout/ManagerLayout"), {
   ssr: false,
 });
 
-// const callback_url = "http://localhost:3000/manage";
-const callback_url = "http://hemedy.onrender.com/manage";
-
-const dashboard = () => {
+const Dashboard = () => {
   return (
-    <AdminLayoutNoSSR
+    <ManagerLayoutNoSSR
       content={
-        <div>
-          dashboard
-          <div
-            onClick={() => {
-              signOut({ callbackUrl: `${callback_url}` });
+        <div className="flex items-center justify-center">
+          <img
+            src="/images/dashboard-tmp.png"
+            alt={"dashboard-img"}
+            loading="lazy"
+            style={{
+              maxWidth: "98%",
+              objectFit: "cover",
             }}
-          >
-            Sign out
-          </div>
+          />
         </div>
+        
       }
     />
   );
 };
 
-export default dashboard;
+export default Dashboard;

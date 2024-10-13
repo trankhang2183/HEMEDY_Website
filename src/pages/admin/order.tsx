@@ -1,9 +1,12 @@
-import React from 'react'
+import dynamic from "next/dynamic";
+import React from "react";
 
-const order = () => {
-  return (
-    <div>order</div>
-  )
-}
+const ManagerLayoutNoSSR = dynamic(() => import("@layout/ManagerLayout"), {
+  ssr: false,
+});
 
-export default order
+const Order = () => {
+  return <ManagerLayoutNoSSR content={<div>order</div>} />;
+};
+
+export default Order;

@@ -1,9 +1,12 @@
-import React from 'react'
+import dynamic from "next/dynamic";
+import React from "react";
 
-const content = () => {
-  return (
-    <div>content</div>
-  )
-}
+const ManagerLayoutNoSSR = dynamic(() => import("@layout/ManagerLayout"), {
+  ssr: false,
+});
 
-export default content
+const Content = () => {
+  return <ManagerLayoutNoSSR content={<div>content</div>} />;
+};
+
+export default Content;
