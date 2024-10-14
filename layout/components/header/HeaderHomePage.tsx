@@ -29,11 +29,13 @@ const HeaderHomePage = () => {
     );
   };
 
-  if (session?.user.roles! === ROLE_ADMIN) {
-    return router.push("/admin/dashboard");
-  } else if (session?.user.roles! === ROLE_DOCTOR) {
-    return router.push("/doctor/calendar");
-  }
+  useEffect(() => {
+    if (session?.user.roles === ROLE_ADMIN) {
+      router.push("/admin/dashboard");
+    } else if (session?.user.roles === ROLE_DOCTOR) {
+      router.push("/doctor/calendar");
+    }
+  }, [session, router]);
 
   // console.log("token", token)
   // console.log("session", session)

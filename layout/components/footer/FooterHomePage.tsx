@@ -8,7 +8,6 @@ import {
 } from "react-icons/fa6";
 
 const FooterHomePage = () => {
-  const listMenuFooter = {};
 
   return (
     <div className="footer-home-page">

@@ -148,7 +148,7 @@ const Podcast = () => {
       form.resetFields();
     } catch (error) {
       console.log("error:", error);
-      toast.error("Có lỗi khi thêm bài hát", { autoClose: 2000 });
+      toast.error("Có lỗi khi thêm podcast", { autoClose: 2000 });
     } finally {
       setUploading(false);
       setIsModalVisible(false);
@@ -156,7 +156,7 @@ const Podcast = () => {
   };
   const columns: TableProps<any>["columns"] = [
     {
-      title: "Tên bài hát",
+      title: "Tên podcast",
       dataIndex: "name",
       key: "name",
       render: (text: string, record: MusicPodcastType) => (
@@ -223,7 +223,7 @@ const Podcast = () => {
                   confirm({
                     cancelText: "Quay lại",
                     okText: "Xác nhận",
-                    title: "Bạn có chắc muốn xoá bài hát này?",
+                    title: "Bạn có chắc muốn xoá podcast này?",
                     async onOk() {
                       try {
                         await musicPodcast.deleteMusicPodcast(
@@ -239,7 +239,7 @@ const Podcast = () => {
 
                         toast.success("Bài hát đã được xoá thành công!");
                       } catch (error: any) {
-                        toast.error("Có lỗi xảy ra khi xoá bài hát!", {
+                        toast.error("Có lỗi xảy ra khi xoá podcast!", {
                           autoClose: 2000,
                         });
                         toast.error(error!.response?.data?.message, {
@@ -254,7 +254,7 @@ const Podcast = () => {
                 style={{ color: "red" }}
                 className="flex items-center"
               >
-                Xóa bài hát
+                Xóa podcast
               </Button>
             </Menu.Item>
           </Menu>
@@ -276,7 +276,7 @@ const Podcast = () => {
     <div>
       <div className="header-order">
         <SearchFilterHeader
-          searchPlaceholder="Tìm kiếm bài hát"
+          searchPlaceholder="Tìm kiếm podcast"
           searchValue={searchText}
           onSearchChange={setSearchText}
           handleClearFilters={handleClearFilters}
@@ -284,10 +284,10 @@ const Podcast = () => {
 
         <div className="p-4">
           <Button icon={<PiPlus />} onClick={() => setIsModalVisible(true)}>
-            Thêm bài hát
+            Thêm podcast
           </Button>
           <Modal
-            title="Thêm bài hát mới"
+            title="Thêm podcast mới"
             open={isModalVisible}
             onCancel={() => setIsModalVisible(false)}
             okText="Xác nhận đăng"
@@ -306,10 +306,10 @@ const Podcast = () => {
             >
               <Form.Item
                 name="name"
-                label="Tên bài hát"
+                label="Tên podcast"
                 rules={[{ required: true }]}
               >
-                <Input placeholder="Nhập tên bài hát" />
+                <Input placeholder="Nhập tên podcast" />
               </Form.Item>
               <Form.Item
                 name="author"
