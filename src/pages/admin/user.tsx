@@ -110,8 +110,8 @@ const columns: TableProps<any>["columns"] = [
                 <Button
                   type="link"
                   onClick={() => {
-                handleActionNotSupport();
-              }}
+                    handleActionNotSupport();
+                  }}
                   icon={<VscFolderActive style={{ fontSize: "20px" }} />}
                   style={{ color: "black" }}
                   className="flex items-center"
@@ -123,8 +123,8 @@ const columns: TableProps<any>["columns"] = [
                 <Button
                   type="link"
                   onClick={() => {
-                handleActionNotSupport();
-              }}
+                    handleActionNotSupport();
+                  }}
                   icon={<FiTrash2 style={{ fontSize: "20px" }} />}
                   style={{ color: "red" }}
                   className="flex items-center"
@@ -139,8 +139,8 @@ const columns: TableProps<any>["columns"] = [
                 <Button
                   type="link"
                   onClick={() => {
-                handleActionNotSupport();
-              }}
+                    handleActionNotSupport();
+                  }}
                   icon={<MdBlock style={{ fontSize: "20px" }} />}
                   style={{ color: "red" }}
                   className="flex items-center"
@@ -185,12 +185,18 @@ const User = () => {
             session.user.access_token
           );
 
-          const filteredData = (responseGetAllCustomer || [])[1].filter(
-            (customer: UserType) => customer.role_name === ROLE_CUSTOMER
-          );
+          const filteredAndSortedData = (responseGetAllCustomer || [])[1]
+            .filter(
+              (customer: UserType) => customer.role_name === ROLE_CUSTOMER
+            )
+            .sort(
+              (a: UserType, b: UserType) =>
+                new Date(b.createdAt!).getTime() -
+                new Date(a.createdAt!).getTime()
+            );
 
-          setOriginalData(filteredData);
-          setProcessingData(filteredData);
+          setOriginalData(filteredAndSortedData);
+          setProcessingData(filteredAndSortedData);
         } catch (error: any) {
           toast.error("Có lỗi khi tải dữ liệu");
           toast.error(error!.response?.data?.message);
@@ -237,6 +243,7 @@ const User = () => {
               searchPlaceholder="Tìm kiếm người dùng"
               searchValue={searchText}
               onSearchChange={setSearchText}
+              haveFilter={true}
               filters={[
                 {
                   label: "Trạng thái",

@@ -1,11 +1,20 @@
 "use client";
 
+import { Button, Input, Upload } from "antd";
 import dynamic from "next/dynamic";
 import React, { useEffect, useRef, useState } from "react";
+import { BiUpload } from "react-icons/bi";
+import { IoReturnUpBack } from "react-icons/io5";
+import { toast } from "react-toastify";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+interface Props {
+  backToViewBlogList: () => void;
+}
 
-const AddBlog = () => {
+const AddBlog: React.FC<Props> = (props) => {
+  const { backToViewBlogList } = props;
+
   const [value, setValue] = useState("");
 
   const toolbarOptions = [
@@ -33,13 +42,45 @@ const AddBlog = () => {
     toolbar: toolbarOptions,
   };
 
+  const beforeUploadImage = (file: File) => {
+    const isImage = file.type.startsWith("image/");
+    if (!isImage) {
+      toast.error("Chỉ chấp nhận file hình ảnh vào ô này!");
+    }
+    return isImage || Upload.LIST_IGNORE;
+  };
+
   return (
     <div>
+      <div
+        onClick={backToViewBlogList}
+        className="flex items-center gap-4 flex-row back-button"
+        style={{ color: "#8B8484" }}
+      >
+        <IoReturnUpBack />
+        Quay lại
+      </div>
+
+      <h1 className="text-center text-2xl uppercase">Tạo blog mới</h1>
+
+      <Input placeholder="Thêm tiêu đề cho blog" className="mb-5 mt-5" />
+
+      <Upload
+        listType="picture"
+        beforeUpload={beforeUploadImage}
+        accept="image/*"
+        maxCount={1}
+        className="flex gap-4 flex-row"
+      >
+        <Button icon={<BiUpload />}>Ảnh đại diện cho blog</Button>
+      </Upload>
+
       <ReactQuill
         modules={modules}
         theme="snow"
         value={value}
         onChange={setValue}
+        className="mt-5"
       />
 
       {/* <h2>Your Blog Preview:</h2>

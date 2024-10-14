@@ -32,6 +32,7 @@ import { PiPlus } from "react-icons/pi";
 import { BiEdit, BiUpload } from "react-icons/bi";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "@utils/config-firebase";
+import { handleUploadToFirebase } from "@utils/helpers";
 const { confirm } = Modal;
 
 const Podcast = () => {
@@ -51,16 +52,22 @@ const Podcast = () => {
       if (session?.user.access_token) {
         setIsLoading(true);
         try {
-          const responseGetAllCustomer =
+          const responseGetAllMusicPodcast =
             await musicPodcast.getAllMusicPodCastList();
 
-          const filteredData = (responseGetAllCustomer || []).filter(
-            (musicPodcast: MusicPodcastType) =>
-              musicPodcast.category === HealingPageType.Podcast
-          );
+          const filteredAndSortedData = (responseGetAllMusicPodcast || [])
+            .filter(
+              (musicPodcast: MusicPodcastType) =>
+                musicPodcast.category === HealingPageType.Podcast
+            )
+            .sort(
+              (a: MusicPodcastType, b: MusicPodcastType) =>
+                new Date(b.createdAt!).getTime() -
+                new Date(a.createdAt!).getTime()
+            );
 
-          setOriginalData(filteredData);
-          setProcessingData(filteredData);
+          setOriginalData(filteredAndSortedData);
+          setProcessingData(filteredAndSortedData);
         } catch (error: any) {
           toast.error("Có lỗi khi tải dữ liệu");
           toast.error(error!.response?.data?.message);
@@ -107,22 +114,17 @@ const Podcast = () => {
     return isAudio || Upload.LIST_IGNORE;
   };
 
-  const handleUploadToFirebase = async (file: File, folder: string) => {
-    const storageRef = ref(storage, `${folder}/${file.name}`);
-    await uploadBytes(storageRef, file);
-    return await getDownloadURL(storageRef);
-  };
-
   const handleSubmit = async (values: any) => {
     setUploading(true);
 
     try {
       const imgUrl = await handleUploadToFirebase(
-        values.img_file.file,
+        values.img_file.fileList[0].originFileObj,
         "images"
       );
+
       const audioUrl = await handleUploadToFirebase(
-        values.audio_file.file,
+        values.audio_file.fileList[0].originFileObj,
         "audios"
       );
 
@@ -131,9 +133,7 @@ const Podcast = () => {
         name: values.name,
         type: "new",
         category: HealingPageType.Podcast,
-        imgUrl: imgUrl,
         img_url: imgUrl,
-        audioLink: audioUrl,
         audio_link: audioUrl,
       };
 
@@ -143,8 +143,8 @@ const Podcast = () => {
       );
 
       toast.success("Bài hát đã được thêm thành công!");
-      setOriginalData((prevData) => [...prevData, createdPodcast]);
-      setProcessingData((prevData) => [...prevData, createdPodcast]);
+      setOriginalData((prevData) => [createdPodcast, ...prevData]);
+      setProcessingData((prevData) => [createdPodcast, ...prevData]);
       form.resetFields();
     } catch (error) {
       console.log("error:", error);
@@ -179,6 +179,9 @@ const Podcast = () => {
       title: "Thể loại",
       dataIndex: "type",
       key: "type",
+      render: (type) => {
+        return type === "new" ? "Mới" : type === "old" ? "Cũ" : "";
+      },
     },
     {
       title: "Lượt nghe",
@@ -324,6 +327,7 @@ const Podcast = () => {
                 rules={[{ required: true }]}
               >
                 <Upload
+                  listType="picture"
                   beforeUpload={beforeUploadImage}
                   accept="image/*"
                   maxCount={1}

@@ -201,12 +201,16 @@ const Professional = () => {
             session.user.access_token
           );
 
-          const filteredData = (responseGetAllCustomer || [])[1].filter(
-            (customer: UserType) => customer.role_name === ROLE_DOCTOR
-          );
+          const filteredAndSortedData = (responseGetAllCustomer || [])[1]
+            .filter((customer: UserType) => customer.role_name === ROLE_DOCTOR)
+            .sort(
+              (a: UserType, b: UserType) =>
+                new Date(b.createdAt!).getTime() -
+                new Date(a.createdAt!).getTime()
+            );
 
-          setOriginalData(filteredData);
-          setProcessingData(filteredData);
+          setOriginalData(filteredAndSortedData);
+          setProcessingData(filteredAndSortedData);
         } catch (error: any) {
           toast.error("Có lỗi khi tải dữ liệu");
           toast.error(error!.response?.data?.message);
@@ -253,6 +257,7 @@ const Professional = () => {
               searchPlaceholder="Tìm kiếm chuyên gia"
               searchValue={searchText}
               onSearchChange={setSearchText}
+              haveFilter={true}
               filters={[
                 {
                   label: "Trạng thái",

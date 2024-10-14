@@ -37,3 +37,8 @@ export enum PaymentMethodEnum {
   STRIPE = "stripe",
   WALLET = "wallet",
 }
+
+export enum BlogTypeEnum {
+  sharing = "Tâm Sự Và Chia Sẻ",
+  knowledge = "Kiến Thức Hữu Ích",
+}

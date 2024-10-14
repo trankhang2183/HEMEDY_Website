@@ -33,6 +33,12 @@ const apiLinks = {
     getMusicPodcast: `${urlServerSide}/podcasts`,
     addNewMusicPodcast: `${urlServerSide}/podcasts`,
   },
+  blog: {
+    getAllBlogList: `${urlServerSide}/blogs`,
+    createBlog: `${urlServerSide}/blogs`,
+    deleteBlog: `${urlServerSide}/blogs`,
+    updateBlog: `${urlServerSide}/blogs`,
+  },
 };
 
 export default apiLinks;

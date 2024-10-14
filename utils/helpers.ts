@@ -1,6 +1,8 @@
 import moment from "moment";
 import dayjs from "dayjs";
 import { ProductType, ProductVietNameseType } from "./enum";
+import { storage } from "./config-firebase";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 export const areInArray = (arr: any, ...elements: any[]) => {
   for (let element of elements) {
@@ -108,7 +110,7 @@ export const getProductVietNameseType = (productType: ProductType): string => {
     case ProductType.VipMedicalExamination:
       return ProductVietNameseType.VipMedicalExamination;
     default:
-      return "Không xác định"; 
+      return "Không xác định";
   }
 };
 
@@ -119,7 +121,7 @@ export const getPaymentStatusVietNameseType = (paymentType: string): string => {
     case "Failure":
       return "Thanh toán thất bại";
     default:
-      return "Không xác định"; 
+      return "Không xác định";
   }
 };
 
@@ -130,6 +132,14 @@ export const getAccountStatusVietNamese = (status: boolean): string => {
     case false:
       return "Đang hoạt động";
     default:
-      return "Không xác định"; 
+      return "Không xác định";
   }
 };
+
+export const handleUploadToFirebase = async (file: File, folder: string) => {
+  const storageRef = ref(storage, `${folder}/${file.name}`);
+  const uploadTask = uploadBytesResumable(storageRef, file);
+  await uploadTask;
+  return await getDownloadURL(storageRef);
+};
+

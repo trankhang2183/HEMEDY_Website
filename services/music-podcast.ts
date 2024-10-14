@@ -42,7 +42,7 @@ const updateMusicPodcast = async (
 const deleteMusicPodcast = async (
   token: string,
   podcastId: string
-): Promise<UpdateMusicPodcastType> => {
+): Promise<any> => {
   const response = await httpClient.delete({
     url: `${apiLinks.musicPodcast.deleteMusicPodcast}/${podcastId}`,
     token: token,

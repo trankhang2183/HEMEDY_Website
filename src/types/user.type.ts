@@ -31,6 +31,7 @@ export interface UserType {
   otherInformation?: string;
   role_name?: string;
   is_ban?: boolean;
+  createdAt?: string;
 }
 
 export interface TotalUsers {

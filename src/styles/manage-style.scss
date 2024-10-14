@@ -188,6 +188,19 @@
 .manage-content-container {
   padding: 20px 20px;
 
+  .back-button {
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    width: fit-content;
+    padding: 5px 10px;
+    border-radius: 15px;
+  }
+
+  .back-button:hover {
+    transition: 0.3s ease-in-out;
+    background-color: #d3d3d3;
+  }
+
   .list-content {
     .item {
       padding: 30px 30px;
@@ -230,5 +243,9 @@
   .back-page:hover {
     text-decoration: underline;
     transition: 0.3s ease-in-out;
+  }
+
+  .ant-upload-list-item {
+    margin-top: 0px !important;
   }
 }

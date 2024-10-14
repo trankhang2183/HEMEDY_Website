@@ -1,5 +1,8 @@
+import { BlogTypeEnum } from "@utils/enum";
+
 export interface BlogType {
-  id: number;
+  id?: number;
+  _id?: string;
   title: string;
   type: string;
   content: string;

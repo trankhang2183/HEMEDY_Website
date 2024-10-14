@@ -114,13 +114,19 @@ const Order = () => {
               session.user.access_token
             );
 
-          const filteredData = (responseGetAllTransaction || []).filter(
-            (transaction: TransactionType) =>
-              transaction.transaction_type === TransactionTypeEnum.Pay
-          );
+          const filteredAndSortedData = (responseGetAllTransaction || [])
+            .filter(
+              (transaction: TransactionType) =>
+                transaction.transaction_type === TransactionTypeEnum.Pay
+            )
+            .sort(
+              (a: TransactionType, b: TransactionType) =>
+                new Date(b.createdAt!).getTime() -
+                new Date(a.createdAt!).getTime()
+            );
 
-          setOriginalData(filteredData);
-          setProcessingData(filteredData);
+          setOriginalData(filteredAndSortedData);
+          setProcessingData(filteredAndSortedData);
         } catch (error: any) {
           toast.error("Có lỗi khi tải dữ liệu");
           toast.error(error!.response?.data?.message);
@@ -183,6 +189,7 @@ const Order = () => {
               searchPlaceholder="Tìm kiếm người mua"
               searchValue={searchText}
               onSearchChange={setSearchText}
+              haveFilter={true}
               filters={[
                 {
                   label: "Phương thức thanh toán",
