@@ -18,7 +18,7 @@ const blog_list_tmp: BlogType[] = [
     content: "data test",
     category: "travel",
     created_at: "18 tháng 6 năm 2023",
-    representative_img:
+    representative_img_link:
       "https://i2.ex-cdn.com/crystalbay.com/files/content/2024/07/18/du-lich-chua-lanh-la-gi-1-1008.jpg",
   },
   {
@@ -28,7 +28,7 @@ const blog_list_tmp: BlogType[] = [
     content: "data test",
     category: "travel",
     created_at: "18 tháng 6 năm 2023",
-    representative_img:
+    representative_img_link:
       "https://i2.ex-cdn.com/crystalbay.com/files/content/2024/07/18/du-lich-chua-lanh-la-gi-1-1008.jpg",
   },
   {
@@ -38,7 +38,7 @@ const blog_list_tmp: BlogType[] = [
     content: "data test",
     category: "travel",
     created_at: "18 tháng 6 năm 2023",
-    representative_img:
+    representative_img_link:
       "https://i2.ex-cdn.com/crystalbay.com/files/content/2024/07/18/du-lich-chua-lanh-la-gi-1-1008.jpg",
   },
   {
@@ -48,7 +48,7 @@ const blog_list_tmp: BlogType[] = [
     content: "data test",
     category: "travel",
     created_at: "18 tháng 6 năm 2023",
-    representative_img:
+    representative_img_link:
       "https://i2.ex-cdn.com/crystalbay.com/files/content/2024/07/18/du-lich-chua-lanh-la-gi-1-1008.jpg",
   },
   {
@@ -58,7 +58,7 @@ const blog_list_tmp: BlogType[] = [
     content: "data test",
     category: "travel",
     created_at: "18 tháng 6 năm 2023",
-    representative_img:
+    representative_img_link:
       "https://i2.ex-cdn.com/crystalbay.com/files/content/2024/07/18/du-lich-chua-lanh-la-gi-1-1008.jpg",
   },
   {
@@ -68,7 +68,7 @@ const blog_list_tmp: BlogType[] = [
     content: "data test",
     category: "travel",
     created_at: "18 tháng 6 năm 2023",
-    representative_img:
+    representative_img_link:
       "https://i2.ex-cdn.com/crystalbay.com/files/content/2024/07/18/du-lich-chua-lanh-la-gi-1-1008.jpg",
   },
   {
@@ -78,7 +78,7 @@ const blog_list_tmp: BlogType[] = [
     content: "data test",
     category: "travel",
     created_at: "18 tháng 6 năm 2023",
-    representative_img:
+    representative_img_link:
       "https://i2.ex-cdn.com/crystalbay.com/files/content/2024/07/18/du-lich-chua-lanh-la-gi-1-1008.jpg",
   },
   {
@@ -88,7 +88,7 @@ const blog_list_tmp: BlogType[] = [
     content: "data test",
     category: "travel",
     created_at: "18 tháng 6 năm 2023",
-    representative_img:
+    representative_img_link:
       "https://i2.ex-cdn.com/crystalbay.com/files/content/2024/07/18/du-lich-chua-lanh-la-gi-1-1008.jpg",
   },
   {
@@ -98,7 +98,7 @@ const blog_list_tmp: BlogType[] = [
     content: "data test",
     category: "travel",
     created_at: "18 tháng 6 năm 2023",
-    representative_img:
+    representative_img_link:
       "https://i2.ex-cdn.com/crystalbay.com/files/content/2024/07/18/du-lich-chua-lanh-la-gi-1-1008.jpg",
   },
 ];

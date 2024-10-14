@@ -4,5 +4,5 @@ export interface WorkshopType {
   type: string;
   content: string;
   subtitle: string;
-  representative_img: string;
+  representative_img_link: string;
 }

@@ -10,7 +10,7 @@ const ItemBlog: React.FC<Props> = (props) => {
 
   return (
     <div className="blog-item w-full relative">
-      <img src={blog.representative_img} alt={blog.type} loading="lazy" />
+      <img src={blog.representative_img_link} alt={blog.type} loading="lazy" />
       <div className="overlay"></div>
       <div className="absolute bottom-0 left-0 z-30 content w-full">
         <h3 className="text-white text-2xl">{blog.title}</h3>

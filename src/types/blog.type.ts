@@ -5,5 +5,5 @@ export interface BlogType {
   content: string;
   category: string;
   created_at: string;
-  representative_img: string;
+  representative_img_link: string;
 }

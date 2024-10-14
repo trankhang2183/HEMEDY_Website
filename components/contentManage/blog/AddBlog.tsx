@@ -1,7 +1,9 @@
-"use client"
+"use client";
 
+import dynamic from "next/dynamic";
 import React, { useEffect, useRef, useState } from "react";
-import ReactQuill from "react-quill";
+
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const AddBlog = () => {
   const [value, setValue] = useState("");
@@ -31,7 +33,22 @@ const AddBlog = () => {
     toolbar: toolbarOptions,
   };
 
-  return <ReactQuill modules={modules} theme="snow" value={value} onChange={setValue} />;
+  return (
+    <div>
+      <ReactQuill
+        modules={modules}
+        theme="snow"
+        value={value}
+        onChange={setValue}
+      />
+
+      {/* <h2>Your Blog Preview:</h2>
+      <div
+        style={{ padding: "10px", border: "1px solid #ddd", marginTop: "20px" }}
+        dangerouslySetInnerHTML={{ __html: value }} 
+      /> */}
+    </div>
+  );
 };
 
-export default AddBlog
+export default AddBlog;

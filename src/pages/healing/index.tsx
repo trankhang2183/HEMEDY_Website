@@ -22,7 +22,7 @@ const blog_list_tmp: BlogType[] = [
     content: "data test",
     category: "travel",
     created_at: "18 tháng 6 năm 2023",
-    representative_img:
+    representative_img_link:
       "https://i2.ex-cdn.com/crystalbay.com/files/content/2024/07/18/du-lich-chua-lanh-la-gi-1-1008.jpg",
   },
   {
@@ -32,7 +32,7 @@ const blog_list_tmp: BlogType[] = [
     content: "data test",
     category: "travel",
     created_at: "18 tháng 6 năm 2023",
-    representative_img:
+    representative_img_link:
       "https://i2.ex-cdn.com/crystalbay.com/files/content/2024/07/18/du-lich-chua-lanh-la-gi-1-1008.jpg",
   },
   {
@@ -42,7 +42,7 @@ const blog_list_tmp: BlogType[] = [
     content: "data test",
     category: "travel",
     created_at: "18 tháng 6 năm 2023",
-    representative_img:
+    representative_img_link:
       "https://i2.ex-cdn.com/crystalbay.com/files/content/2024/07/18/du-lich-chua-lanh-la-gi-1-1008.jpg",
   },
   {
@@ -52,7 +52,7 @@ const blog_list_tmp: BlogType[] = [
     content: "data test",
     category: "travel",
     created_at: "18 tháng 6 năm 2023",
-    representative_img:
+    representative_img_link:
       "https://i2.ex-cdn.com/crystalbay.com/files/content/2024/07/18/du-lich-chua-lanh-la-gi-1-1008.jpg",
   },
 ];
@@ -64,7 +64,7 @@ const workshop_list_tmp: WorkshopType[] = [
     type: "Những workshop thú vị",
     subtitle: "Địa điểm dành cho những tín đồ yêu thích làm bánh.",
     content: "data test",
-    representative_img:
+    representative_img_link:
       "https://cdn.sgtiepthi.vn/wp-content/uploads/2022/03/262033436_654854635923878_4539608096656278712_n.jpg",
   },
   {
@@ -73,7 +73,7 @@ const workshop_list_tmp: WorkshopType[] = [
     type: "Những workshop thú vị",
     subtitle: "Địa điểm dành cho những tín đồ yêu thích làm bánh.",
     content: "data test",
-    representative_img:
+    representative_img_link:
       "https://cdn.sgtiepthi.vn/wp-content/uploads/2022/03/262033436_654854635923878_4539608096656278712_n.jpg",
   },
   {
@@ -82,7 +82,7 @@ const workshop_list_tmp: WorkshopType[] = [
     type: "Những workshop thú vị",
     subtitle: "Địa điểm dành cho những tín đồ yêu thích làm bánh.",
     content: "data test",
-    representative_img:
+    representative_img_link:
       "https://cdn.sgtiepthi.vn/wp-content/uploads/2022/03/262033436_654854635923878_4539608096656278712_n.jpg",
   },
   {
@@ -91,7 +91,7 @@ const workshop_list_tmp: WorkshopType[] = [
     type: "Những workshop nghệ thuật",
     subtitle: "Địa điểm dành cho những tín đồ yêu thích làm bánh.",
     content: "data test",
-    representative_img:
+    representative_img_link:
       "https://2saigon.vn/wp-content/uploads/2022/05/quan-ca-phe-to-tuong-o-tp-hcm_6290240129d6d-scaled.jpeg",
   },
   {
@@ -100,7 +100,7 @@ const workshop_list_tmp: WorkshopType[] = [
     type: "Những workshop nghệ thuật",
     subtitle: "Địa điểm dành cho những tín đồ yêu thích làm bánh.",
     content: "data test",
-    representative_img:
+    representative_img_link:
       "https://2saigon.vn/wp-content/uploads/2022/05/quan-ca-phe-to-tuong-o-tp-hcm_6290240129d6d-scaled.jpeg",
   },
 ];
