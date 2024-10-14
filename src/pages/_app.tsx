@@ -4,6 +4,7 @@ import "@/styles/account.scss"
 import "@/styles/manage-style.scss"
 import "react-toastify/dist/ReactToastify.css";
 import "react-calendar/dist/Calendar.css";
+import 'react-quill/dist/quill.snow.css';
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";

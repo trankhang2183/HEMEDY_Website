@@ -1,9 +1,10 @@
-import React from 'react'
+"use client"
+
+import React from "react";
+import AddBlog from "./blog/AddBlog";
 
 const Blog = () => {
-  return (
-    <div>Blog</div>
-  )
-}
+  return <AddBlog />;
+};
 
-export default Blog
+export default Blog;

@@ -13,6 +13,7 @@ import { GrWorkshop } from "react-icons/gr";
 import { IoMusicalNotes } from "react-icons/io5";
 import { MdOutlineTravelExplore, MdPostAdd } from "react-icons/md";
 import { RiHeadphoneFill } from "react-icons/ri";
+import ReactQuill from "react-quill";
 
 const ManagerLayoutNoSSR = dynamic(() => import("@layout/ManagerLayout"), {
   ssr: false,
