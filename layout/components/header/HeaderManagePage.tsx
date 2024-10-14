@@ -1,7 +1,9 @@
+import useDispatch from "@hooks/use-dispatch";
+import { setSliderMenuItemSelectedKey } from "@slices/global";
 import { ROLE_ADMIN } from "@utils/constants";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { IoIosLogOut, IoIosNotificationsOutline } from "react-icons/io";
 import { IoPersonCircleOutline } from "react-icons/io5";
@@ -11,6 +13,9 @@ const callback_url = "http://hemedy.onrender.com/manage";
 
 const HeaderManagePage = () => {
   const route = useRouter();
+  const pathname = usePathname();
+  const dispatch = useDispatch();
+
   const { data: session } = useSession();
 
   useEffect(() => {
@@ -20,6 +25,14 @@ const HeaderManagePage = () => {
       document.title = "Hemedy";
     }
   }, [session?.user?.roles]);
+
+  useEffect(() => {
+    if (pathname) {
+      const cleanPath = pathname.replace(/^\//, "");
+
+      dispatch(setSliderMenuItemSelectedKey(cleanPath));
+    }
+  }, [pathname, dispatch]);
 
   return (
     <div

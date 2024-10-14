@@ -12,13 +12,14 @@ interface SearchFilterHeaderProps {
   searchPlaceholder: string;
   searchValue: string;
   onSearchChange: (value: string) => void;
-  filters: Array<{
+  filters?: Array<{
     label: string;
     options: FilterOption[];
-    value: string | number | boolean| undefined;
+    value: string | number | boolean | undefined;
     onChange: any;
   }>;
   handleClearFilters: () => void;
+  haveFilter?: boolean;
 }
 
 const { Panel } = Collapse;
@@ -29,6 +30,7 @@ const SearchFilterHeader: React.FC<SearchFilterHeaderProps> = ({
   onSearchChange,
   filters,
   handleClearFilters,
+  haveFilter,
 }) => {
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
 
@@ -55,10 +57,18 @@ const SearchFilterHeader: React.FC<SearchFilterHeaderProps> = ({
             prefix={<BiSearch />}
           />
         </div>
-        <Button onClick={showDrawer} style={{ marginLeft: "8px" }} className="flex items-center gap-2">
-          <CiFilter  className="w-5 h-5"/>
-          Bộ lọc
-        </Button>
+        {haveFilter ? (
+          <Button
+            onClick={showDrawer}
+            style={{ marginLeft: "8px" }}
+            className="flex items-center gap-2"
+          >
+            <CiFilter className="w-5 h-5" />
+            Bộ lọc
+          </Button>
+        ) : (
+          <></>
+        )}
       </div>
 
       <Drawer
@@ -66,11 +76,11 @@ const SearchFilterHeader: React.FC<SearchFilterHeaderProps> = ({
         placement="right"
         closable={true}
         onClose={closeDrawer}
-        visible={isDrawerVisible}
+        open={isDrawerVisible}
         width={500}
       >
         <Collapse>
-          {filters.map((filter, index) => (
+          {filters?.map((filter, index) => (
             <Panel header={filter.label} key={index.toString()}>
               {filter.options.map((option, indexValue) => (
                 <Radio

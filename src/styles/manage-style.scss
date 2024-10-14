@@ -184,3 +184,51 @@
     }
   }
 }
+
+.manage-content-container {
+  padding: 20px 20px;
+
+  .list-content {
+    .item {
+      padding: 30px 30px;
+      width: 382px;
+      height: 400px;
+      border-radius: 20px;
+      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .item:hover {
+      transform: scale(1.05);
+    }
+
+    .icon-container {
+      background-color: #d8d8d8;
+      opacity: 0.5;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+    }
+
+    .btn-edit-update {
+      background-color: white;
+      color: #009f67;
+      border-radius: 12px;
+      padding: 15px 30px;
+      width: fit-content;
+      cursor: pointer;
+      border: 1px solid rgb(138, 134, 134);
+    }
+  }
+
+  .back-page {
+    color: #a5a3a3;
+    transition: 0.3s ease-in-out;
+  }
+
+  .back-page:hover {
+    text-decoration: underline;
+    transition: 0.3s ease-in-out;
+  }
+}

@@ -26,6 +26,13 @@ const apiLinks = {
     getAllSlotFreeOfDoctor: `${urlServerSide}/doctor-schedules/free-slots`,
     createScheduled: `${urlServerSide}/doctor-schedules`,
   },
+  musicPodcast: {
+    getAllMusicPodCastList: `${urlServerSide}/podcasts`,
+    updateMusicPodcast: `${urlServerSide}/podcasts`,
+    deleteMusicPodcast: `${urlServerSide}/podcasts`,
+    getMusicPodcast: `${urlServerSide}/podcasts`,
+    addNewMusicPodcast: `${urlServerSide}/podcasts`,
+  },
 };
 
 export default apiLinks;
