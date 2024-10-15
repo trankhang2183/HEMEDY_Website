@@ -171,7 +171,7 @@ const HealingPage: React.FC = () => {
           </div>
 
           <div className="blog-section" id="blog-view-all-button">
-            <div className="container">
+            <div className="container" id="blog-view-detail">
               <div className="header flex items-center justify-between px-8">
                 <h1 className="text-3xl">
                   Khám phá các bài viết về <br></br>chữa lành tinh thần
@@ -206,7 +206,7 @@ const HealingPage: React.FC = () => {
           <div className="workshop-section mb-10" id="workshop-view-all-button">
             <div className="container">
               <div className="header flex items-center justify-between px-8">
-                <h1 className="text-3xl">
+                <h1 className="text-3xl" >
                   Những workshop thú vị <br></br>đầy thư giản
                 </h1>
                 <div
@@ -227,7 +227,7 @@ const HealingPage: React.FC = () => {
                   <Spin spinning={isLoading} />
                 </div>
               ) : (
-                <div className="workshop-list gird grid-cols-4 gap-4 px-8 mt-6">
+                <div id="workshop-view-detail"  className="workshop-list gird grid-cols-4 gap-4 px-8 mt-6">
                   {workshopListData.slice(0, 4).map((workshop, index) => (
                     <ItemWorkshop workshop={workshop} key={index} />
                   ))}

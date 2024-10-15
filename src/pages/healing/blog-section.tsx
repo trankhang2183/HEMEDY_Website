@@ -125,7 +125,10 @@ const BlogSection = () => {
           </div>
 
           <div className="container-list">
-            <div className="header flex items-center justify-between px-8" id="blog-content">
+            <div
+              className="header flex items-center justify-between px-8"
+              id="blog-content"
+            >
               <h1 className="text-3xl">Kiến Thức Hữu Ích</h1>
               <div
                 className="btn-view-all"

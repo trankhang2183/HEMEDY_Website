@@ -9,7 +9,6 @@ import { toast } from "react-toastify";
 import musicPodcast from "@services/music-podcast";
 import { HealingPageType } from "@utils/enum";
 import { Spin } from "antd";
-import { scrollToElement } from "@utils/global";
 
 const HomeLayoutNoSSR = dynamic(() => import("@layout/HomeLayout"), {
   ssr: false,

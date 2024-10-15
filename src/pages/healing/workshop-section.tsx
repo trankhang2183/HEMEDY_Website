@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { IoReturnUpBack } from "react-icons/io5";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { WorkshopType } from "@/types/workshop.type";
 import ItemWorkshop from "@components/healingPageComponent/ItemWorkshop";
 import workshop from "@services/workshop";

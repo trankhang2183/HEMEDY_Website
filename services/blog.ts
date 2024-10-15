@@ -42,8 +42,16 @@ const deleteBlog = async (token: string, blogId: string): Promise<any> => {
   return response.data;
 };
 
+const getBlogById = async (blogId: string): Promise<BlogType> => {
+  const response = await httpClient.get({
+    url: `${apiLinks.blog.getBlog}/${blogId}`,
+  });
+  return response.data;
+};
+
 const blog = {
   getAllBlogList,
+  getBlogById,
   createBlog,
   deleteBlog,
   updateBlog,

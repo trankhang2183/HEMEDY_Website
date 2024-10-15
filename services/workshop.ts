@@ -42,8 +42,16 @@ const deleteWorkshop = async (token: string, workshopId: string): Promise<any> =
   return response.data;
 };
 
+const getWorkshopById = async (workshopId: string): Promise<WorkshopType> => {
+  const response = await httpClient.get({
+    url: `${apiLinks.workshop.getWorkshop}/${workshopId}`,
+  });
+  return response.data;
+};
+
 const workshop = {
   getAllWorkshopList,
+  getWorkshopById,
   createWorkshop,
   deleteWorkshop,
   updateWorkshop,

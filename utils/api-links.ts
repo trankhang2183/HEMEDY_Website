@@ -35,12 +35,14 @@ const apiLinks = {
   },
   blog: {
     getAllBlogList: `${urlServerSide}/blogs`,
+    getBlog: `${urlServerSide}/blogs`,
     createBlog: `${urlServerSide}/blogs`,
     deleteBlog: `${urlServerSide}/blogs`,
     updateBlog: `${urlServerSide}/blogs`,
   },
   workshop: {
     getAllWorkshopList: `${urlServerSide}/workshops`,
+    getWorkshop: `${urlServerSide}/workshops`,
     createWorkshop: `${urlServerSide}/workshops`,
     deleteWorkshop: `${urlServerSide}/workshops`,
     updateWorkshop: `${urlServerSide}/workshops`,
