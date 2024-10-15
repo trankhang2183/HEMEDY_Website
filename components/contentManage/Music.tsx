@@ -32,9 +32,6 @@ import { HealingPageType } from "@utils/enum";
 import { PiPlus } from "react-icons/pi";
 import { BiEdit, BiUpload } from "react-icons/bi";
 import { handleUploadToFirebase } from "@utils/helpers";
-import { RcFile } from "antd/es/upload";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { storage } from "@utils/config-firebase";
 const { confirm } = Modal;
 
 const Music = () => {
@@ -118,7 +115,6 @@ const Music = () => {
 
   const handleSubmit = async (values: any) => {
     setUploading(true);
-    console.log("values: ", values);
 
     try {
       const imgUrl = await handleUploadToFirebase(
@@ -314,21 +310,21 @@ const Music = () => {
               <Form.Item
                 name="name"
                 label="Tên bài hát"
-                rules={[{ required: true }]}
+                rules={[{ required: true, message: "Vui lòng nhập tên bài hát" }]}
               >
                 <Input placeholder="Nhập tên bài hát" />
               </Form.Item>
               <Form.Item
                 name="author"
                 label="Tác giả"
-                rules={[{ required: true }]}
+                rules={[{ required: true, message: "Vui lòng nhập tên tác giả" }]}
               >
                 <Input placeholder="Nhập tên tác giả" />
               </Form.Item>
               <Form.Item
                 name="img_file"
                 label="Hình ảnh"
-                rules={[{ required: true }]}
+                rules={[{ required: true, message: "Vui lòng tải lên ảnh" }]}
               >
                 <Upload
                   listType="picture"
@@ -342,7 +338,7 @@ const Music = () => {
               <Form.Item
                 name="audio_file"
                 label="File âm thanh"
-                rules={[{ required: true }]}
+                rules={[{ required: true, message: "Vui lòng tải lên file âm thanh" }]}
               >
                 <Upload
                   beforeUpload={beforeUploadAudio}

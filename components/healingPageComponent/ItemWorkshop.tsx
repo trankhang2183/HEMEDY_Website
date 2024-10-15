@@ -12,7 +12,7 @@ const ItemWorkshop: React.FC<Props> = (props) => {
     <div className="workshop-item w-full">
       <div className="container-img">
         <img
-          src={workshop.representative_img_link}
+          src={workshop.representative_img}
           alt={workshop.type}
           loading="lazy"
         />

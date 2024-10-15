@@ -9,30 +9,33 @@ import ItemBlog from "@components/healingPageComponent/ItemBlog";
 import ItemWorkshop from "@components/healingPageComponent/ItemWorkshop";
 import { BlogType } from "@/types/blog.type";
 import { WorkshopType } from "@/types/workshop.type";
+import { toast } from "react-toastify";
+import workshop from "@services/workshop";
+import blog from "@services/blog";
 
 const HomeLayoutNoSSR = dynamic(() => import("@layout/HomeLayout"), {
   ssr: false,
 });
 
-const blog_list_tmp: BlogType[] = [
+const blogListData: BlogType[] = [
   {
     id: 1,
     title: "Xu hướng du lịch chữa lành",
-    type: "Tâm Sự Và Chia Sẻ",
+    type: "Tâm Sự Và Chia Sẽ",
     content: "data test",
     category: "travel",
     created_at: "18 tháng 6 năm 2023",
-    representative_img_link:
+    representative_img:
       "https://i2.ex-cdn.com/crystalbay.com/files/content/2024/07/18/du-lich-chua-lanh-la-gi-1-1008.jpg",
   },
   {
     id: 2,
     title: "Xu hướng du lịch chữa lành",
-    type: "Tâm Sự Và Chia Sẻ",
+    type: "Tâm Sự Và Chia Sẽ",
     content: "data test",
     category: "travel",
     created_at: "18 tháng 6 năm 2023",
-    representative_img_link:
+    representative_img:
       "https://i2.ex-cdn.com/crystalbay.com/files/content/2024/07/18/du-lich-chua-lanh-la-gi-1-1008.jpg",
   },
   {
@@ -42,7 +45,7 @@ const blog_list_tmp: BlogType[] = [
     content: "data test",
     category: "travel",
     created_at: "18 tháng 6 năm 2023",
-    representative_img_link:
+    representative_img:
       "https://i2.ex-cdn.com/crystalbay.com/files/content/2024/07/18/du-lich-chua-lanh-la-gi-1-1008.jpg",
   },
   {
@@ -52,19 +55,19 @@ const blog_list_tmp: BlogType[] = [
     content: "data test",
     category: "travel",
     created_at: "18 tháng 6 năm 2023",
-    representative_img_link:
+    representative_img:
       "https://i2.ex-cdn.com/crystalbay.com/files/content/2024/07/18/du-lich-chua-lanh-la-gi-1-1008.jpg",
   },
 ];
 
-const workshop_list_tmp: WorkshopType[] = [
+const workshopListData: WorkshopType[] = [
   {
     id: 1,
     title: "Làm bánh",
     type: "Những workshop thú vị",
     subtitle: "Địa điểm dành cho những tín đồ yêu thích làm bánh.",
     content: "data test",
-    representative_img_link:
+    representative_img:
       "https://cdn.sgtiepthi.vn/wp-content/uploads/2022/03/262033436_654854635923878_4539608096656278712_n.jpg",
   },
   {
@@ -73,7 +76,7 @@ const workshop_list_tmp: WorkshopType[] = [
     type: "Những workshop thú vị",
     subtitle: "Địa điểm dành cho những tín đồ yêu thích làm bánh.",
     content: "data test",
-    representative_img_link:
+    representative_img:
       "https://cdn.sgtiepthi.vn/wp-content/uploads/2022/03/262033436_654854635923878_4539608096656278712_n.jpg",
   },
   {
@@ -82,7 +85,7 @@ const workshop_list_tmp: WorkshopType[] = [
     type: "Những workshop thú vị",
     subtitle: "Địa điểm dành cho những tín đồ yêu thích làm bánh.",
     content: "data test",
-    representative_img_link:
+    representative_img:
       "https://cdn.sgtiepthi.vn/wp-content/uploads/2022/03/262033436_654854635923878_4539608096656278712_n.jpg",
   },
   {
@@ -91,7 +94,7 @@ const workshop_list_tmp: WorkshopType[] = [
     type: "Những workshop nghệ thuật",
     subtitle: "Địa điểm dành cho những tín đồ yêu thích làm bánh.",
     content: "data test",
-    representative_img_link:
+    representative_img:
       "https://2saigon.vn/wp-content/uploads/2022/05/quan-ca-phe-to-tuong-o-tp-hcm_6290240129d6d-scaled.jpeg",
   },
   {
@@ -100,7 +103,7 @@ const workshop_list_tmp: WorkshopType[] = [
     type: "Những workshop nghệ thuật",
     subtitle: "Địa điểm dành cho những tín đồ yêu thích làm bánh.",
     content: "data test",
-    representative_img_link:
+    representative_img:
       "https://2saigon.vn/wp-content/uploads/2022/05/quan-ca-phe-to-tuong-o-tp-hcm_6290240129d6d-scaled.jpeg",
   },
 ];
@@ -114,6 +117,10 @@ const scrollToElement = (elementId: string) => {
 
 const HealingPage: React.FC = () => {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const [workshopListData, setWorkshopListData] = useState<WorkshopType[]>([]);
+  const [blogListData, setBlogListData] = useState<BlogType[]>([]);
 
   useEffect(() => {
     const scrollPosition = sessionStorage.getItem("scrollPosition");
@@ -127,6 +134,54 @@ const HealingPage: React.FC = () => {
     sessionStorage.setItem("scrollPosition", sectionId);
     router.push(path);
   };
+
+  useEffect(() => {
+    const fetchWorkshopList = async () => {
+      setIsLoading(true);
+      try {
+        const responseGetAllWorkshop = await workshop.getAllWorkshopList();
+
+        const sortedWorkshopsList = responseGetAllWorkshop.sort(
+          (a: WorkshopType, b: WorkshopType) =>
+            new Date(b.createdAt!).getTime() - new Date(a.createdAt!).getTime()
+        );
+
+        setWorkshopListData(sortedWorkshopsList);
+      } catch (error: any) {
+        toast.error("Có lỗi khi tải dữ liệu");
+        toast.error(error!.response?.data?.message);
+        console.error("Có lỗi khi tải dữ liệu:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchWorkshopList();
+  }, []);
+
+  useEffect(() => {
+    const fetchBlogList = async () => {
+      setIsLoading(true);
+      try {
+        const responseGetAllBlog = await blog.getAllBlogList();
+
+        const sortedBlogsList = responseGetAllBlog.sort(
+          (a: BlogType, b: BlogType) =>
+            new Date(b.createdAt!).getTime() - new Date(a.createdAt!).getTime()
+        );
+
+        setBlogListData(sortedBlogsList);
+      } catch (error: any) {
+        toast.error("Có lỗi khi tải dữ liệu");
+        toast.error(error!.response?.data?.message);
+        console.error("Có lỗi khi tải dữ liệu:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchBlogList();
+  }, []);
 
   return (
     <HomeLayoutNoSSR
@@ -231,7 +286,7 @@ const HealingPage: React.FC = () => {
               </div>
 
               <div className="blog-list gird grid-cols-3 gap-8 px-8 mt-6">
-                {blog_list_tmp.slice(0, 3).map((blog, index) => (
+                {blogListData.slice(0, 3).map((blog, index) => (
                   <ItemBlog blog={blog} key={index} />
                 ))}
               </div>
@@ -258,7 +313,7 @@ const HealingPage: React.FC = () => {
               </div>
 
               <div className="workshop-list gird grid-cols-4 gap-4 px-8 mt-6">
-                {workshop_list_tmp.slice(0, 4).map((workshop, index) => (
+                {workshopListData.slice(0, 4).map((workshop, index) => (
                   <ItemWorkshop workshop={workshop} key={index} />
                 ))}
               </div>

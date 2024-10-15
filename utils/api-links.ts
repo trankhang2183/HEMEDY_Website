@@ -39,6 +39,12 @@ const apiLinks = {
     deleteBlog: `${urlServerSide}/blogs`,
     updateBlog: `${urlServerSide}/blogs`,
   },
+  workshop: {
+    getAllWorkshopList: `${urlServerSide}/workshops`,
+    createWorkshop: `${urlServerSide}/workshops`,
+    deleteWorkshop: `${urlServerSide}/workshops`,
+    updateWorkshop: `${urlServerSide}/workshops`,
+  },
 };
 
 export default apiLinks;

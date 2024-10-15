@@ -7,6 +7,7 @@ export interface BlogType {
   type: string;
   content: string;
   category: string;
-  created_at: string;
-  representative_img_link: string;
+  created_at?: string;
+  representative_img: string;
+  createdAt?: string;
 }

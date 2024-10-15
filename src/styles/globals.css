@@ -49,7 +49,7 @@ dl,
 dt,
 dd,
 ol,
-ul,
+/* ul, */
 li,
 fieldset,
 form,
@@ -87,6 +87,10 @@ video {
   padding: 0;
   border: 0;
   font-size: 100%;
+}
+
+ul {
+  margin: 0;
 }
 
 @knobs components {
@@ -1040,31 +1044,28 @@ p {
   background-color: var(--semi-dark-green);
 }
 
-
-.test-page .main-result h1, 
+.test-page .main-result h1,
 .test-page .main-result p {
-  color: var(--light-yellow)
+  color: var(--light-yellow);
 }
 
-.test-page .main-result .score{
-  color: #188F05
+.test-page .main-result .score {
+  color: #188f05;
 }
 
-.test-page .main-result .btn-again{
+.test-page .main-result .btn-again {
   color: var(--semi-dark-green);
   background-color: var(--light-yellow);
   cursor: pointer;
   padding: 30px 30px;
   border-radius: 15px;
   transition: 0.3s ease-in-out;
-
 }
 
-.test-page .main-result .btn-again:hover{
+.test-page .main-result .btn-again:hover {
   background-color: var(--light-green);
   color: white;
   transition: 0.3s ease-in-out;
-
 }
 
 .music-page {
@@ -1472,7 +1473,11 @@ p {
   border: 1px solid grey;
 }
 
-.connection-page .manage-schedule .check-info-schedule .list-slots .selected-item-slot {
+.connection-page
+  .manage-schedule
+  .check-info-schedule
+  .list-slots
+  .selected-item-slot {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 

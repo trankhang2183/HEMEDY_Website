@@ -1,107 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { IoReturnUpBack } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 import ItemBlog from "@components/healingPageComponent/ItemBlog";
 import { BlogType } from "@/types/blog.type";
+import blog from "@services/blog";
+import { toast } from "react-toastify";
 
 const HomeLayoutNoSSR = dynamic(() => import("@layout/HomeLayout"), {
   ssr: false,
 });
-
-const blog_list_tmp: BlogType[] = [
-  {
-    id: 1,
-    title: "Xu hướng du lịch chữa lành",
-    type: "Tâm sự và chia sẽ",
-    content: "data test",
-    category: "travel",
-    created_at: "18 tháng 6 năm 2023",
-    representative_img_link:
-      "https://i2.ex-cdn.com/crystalbay.com/files/content/2024/07/18/du-lich-chua-lanh-la-gi-1-1008.jpg",
-  },
-  {
-    id: 2,
-    title: "Xu hướng du lịch chữa lành",
-    type: "Tâm sự và chia sẽ",
-    content: "data test",
-    category: "travel",
-    created_at: "18 tháng 6 năm 2023",
-    representative_img_link:
-      "https://i2.ex-cdn.com/crystalbay.com/files/content/2024/07/18/du-lich-chua-lanh-la-gi-1-1008.jpg",
-  },
-  {
-    id: 3,
-    title: "Suy nghĩ về mọi điều tích cực",
-    type: "Kiến thức hữu ích",
-    content: "data test",
-    category: "travel",
-    created_at: "18 tháng 6 năm 2023",
-    representative_img_link:
-      "https://i2.ex-cdn.com/crystalbay.com/files/content/2024/07/18/du-lich-chua-lanh-la-gi-1-1008.jpg",
-  },
-  {
-    id: 4,
-    title: "Suy nghĩ về mọi điều tích cực",
-    type: "Kiến thức hữu ích",
-    content: "data test",
-    category: "travel",
-    created_at: "18 tháng 6 năm 2023",
-    representative_img_link:
-      "https://i2.ex-cdn.com/crystalbay.com/files/content/2024/07/18/du-lich-chua-lanh-la-gi-1-1008.jpg",
-  },
-  {
-    id: 4,
-    title: "Suy nghĩ về mọi điều tích cực",
-    type: "Kiến thức hữu ích",
-    content: "data test",
-    category: "travel",
-    created_at: "18 tháng 6 năm 2023",
-    representative_img_link:
-      "https://i2.ex-cdn.com/crystalbay.com/files/content/2024/07/18/du-lich-chua-lanh-la-gi-1-1008.jpg",
-  },
-  {
-    id: 4,
-    title: "Suy nghĩ về mọi điều tích cực",
-    type: "Kiến thức hữu ích",
-    content: "data test",
-    category: "travel",
-    created_at: "18 tháng 6 năm 2023",
-    representative_img_link:
-      "https://i2.ex-cdn.com/crystalbay.com/files/content/2024/07/18/du-lich-chua-lanh-la-gi-1-1008.jpg",
-  },
-  {
-    id: 4,
-    title: "Suy nghĩ về mọi điều tích cực",
-    type: "Kiến thức hữu ích",
-    content: "data test",
-    category: "travel",
-    created_at: "18 tháng 6 năm 2023",
-    representative_img_link:
-      "https://i2.ex-cdn.com/crystalbay.com/files/content/2024/07/18/du-lich-chua-lanh-la-gi-1-1008.jpg",
-  },
-  {
-    id: 4,
-    title: "Suy nghĩ về mọi điều tích cực",
-    type: "Kiến thức hữu ích",
-    content: "data test",
-    category: "travel",
-    created_at: "18 tháng 6 năm 2023",
-    representative_img_link:
-      "https://i2.ex-cdn.com/crystalbay.com/files/content/2024/07/18/du-lich-chua-lanh-la-gi-1-1008.jpg",
-  },
-  {
-    id: 4,
-    title: "Suy nghĩ về mọi điều tích cực",
-    type: "Kiến thức hữu ích",
-    content: "data test",
-    category: "travel",
-    created_at: "18 tháng 6 năm 2023",
-    representative_img_link:
-      "https://i2.ex-cdn.com/crystalbay.com/files/content/2024/07/18/du-lich-chua-lanh-la-gi-1-1008.jpg",
-  },
-];
 
 const BlogSection = () => {
   const router = useRouter();
@@ -109,12 +18,15 @@ const BlogSection = () => {
   const [showAllSharing, setShowAllSharing] = useState(false);
   const [showAllKnowledge, setShowAllKnowledge] = useState(false);
 
-  const sharingBlogs = blog_list_tmp.filter(
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [blogListData, setBlogListData] = useState<BlogType[]>([]);
+
+  const sharingBlogs = blogListData.filter(
     (blog) => blog.type === "Tâm sự và chia sẽ"
   );
 
-  const knowledgeBlogs = blog_list_tmp.filter(
-    (blog) => blog.type === "Kiến thức hữu ích"
+  const knowledgeBlogs = blogListData.filter(
+    (blog) => blog.type === "Kiến Thức Hữu Ích"
   );
 
   const displayedSharingBlogs = showAllSharing
@@ -125,6 +37,30 @@ const BlogSection = () => {
     ? knowledgeBlogs
     : knowledgeBlogs.slice(0, 6);
 
+    useEffect(() => {
+      const fetchBlogList = async () => {
+        setIsLoading(true);
+        try {
+          const responseGetAllBlog = await blog.getAllBlogList();
+  
+          const sortedBlogsList = responseGetAllBlog.sort(
+            (a: BlogType, b: BlogType) =>
+              new Date(b.createdAt!).getTime() - new Date(a.createdAt!).getTime()
+          );
+  
+          setBlogListData(sortedBlogsList);
+        } catch (error: any) {
+          toast.error("Có lỗi khi tải dữ liệu");
+          toast.error(error!.response?.data?.message);
+          console.error("Có lỗi khi tải dữ liệu:", error);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+  
+      fetchBlogList();
+    }, []);
+    
   return (
     <HomeLayoutNoSSR
       content={
@@ -178,7 +114,7 @@ const BlogSection = () => {
 
           <div className="container-list">
             <div className="header flex items-center justify-between px-8">
-              <h1 className="text-3xl">Kiến thức hữu ích</h1>
+              <h1 className="text-3xl">Kiến Thức Hữu Ích</h1>
               <div
                 className="btn-view-all"
                 onClick={() => setShowAllKnowledge(!showAllKnowledge)}

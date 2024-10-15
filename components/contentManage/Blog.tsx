@@ -22,11 +22,12 @@ import { toast } from "react-toastify";
 import { FiTrash2 } from "react-icons/fi";
 import { handleActionNotSupport } from "@utils/global";
 import { PiPlus } from "react-icons/pi";
-import { BiEdit, BiUpload } from "react-icons/bi";
+import { BiDetail, BiEdit, BiUpload } from "react-icons/bi";
 import { BlogType } from "@/types/blog.type";
 import blog from "@services/blog";
 import { BlogTypeEnum } from "@utils/enum";
-import AddBlog from "./blog/AddBlog";
+import AddBlog from "./post/AddBlog";
+import ModalViewBlog from "./view/ModalViewBlog";
 const { confirm } = Modal;
 
 const Blog = () => {
@@ -40,7 +41,18 @@ const Blog = () => {
   const [typeFilter, setTypeFilter] = useState<string | undefined>(undefined);
 
   const [isAddNewBlog, setIsAddNewBlog] = useState(false);
-  const [uploading, setUploading] = useState(false);
+  const [selectedBlog, setSelectedBlog] = useState<BlogType | null>(null);
+  const [isShowBlogDetail, setIsShowBlogDetail] = useState(false);
+
+  const handleAddNewBlog = (newBlog: BlogType) => {
+    setOriginalData((prevData) => [newBlog, ...prevData]);
+    setProcessingData((prevData) => [newBlog, ...prevData]);
+  };
+
+  const handleViewDetail = (blog: BlogType) => {
+    setSelectedBlog(blog);
+    setIsShowBlogDetail(true);
+  };
 
   useEffect(() => {
     const fetchBlogList = async () => {
@@ -49,8 +61,14 @@ const Blog = () => {
         try {
           const responseGetAllBlog = await blog.getAllBlogList();
 
-          setOriginalData(responseGetAllBlog);
-          setProcessingData(responseGetAllBlog);
+          const sortedBlogsList = responseGetAllBlog.sort(
+            (a: BlogType, b: BlogType) =>
+              new Date(b.createdAt!).getTime() -
+              new Date(a.createdAt!).getTime()
+          );
+
+          setOriginalData(sortedBlogsList);
+          setProcessingData(sortedBlogsList);
         } catch (error: any) {
           toast.error("Có lỗi khi tải dữ liệu");
           toast.error(error!.response?.data?.message);
@@ -115,6 +133,17 @@ const Blog = () => {
       render: (text: string, record: BlogType) => {
         const menu = (
           <Menu>
+            <Menu.Item key="detail">
+              <Button
+                type="link"
+                onClick={() => handleViewDetail(record)}
+                icon={<BiDetail style={{ fontSize: "20px" }} />}
+                style={{ color: "black" }}
+                className="flex items-center"
+              >
+                Chi tiết
+              </Button>
+            </Menu.Item>
             <Menu.Item key="edit">
               <Button
                 type="link"
@@ -151,12 +180,8 @@ const Blog = () => {
 
                         toast.success("Blog đã được xoá thành công!");
                       } catch (error: any) {
-                        toast.error("Có lỗi xảy ra khi xoá bài hát!", {
-                          autoClose: 2000,
-                        });
-                        toast.error(error!.response?.data?.message, {
-                          autoClose: 2000,
-                        });
+                        toast.error("Có lỗi xảy ra khi xoá bài hát!");
+                        toast.error(error!.response?.data?.message);
                       }
                     },
                     onCancel() {},
@@ -185,7 +210,10 @@ const Blog = () => {
   ];
 
   return isAddNewBlog ? (
-    <AddBlog backToViewBlogList={() => setIsAddNewBlog(false)} />
+    <AddBlog
+      backToViewBlogList={() => setIsAddNewBlog(false)}
+      handleAddNewBlog={handleAddNewBlog}
+    />
   ) : (
     <div>
       <div className="header-order">
@@ -217,6 +245,7 @@ const Blog = () => {
           </Button>
         </div>
       </div>
+
       <div className="mt-4 px-4">
         <Spin spinning={isLoading}>
           <Table
@@ -227,6 +256,12 @@ const Blog = () => {
           />
         </Spin>
       </div>
+
+      <ModalViewBlog
+        open={isShowBlogDetail}
+        onClose={() => setIsShowBlogDetail(false)}
+        data={selectedBlog}
+      />
     </div>
   );
 };

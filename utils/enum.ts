@@ -39,6 +39,13 @@ export enum PaymentMethodEnum {
 }
 
 export enum BlogTypeEnum {
-  sharing = "Tâm Sự Và Chia Sẻ",
+  sharing = "Tâm Sự Và Chia Sẽ",
   knowledge = "Kiến Thức Hữu Ích",
 }
+
+export enum WorkshopTypeEnum {
+  interestingWorkshops = "Những workshop thú vị",
+  artWorkshops = "Những workshop nghệ thuật",
+}
+
+
