@@ -113,6 +113,13 @@ export const toastError = (error: any) => {
   }
 };
 
+export const scrollToElement = (elementId: string) => {
+  const element = document.getElementById(elementId);
+  if (element) {
+    element.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+};
+
 export const list_content_admin = [
   {
     key: 1,

@@ -8,6 +8,8 @@ import musicPodcast from "@services/music-podcast";
 import { toast } from "react-toastify";
 import { MusicPodcastType } from "@/types/music-podcast.type";
 import { HealingPageType } from "@utils/enum";
+import { Spin } from "antd";
+import { scrollToElement } from "@utils/global";
 
 const HomeLayoutNoSSR = dynamic(() => import("@layout/HomeLayout"), {
   ssr: false,
@@ -86,7 +88,30 @@ const MusicSection: React.FC<Props> = (props) => {
               />
             </div>
 
-            <PodcastMusicLayout list_podcast_music={musicListData} />
+            {isLoading ? (
+              <div className="content">
+                <div className="container section-new-list">
+                  <h1
+                    className="text-3xl font-semibold"
+                    id="play-list-podcast-music"
+                  >
+                    Những bài hát mới
+                  </h1>
+                  <div
+                    className="field-name mt-7 mb-5 flex flex-row justify-between"
+                  >
+                    <p className="font-semibold text-xl">Tên bài hát</p>
+                    <p className="font-semibold text-xl">Thời lượng</p>
+                  </div>
+                </div>
+
+                <div className="container flex justify-center items-center mt-6 h-[500px]">
+                  <Spin spinning={isLoading} />
+                </div>
+              </div>
+            ) : (
+              <PodcastMusicLayout list_podcast_music={musicListData} />
+            )}
           </div>
         </div>
       }

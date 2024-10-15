@@ -7,6 +7,8 @@ import { WorkshopType } from "@/types/workshop.type";
 import ItemWorkshop from "@components/healingPageComponent/ItemWorkshop";
 import workshop from "@services/workshop";
 import { toast } from "react-toastify";
+import { Spin } from "antd";
+import { scrollToElement } from "@utils/global";
 
 const HomeLayoutNoSSR = dynamic(() => import("@layout/HomeLayout"), {
   ssr: false,
@@ -37,29 +39,33 @@ const WorkshopSection = () => {
     ? artWorkshops
     : artWorkshops.slice(0, 8);
 
-    useEffect(() => {
-      const fetchWorkshopList = async () => {
-        setIsLoading(true);
-        try {
-          const responseGetAllWorkshop = await workshop.getAllWorkshopList();
-  
-          const sortedWorkshopsList = responseGetAllWorkshop.sort(
-            (a: WorkshopType, b: WorkshopType) =>
-              new Date(b.createdAt!).getTime() - new Date(a.createdAt!).getTime()
-          );
-  
-          setWorkshopListData(sortedWorkshopsList);
-        } catch (error: any) {
-          toast.error("Có lỗi khi tải dữ liệu");
-          toast.error(error!.response?.data?.message);
-          console.error("Có lỗi khi tải dữ liệu:", error);
-        } finally {
-          setIsLoading(false);
-        }
-      };
-  
-      fetchWorkshopList();
-    }, []);
+  useEffect(() => {
+    const fetchWorkshopList = async () => {
+      setIsLoading(true);
+      try {
+        const responseGetAllWorkshop = await workshop.getAllWorkshopList();
+
+        const sortedWorkshopsList = responseGetAllWorkshop.sort(
+          (a: WorkshopType, b: WorkshopType) =>
+            new Date(b.createdAt!).getTime() - new Date(a.createdAt!).getTime()
+        );
+
+        setWorkshopListData(sortedWorkshopsList);
+      } catch (error: any) {
+        toast.error("Có lỗi khi tải dữ liệu");
+        toast.error(error!.response?.data?.message);
+        console.error("Có lỗi khi tải dữ liệu:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchWorkshopList();
+  }, []);
+
+  useEffect(() => {
+    scrollToElement("workshop-content");
+  }, []);
 
   return (
     <HomeLayoutNoSSR
@@ -96,7 +102,10 @@ const WorkshopSection = () => {
           </div>
 
           <div className="container-list">
-            <div className="header flex items-center justify-between px-8">
+            <div
+              className="header flex items-center justify-between px-8"
+              id="workshop-content"
+            >
               <h1 className="text-3xl">Những workshop thú vị</h1>
               <div
                 className="btn-view-all"
@@ -105,11 +114,18 @@ const WorkshopSection = () => {
                 {showAllInteresting ? "Ẩn bớt" : "Tất cả"}
               </div>
             </div>
-            <div className="workshop-list gird grid-cols-4 gap-4 px-8 mt-6">
-              {displayedInterestingWorkshops.map((workshop, index) => (
-                <ItemWorkshop workshop={workshop} key={index} />
-              ))}
-            </div>
+
+            {isLoading ? (
+              <div className="container flex justify-center items-center mt-6 h-[500px]">
+                <Spin spinning={isLoading} />
+              </div>
+            ) : (
+              <div className="workshop-list gird grid-cols-4 gap-4 px-8 mt-6">
+                {displayedInterestingWorkshops.map((workshop, index) => (
+                  <ItemWorkshop workshop={workshop} key={index} />
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="container-list">
@@ -122,11 +138,18 @@ const WorkshopSection = () => {
                 {showAllArt ? "Ẩn bớt" : "Tất cả"}
               </div>
             </div>
-            <div className="workshop-list gird grid-cols-4 gap-4 px-8 mt-6">
-              {displayedArtWorkshops.map((workshop, index) => (
-                <ItemWorkshop workshop={workshop} key={index} />
-              ))}
-            </div>
+
+            {isLoading ? (
+              <div className="container flex justify-center items-center mt-6 h-[500px]">
+                <Spin spinning={isLoading} />
+              </div>
+            ) : (
+              <div className="workshop-list gird grid-cols-4 gap-4 px-8 mt-6">
+                {displayedArtWorkshops.map((workshop, index) => (
+                  <ItemWorkshop workshop={workshop} key={index} />
+                ))}
+              </div>
+            )}
           </div>
         </div>
       }

@@ -8,11 +8,12 @@ import { MusicPodcastType } from "@/types/music-podcast.type";
 import { toast } from "react-toastify";
 import musicPodcast from "@services/music-podcast";
 import { HealingPageType } from "@utils/enum";
+import { Spin } from "antd";
+import { scrollToElement } from "@utils/global";
 
 const HomeLayoutNoSSR = dynamic(() => import("@layout/HomeLayout"), {
   ssr: false,
 });
-
 
 interface Props {}
 
@@ -80,11 +81,33 @@ const PodcastSection: React.FC<Props> = (props) => {
                 src="/images/Mask group.png"
                 width={1202}
                 height={472}
-                alt="avatar_doc" loading="lazy"
+                alt="avatar_doc"
+                loading="lazy"
               />
             </div>
 
-            <PodcastMusicLayout list_podcast_music={podcastListData} />
+            {isLoading ? (
+              <div className="content">
+                <div className="container section-new-list">
+                  <h1
+                    className="text-3xl font-semibold"
+                    id="play-list-podcast-music"
+                  >
+                    Những bài hát mới
+                  </h1>
+                  <div className="field-name mt-7 mb-5 flex flex-row justify-between">
+                    <p className="font-semibold text-xl">Tên bài hát</p>
+                    <p className="font-semibold text-xl">Thời lượng</p>
+                  </div>
+                </div>
+
+                <div className="container flex justify-center items-center mt-6 h-[500px]">
+                  <Spin spinning={isLoading} />
+                </div>
+              </div>
+            ) : (
+              <PodcastMusicLayout list_podcast_music={podcastListData} />
+            )}
           </div>
         </div>
       }

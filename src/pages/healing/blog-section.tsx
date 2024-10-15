@@ -7,6 +7,8 @@ import ItemBlog from "@components/healingPageComponent/ItemBlog";
 import { BlogType } from "@/types/blog.type";
 import blog from "@services/blog";
 import { toast } from "react-toastify";
+import { Spin } from "antd";
+import { scrollToElement } from "@utils/global";
 
 const HomeLayoutNoSSR = dynamic(() => import("@layout/HomeLayout"), {
   ssr: false,
@@ -22,7 +24,7 @@ const BlogSection = () => {
   const [blogListData, setBlogListData] = useState<BlogType[]>([]);
 
   const sharingBlogs = blogListData.filter(
-    (blog) => blog.type === "Tâm sự và chia sẽ"
+    (blog) => blog.type === "Tâm Sự Và Chia Sẽ"
   );
 
   const knowledgeBlogs = blogListData.filter(
@@ -37,30 +39,34 @@ const BlogSection = () => {
     ? knowledgeBlogs
     : knowledgeBlogs.slice(0, 6);
 
-    useEffect(() => {
-      const fetchBlogList = async () => {
-        setIsLoading(true);
-        try {
-          const responseGetAllBlog = await blog.getAllBlogList();
-  
-          const sortedBlogsList = responseGetAllBlog.sort(
-            (a: BlogType, b: BlogType) =>
-              new Date(b.createdAt!).getTime() - new Date(a.createdAt!).getTime()
-          );
-  
-          setBlogListData(sortedBlogsList);
-        } catch (error: any) {
-          toast.error("Có lỗi khi tải dữ liệu");
-          toast.error(error!.response?.data?.message);
-          console.error("Có lỗi khi tải dữ liệu:", error);
-        } finally {
-          setIsLoading(false);
-        }
-      };
-  
-      fetchBlogList();
-    }, []);
-    
+  useEffect(() => {
+    const fetchBlogList = async () => {
+      setIsLoading(true);
+      try {
+        const responseGetAllBlog = await blog.getAllBlogList();
+
+        const sortedBlogsList = responseGetAllBlog.sort(
+          (a: BlogType, b: BlogType) =>
+            new Date(b.createdAt!).getTime() - new Date(a.createdAt!).getTime()
+        );
+
+        setBlogListData(sortedBlogsList);
+      } catch (error: any) {
+        toast.error("Có lỗi khi tải dữ liệu");
+        toast.error(error!.response?.data?.message);
+        console.error("Có lỗi khi tải dữ liệu:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchBlogList();
+  }, []);
+
+  useEffect(() => {
+    scrollToElement("blog-content");
+  }, []);
+
   return (
     <HomeLayoutNoSSR
       content={
@@ -97,7 +103,7 @@ const BlogSection = () => {
 
           <div className="container-list">
             <div className="header flex items-center justify-between px-8">
-              <h1 className="text-3xl">Tâm sự và chia sẽ</h1>
+              <h1 className="text-3xl">Tâm Sự Và Chia Sẽ</h1>
               <div
                 className="btn-view-all"
                 onClick={() => setShowAllSharing(!showAllSharing)}
@@ -105,15 +111,21 @@ const BlogSection = () => {
                 {showAllSharing ? "Ẩn bớt" : "Tất cả"}
               </div>
             </div>
-            <div className="blog-list gird grid-cols-3 gap-4 px-8 mt-6">
-              {displayedSharingBlogs.map((blog, index) => (
-                <ItemBlog blog={blog} key={index} />
-              ))}
-            </div>
+            {isLoading ? (
+              <div className="container flex justify-center items-center mt-6 h-[500px]">
+                <Spin spinning={isLoading} />
+              </div>
+            ) : (
+              <div className="blog-list gird grid-cols-3 gap-4 px-8 mt-6">
+                {displayedSharingBlogs.map((blog, index) => (
+                  <ItemBlog blog={blog} key={index} />
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="container-list">
-            <div className="header flex items-center justify-between px-8">
+            <div className="header flex items-center justify-between px-8" id="blog-content">
               <h1 className="text-3xl">Kiến Thức Hữu Ích</h1>
               <div
                 className="btn-view-all"
@@ -122,11 +134,18 @@ const BlogSection = () => {
                 {showAllKnowledge ? "Ẩn bớt" : "Tất cả"}
               </div>
             </div>
-            <div className="blog-list gird grid-cols-3 gap-4 px-8 mt-6">
-              {displayedKnowledgeBlogs.map((blog, index) => (
-                <ItemBlog blog={blog} key={index} />
-              ))}
-            </div>
+
+            {isLoading ? (
+              <div className="container flex justify-center items-center mt-6 h-[500px]">
+                <Spin spinning={isLoading} />
+              </div>
+            ) : (
+              <div className="blog-list gird grid-cols-3 gap-4 px-8 mt-6">
+                {displayedKnowledgeBlogs.map((blog, index) => (
+                  <ItemBlog blog={blog} key={index} />
+                ))}
+              </div>
+            )}
           </div>
         </div>
       }
