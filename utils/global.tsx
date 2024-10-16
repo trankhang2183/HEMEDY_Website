@@ -144,6 +144,7 @@ export const list_content_admin = [
     description: "Bài hát",
     backgroundColor: "#4999F1",
     color: "white",
+    type: "podcast_music",
     component: <Music />,
   },
   {
@@ -153,6 +154,7 @@ export const list_content_admin = [
     description: "Bài nghe",
     backgroundColor: "#F5CA52",
     color: "black",
+    type: "podcast_podcast",
     component: <Podcast />,
   },
   {
@@ -162,6 +164,7 @@ export const list_content_admin = [
     description: "Bài viết",
     backgroundColor: "#00BB93",
     color: "white",
+    type: "blog",
     component: <Blog />,
   },
   {
@@ -171,6 +174,7 @@ export const list_content_admin = [
     description: "Gói đăng kí",
     backgroundColor: "#FEFFC3",
     color: "black",
+    type: "travel",
     component: <Travel />,
   },
   {
@@ -180,6 +184,7 @@ export const list_content_admin = [
     description: "Buổi",
     backgroundColor: "#009F67",
     color: "white",
+    type: "workshop",
     component: <Workshop />,
   },
   {
@@ -189,6 +194,7 @@ export const list_content_admin = [
     description: "Bài test",
     backgroundColor: "#C055D2",
     color: "black",
+    type: "survey",
     component: <Test />,
   },
 ];

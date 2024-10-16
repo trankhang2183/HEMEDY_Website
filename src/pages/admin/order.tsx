@@ -90,6 +90,7 @@ const columns = [
 
 const Order = () => {
   const { data: session } = useSession();
+  
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [originalData, setOriginalData] = useState<TransactionType[]>([]);
   const [processingData, setProcessingData] = useState<TransactionType[]>([]);

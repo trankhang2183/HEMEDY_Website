@@ -78,6 +78,9 @@ const apiLinks = {
     updateAnswer: `${urlServerSide}/answers`,
     getAnswerById: `${urlServerSide}/questions`,
   },
+  statistics: {
+    countContent: `${urlServerSide}/admin`
+  }
 };
 
 export default apiLinks;

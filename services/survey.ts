@@ -13,7 +13,6 @@ const createSurvey = async (
   token: string,
   model: SurveyType
 ): Promise<SurveyType> => {
-    console.log("model:", model)
   const response = await httpClient.post({
     url: `${apiLinks.survey.createSurvey}`,
     token: token,
