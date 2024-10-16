@@ -47,6 +47,32 @@ const apiLinks = {
     deleteWorkshop: `${urlServerSide}/workshops`,
     updateWorkshop: `${urlServerSide}/workshops`,
   },
+  survey: {
+    getAllSurveysList: `${urlServerSide}/surveys`,
+    getSurveyById: `${urlServerSide}/surveys`,
+    createSurvey: `${urlServerSide}/surveys`,
+    deleteSurvey: `${urlServerSide}/surveys`,
+    updateSurvey: `${urlServerSide}/surveys`,
+  },
+  section: {
+    createSection: `${urlServerSide}/sections`,
+    deleteSection: `${urlServerSide}/sections`,
+    updateSection: `${urlServerSide}/sections`,
+    getSectionById: `${urlServerSide}/sections`,
+  },
+  question: {
+    createQuestions: `${urlServerSide}/questions`,
+    deleteQuestions: `${urlServerSide}/questions`,
+    updateQuestions: `${urlServerSide}/questions`,
+    getQuestionById: `${urlServerSide}/questions`,
+  },
+  answer: {
+    getAllAnswersList: `${urlServerSide}/answers`,
+    createAnswer: `${urlServerSide}/answers`,
+    deleteAnswer: `${urlServerSide}/answers`,
+    updateAnswer: `${urlServerSide}/answers`,
+    getAnswerById: `${urlServerSide}/questions`,
+  },
 };
 
 export default apiLinks;

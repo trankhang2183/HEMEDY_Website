@@ -30,7 +30,7 @@ import { toast } from "react-toastify";
 import Blog from "@components/contentManage/Blog";
 import Music from "@components/contentManage/Music";
 import Podcast from "@components/contentManage/Podcast";
-import Test from "@components/contentManage/Test";
+import Test from "@components/contentManage/Survey";
 import Travel from "@components/contentManage/Travel";
 import Workshop from "@components/contentManage/Workshop";
 

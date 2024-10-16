@@ -14,6 +14,7 @@ import workshop from "@services/workshop";
 import blog from "@services/blog";
 import { Spin } from "antd";
 import { scrollToElement } from "@utils/global";
+import ScrollToTopButton from "@components/scroll/ScrollToTopButton";
 
 const HomeLayoutNoSSR = dynamic(() => import("@layout/HomeLayout"), {
   ssr: false,
@@ -206,7 +207,7 @@ const HealingPage: React.FC = () => {
           <div className="workshop-section mb-10" id="workshop-view-all-button">
             <div className="container">
               <div className="header flex items-center justify-between px-8">
-                <h1 className="text-3xl" >
+                <h1 className="text-3xl">
                   Những workshop thú vị <br></br>đầy thư giản
                 </h1>
                 <div
@@ -227,7 +228,10 @@ const HealingPage: React.FC = () => {
                   <Spin spinning={isLoading} />
                 </div>
               ) : (
-                <div id="workshop-view-detail"  className="workshop-list gird grid-cols-4 gap-4 px-8 mt-6">
+                <div
+                  id="workshop-view-detail"
+                  className="workshop-list gird grid-cols-4 gap-4 px-8 mt-6"
+                >
                   {workshopListData.slice(0, 4).map((workshop, index) => (
                     <ItemWorkshop workshop={workshop} key={index} />
                   ))}
@@ -235,6 +239,7 @@ const HealingPage: React.FC = () => {
               )}
             </div>
           </div>
+          <ScrollToTopButton/>
         </div>
       }
     />
