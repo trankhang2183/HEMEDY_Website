@@ -116,11 +116,11 @@ const AddSurvey: React.FC<Props> = (props) => {
     questionIndex: number
   ) => {
     const updatedSections = [...sections];
-    updatedSections[sectionIndex].question_list = updatedSections[
+    updatedSections[sectionIndex].question_list! = updatedSections[
       sectionIndex
     ].question_list!.filter((_, index) => index !== questionIndex);
-    updatedSections[sectionIndex].question_list = updateQuestionNumbers(
-      updatedSections[sectionIndex].question_list
+    updatedSections[sectionIndex].question_list! = updateQuestionNumbers(
+      updatedSections[sectionIndex].question_list!
     );
     setSections(updatedSections);
   };
@@ -146,7 +146,7 @@ const AddSurvey: React.FC<Props> = (props) => {
     } catch (error) {
       toastError(error);
       console.error("Form validation error: ", error);
-    }finally {
+    } finally {
       setIsLoading(false);
     }
   };
@@ -218,7 +218,9 @@ const AddSurvey: React.FC<Props> = (props) => {
                   }
                 >
                   <Select.Option value="True/False">True/False</Select.Option>
-                  <Select.Option value="Multiple Choice">Multiple Choice</Select.Option>
+                  <Select.Option value="Multiple Choice">
+                    Multiple Choice
+                  </Select.Option>
                 </Select>
               </Form.Item>
 
@@ -291,8 +293,6 @@ const AddSurvey: React.FC<Props> = (props) => {
           Add Section
         </Button>
       </Form>
-
-
     </div>
   );
 };
