@@ -1,6 +1,7 @@
 import {
   ResponseGetAllDoctorType,
   ResponseGetALlUserByAdmin,
+  UserType,
 } from "@/types/user.type";
 import { LoginResponse } from "@models/user";
 import apiLinks from "@utils/api-links";
@@ -9,7 +10,7 @@ import httpClient from "@utils/http-client";
 const getCustomerProfile = async (
   token: string,
   email: string
-): Promise<any> => {
+): Promise<UserType> => {
   const response = await httpClient.get({
     url: `${apiLinks.customer.getProfile}/${email}`,
     token: token,

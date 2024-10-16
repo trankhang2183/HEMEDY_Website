@@ -1,16 +1,8 @@
+"use client";
+
 import { ReactNode } from "react";
-import { AiFillSchedule, AiOutlineDashboard } from "react-icons/ai";
-import { BiSolidUserAccount } from "react-icons/bi";
-import {
-  MdOutlinePersonPin,
-  MdOutlineSupportAgent,
-  MdOutlineVideoCameraFront,
-} from "react-icons/md";
-import { TbLayoutDashboard } from "react-icons/tb";
-import { GrDocumentConfig } from "react-icons/gr";
-import { PiSirenThin } from "react-icons/pi";
-import { MdOutlineRequestPage } from "react-icons/md";
-import { GrTransaction } from "react-icons/gr";
+import { AiOutlineDashboard } from "react-icons/ai";
+import { MdOutlinePersonPin, MdOutlineVideoCameraFront } from "react-icons/md";
 import { BiMessageSquareDetail } from "react-icons/bi";
 import { GrWorkshop } from "react-icons/gr";
 import { IoMusicalNotes } from "react-icons/io5";
@@ -33,6 +25,8 @@ import Podcast from "@components/contentManage/Podcast";
 import Test from "@components/contentManage/Survey";
 import Travel from "@components/contentManage/Travel";
 import Workshop from "@components/contentManage/Workshop";
+import customer from "@services/customer";
+import { useSession } from "next-auth/react";
 
 export interface SliderMenuItem {
   key: string;
@@ -110,6 +104,28 @@ export const toastError = (error: any) => {
     toast.error(combinedMessage);
   } else {
     toast.error(messages || "An error occurred");
+  }
+};
+
+export const checkTheMoneyInWallet = async (
+  money: number,
+  token: any
+): Promise<boolean> => {
+  const userProfile = await customer.getCustomerProfile(
+    token?.user.access_token!,
+    token?.user.email!
+  );
+
+  if (money > userProfile?.account_balance) {
+    toast.error(
+      "Số tiền trong ví không đủ để thực hiện thanh toán. Vui lòng nạp thêm hoặc chọn phương thức khác!",
+      {
+        autoClose: 5000,
+      }
+    );
+    return false;
+  } else {
+    return true;
   }
 };
 

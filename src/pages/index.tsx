@@ -22,6 +22,7 @@ import { IoIosCall } from "react-icons/io";
 
 import Aos from "aos";
 import "aos/dist/aos.css";
+import ScrollToTopButton from "@components/scroll/ScrollToTopButton";
 
 const HomeLayoutNoSSR = dynamic(() => import("@layout/HomeLayout"), {
   ssr: false,
@@ -58,7 +59,10 @@ const HomePage: React.FC = () => {
                     <LuNewspaper className="text-white " />
                   </div>
 
-                  <div className="button-feedback">
+                  <div
+                    className="button-feedback"
+                    onClick={() => router.push("/test")}
+                  >
                     <p className="font-semibold text-sm">Kiểm tra đánh giá</p>
                   </div>
                 </div>
@@ -130,7 +134,10 @@ const HomePage: React.FC = () => {
                       <CiLink className="text-white text-2xl" />
                     </div>
 
-                    <div className="button-connect" onClick={() => router.push("/connection")}>
+                    <div
+                      className="button-connect"
+                      onClick={() => router.push("/connection")}
+                    >
                       <p className="text-sm text-white">Kết nối ngay</p>
                     </div>
                   </div>
@@ -1051,6 +1058,8 @@ const HomePage: React.FC = () => {
               </div>
             </div>
           </section>
+
+          <ScrollToTopButton />
         </>
       }
     />

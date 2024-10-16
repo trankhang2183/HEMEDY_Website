@@ -16,17 +16,23 @@ export interface TransactionType {
 interface PaymentDetailsBase {
   amount: number;
   product_type: string;
-}
-
-export interface PayProductByMoMo extends PaymentDetailsBase {}
-
-export interface PayProductByStripe extends PaymentDetailsBase {
   name: string;
+}
+export interface PayProductByStripe extends PaymentDetailsBase {
   image: string;
   description: string;
 }
 
+export interface PayProductByMoMo extends PaymentDetailsBase {}
 export interface PayProductByVnPay extends PaymentDetailsBase {}
+export interface PayProductByWallet extends PaymentDetailsBase {}
 
+export interface PayScheduledType extends PaymentDetailsBase {
+  doctor_id: string;
+  appointment_date: string;
+  slot: string;
+  description: string;
+  image?: string;
+}
 export interface AddFundsType
   extends Omit<PaymentDetailsBase, "product_type"> {}

@@ -12,12 +12,11 @@ const ScrollToTopButton: React.FC = () => {
   };
 
   const toggleVisibility = () => {
-    // if (window.pageYOffset > 300) {
-    //   setIsVisible(true);
-    // } else {
-    //   setIsVisible(false);
-    // }
-    setIsVisible(true);
+    if (window.pageYOffset > 300) {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    }
   };
 
   useEffect(() => {

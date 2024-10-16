@@ -1443,7 +1443,7 @@ p {
 }
 
 .connection-page .manage-schedule .main-schedule .react-calendar {
-  width: 420px;
+  max-width: 420px;
   background: none;
   border: none;
 }
@@ -1454,7 +1454,8 @@ p {
 
 .react-calendar button {
   border-radius: 50%;
-  height: 50px;
+  height: 40px;
+  width: 40px;
 }
 
 .react-calendar__month-view__weekdays {
@@ -1466,7 +1467,7 @@ p {
 }
 
 .connection-page .manage-schedule .check-info-schedule .list-slots .item-slot {
-  padding: 15px 20px;
+  padding: 15px 10px;
   background-color: white;
   border-radius: 15px;
   cursor: pointer;

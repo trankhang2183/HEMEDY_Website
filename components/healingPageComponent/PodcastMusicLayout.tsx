@@ -4,6 +4,7 @@ import { IoPauseOutline, IoReturnUpBack } from "react-icons/io5";
 import { AiOutlineSound } from "react-icons/ai";
 import { useRouter } from "next/router";
 import { MusicPodcastType } from "@/types/music-podcast.type";
+import { scrollToElement } from "@utils/global";
 
 interface Props {
   list_podcast_music: MusicPodcastType[];
@@ -96,13 +97,6 @@ const PodcastMusicLayout: React.FC<Props> = (props) => {
         (currentIndex - 1 + list_podcast_music.length) %
         list_podcast_music.length;
       playAudio(prevIndex);
-    }
-  };
-
-  const scrollToElement = (elementId: string) => {
-    const element = document.getElementById(elementId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 

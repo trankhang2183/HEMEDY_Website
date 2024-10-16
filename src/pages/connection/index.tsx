@@ -17,6 +17,7 @@ import { FaCheck } from "react-icons/fa";
 import { toast } from "react-toastify";
 import customer from "@services/customer";
 import { useSession } from "next-auth/react";
+import ScrollToTopButton from "@components/scroll/ScrollToTopButton";
 
 const HomeLayoutNoSSR = dynamic(() => import("@layout/HomeLayout"), {
   ssr: false,
@@ -225,6 +226,7 @@ const ConnectionPage: React.FC = () => {
               </div>
             </div>
           </div>
+          <ScrollToTopButton/>
         </>
       }
     />

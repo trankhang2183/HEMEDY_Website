@@ -25,7 +25,7 @@ const survey = [
           answer: [
             {
               content: "Có",
-              score: 10,
+              score: 2,
             },
             {
               content: "Không",
@@ -39,7 +39,7 @@ const survey = [
           answer: [
             {
               content: "Có",
-              score: 10,
+              score: 2,
             },
             {
               content: "Không",
@@ -53,7 +53,7 @@ const survey = [
           answer: [
             {
               content: "Có",
-              score: 10,
+              score: 2,
             },
             {
               content: "Không",
@@ -67,7 +67,7 @@ const survey = [
           answer: [
             {
               content: "Có",
-              score: 10,
+              score: 2,
             },
             {
               content: "Không",
@@ -82,7 +82,7 @@ const survey = [
           answer: [
             {
               content: "Có",
-              score: 10,
+              score: 2,
             },
             {
               content: "Không",
@@ -109,15 +109,15 @@ const survey = [
             },
             {
               content: "Đôi khi",
-              score: 2,
+              score: 1,
             },
             {
               content: "Đa phần",
-              score: 5,
+              score: 2,
             },
             {
               content: "Luôn luôn",
-              score: 10,
+              score: 3,
             },
           ],
         },
@@ -131,15 +131,15 @@ const survey = [
             },
             {
               content: "Đôi khi",
-              score: 2,
+              score: 1,
             },
             {
               content: "Đa phần",
-              score: 5,
+              score: 2,
             },
             {
               content: "Luôn luôn",
-              score: 10,
+              score: 3,
             },
           ],
         },
@@ -153,15 +153,15 @@ const survey = [
             },
             {
               content: "Đôi khi",
-              score: 2,
+              score: 1,
             },
             {
               content: "Đa phần",
-              score: 5,
+              score: 2,
             },
             {
               content: "Luôn luôn",
-              score: 10,
+              score: 3,
             },
           ],
         },
@@ -175,15 +175,15 @@ const survey = [
             },
             {
               content: "Đôi khi",
-              score: 2,
+              score: 1,
             },
             {
               content: "Đa phần",
-              score: 5,
+              score: 2,
             },
             {
               content: "Luôn luôn",
-              score: 10,
+              score: 3,
             },
           ],
         },
@@ -197,15 +197,15 @@ const survey = [
             },
             {
               content: "Đôi khi",
-              score: 2,
+              score: 1,
             },
             {
               content: "Đa phần",
-              score: 5,
+              score: 2,
             },
             {
               content: "Luôn luôn",
-              score: 10,
+              score: 3,
             },
           ],
         },
@@ -219,15 +219,15 @@ const survey = [
             },
             {
               content: "Đôi khi",
-              score: 2,
+              score: 1,
             },
             {
               content: "Đa phần",
-              score: 5,
+              score: 2,
             },
             {
               content: "Luôn luôn",
-              score: 10,
+              score: 3,
             },
           ],
         },
@@ -241,15 +241,15 @@ const survey = [
             },
             {
               content: "Đôi khi",
-              score: 2,
+              score: 1,
             },
             {
               content: "Đa phần",
-              score: 5,
+              score: 2,
             },
             {
               content: "Luôn luôn",
-              score: 10,
+              score: 3,
             },
           ],
         },
@@ -263,15 +263,15 @@ const survey = [
             },
             {
               content: "Đôi khi",
-              score: 2,
+              score: 1,
             },
             {
               content: "Đa phần",
-              score: 5,
+              score: 2,
             },
             {
               content: "Luôn luôn",
-              score: 10,
+              score: 3,
             },
           ],
         },
@@ -285,15 +285,15 @@ const survey = [
             },
             {
               content: "Đôi khi",
-              score: 2,
+              score: 1,
             },
             {
               content: "Đa phần",
-              score: 5,
+              score: 2,
             },
             {
               content: "Luôn luôn",
-              score: 10,
+              score: 3,
             },
           ],
         },
@@ -307,15 +307,15 @@ const survey = [
             },
             {
               content: "Đôi khi",
-              score: 2,
+              score: 1,
             },
             {
               content: "Đa phần",
-              score: 5,
+              score: 2,
             },
             {
               content: "Luôn luôn",
-              score: 10,
+              score: 3,
             },
           ],
         },
@@ -329,15 +329,15 @@ const survey = [
             },
             {
               content: "Đôi khi",
-              score: 2,
+              score: 1,
             },
             {
               content: "Đa phần",
-              score: 5,
+              score: 2,
             },
             {
               content: "Luôn luôn",
-              score: 10,
+              score: 3,
             },
           ],
         },
@@ -405,7 +405,7 @@ const TestPage: React.FC = () => {
 
     setLoading(true);
 
-    toast.warning("Hệ thống đang xử lý kết quả vui lòng chờ trong giây lát!")
+    toast.warning("Hệ thống đang xử lý kết quả vui lòng chờ trong giây lát!");
     setTimeout(() => {
       localStorage.setItem("scoreSurvey", JSON.stringify(totalScore));
       router.push("/test/result-test");

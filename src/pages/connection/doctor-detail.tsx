@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import Image from "next/image";
-import { IoReturnUpBack } from "react-icons/io5";
 import { useRouter } from "next/router";
 import { FaUserDoctor } from "react-icons/fa6";
 import { UserType } from "@/types/user.type";
 import Calendar from "react-calendar";
-import { TIME_SLOT } from "@utils/constants";
+import { LIST_SESSION, TIME_SLOT } from "@utils/constants";
 import scheduled from "@services/scheduled";
 import { useSession } from "next-auth/react";
-import { formatDate } from "@utils/helpers";
+import { formatDate, moneyStringToNumber } from "@utils/helpers";
 import { Modal, Spin } from "antd";
 import SpinnerLoading from "@components/loading/SpinnerLoading";
-import { BodyCreateScheduledType } from "@/types/scheduled.type";
 import { toast } from "react-toastify";
+import { ProductSession } from "@/types/session.type";
+import PaymentOption from "@components/modal/PaymentOption";
+import { PaymentMethodEnum } from "@utils/enum";
+import { PayScheduledType } from "@/types/transaction.type";
+import transaction from "@services/transaction";
+import { checkTheMoneyInWallet, scrollToElement, toastError } from "@utils/global";
+import customer from "@services/customer";
+
 const { confirm } = Modal;
 
 const HomeLayoutNoSSR = dynamic(() => import("@layout/HomeLayout"), {
@@ -37,6 +42,20 @@ const DoctorDetail = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLoadingCreate, setIsLoadingCreate] = useState<boolean>(false);
 
+  const [selectedSession, setSelectedSession] = useState<ProductSession | null>(
+    null
+  );
+
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<
+    string | null
+  >(null);
+
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedId = parseInt(e.target.value, 10);
+    const session = LIST_SESSION.find((item) => item.id === selectedId);
+    setSelectedSession(session || null);
+  };
+
   useEffect(() => {
     const storedDoctor = localStorage.getItem("selectedDoctor");
     if (storedDoctor) {
@@ -55,6 +74,10 @@ const DoctorDetail = () => {
     return datePlusTwoHours;
   };
 
+  const handlePaymentSelection = (method: string) => {
+    setSelectedPaymentMethod(method);
+  };
+
   useEffect(() => {
     const fetchFreeSlots = async () => {
       setIsLoading(true);
@@ -65,7 +88,6 @@ const DoctorDetail = () => {
             id as string,
             formatDate(selectedDate)
           );
-          console.log("slots_list_free: ", slots_list_free);
           const currentTimePlusTwoHours = getCurrentTimePlusTwoHours();
 
           const availableSlots = TIME_SLOT.filter((item) => {
@@ -94,28 +116,85 @@ const DoctorDetail = () => {
     fetchFreeSlots();
   }, [selectedDate, id]);
 
+  useEffect(() => {
+    scrollToElement("doctor-info");
+  }, []);
+
   const handleCreateScheduled = async () => {
-    const data: BodyCreateScheduledType = {
+    const data: PayScheduledType = {
       appointment_date: formatDate(selectedDate),
       doctor_id: id as string,
       slot: selectedSlot!,
+      amount: moneyStringToNumber(selectedSession?.price!),
+      description: selectedSession?.description!,
+      name: selectedSession?.product_name!,
+      product_type: selectedSession?.product_type!,
+      image: selectedSession?.product_type!,
     };
 
     try {
       setIsLoadingCreate(true);
 
-      const responseCreateScheduled = await scheduled.createScheduled(
-        token?.user.access_token!,
-        data
-      );
+      let responseCreateScheduled;
 
-      if (responseCreateScheduled) {
-        toast.success("Tạo lịch hẹn thành công!");
-        router.push("/account");
+      switch (selectedPaymentMethod) {
+        case PaymentMethodEnum.MOMO:
+          responseCreateScheduled = await transaction.payScheduledByMoMo(
+            token?.user.access_token!,
+            data
+          );
+
+          if (responseCreateScheduled) {
+            window.location.href = responseCreateScheduled.payUrl;
+          }
+          break;
+        case PaymentMethodEnum.VNPAY:
+          responseCreateScheduled = await transaction.payScheduledByVnPay(
+            token?.user.access_token!,
+            data
+          );
+
+          if (responseCreateScheduled) {
+            window.location.href = responseCreateScheduled;
+          }
+          break;
+
+        case PaymentMethodEnum.STRIPE:
+          responseCreateScheduled = await transaction.payScheduledByStripe(
+            token?.user.access_token!,
+            data
+          );
+          if (responseCreateScheduled) {
+            window.location.href = responseCreateScheduled;
+          }
+          break;
+
+        case PaymentMethodEnum.WALLET:
+          const checkWallet = await checkTheMoneyInWallet(data.amount, token);
+
+          if (!checkWallet) {
+            return;
+          } else {
+            responseCreateScheduled = await transaction.payScheduledByWallet(
+              token?.user.access_token!,
+              data
+            );
+
+            if (responseCreateScheduled) {
+              toast.success("Tạo lịch hẹn thành công!");
+              router.push("/account");
+            }
+          }
+
+          break;
+
+        default:
+          console.log("Phương thức thanh toán không hợp lệ");
       }
     } catch (err) {
       toast.error("Có lỗi khi tạo lịch khám!");
       console.error("Error fetching data: ", err);
+      toastError(err);
     } finally {
       setIsLoadingCreate(false);
     }
@@ -125,6 +204,7 @@ const DoctorDetail = () => {
     if (!token?.user.access_token) {
       toast.error("Vui lòng đăng nhập trước khi đặt lịch khám!");
     } else {
+      scrollToElement("selected-date-scheduled")
       setIsScheduleMode(true);
     }
   };
@@ -151,7 +231,7 @@ const DoctorDetail = () => {
           <div className="doctor-detail-info py-20">
             <div className="container flex justify-center flex-col items-center">
               <div className="w-full flex flex-row justify-between gap-16">
-                <div className="left">
+                <div className="left" id="selected-date-scheduled">
                   <div className="card-info">
                     <img
                       src={doctorItem?.avatar_url}
@@ -184,13 +264,13 @@ const DoctorDetail = () => {
                         />{" "}
                         <div className="check-info-schedule">
                           <div>
-                            <h1 className="text-center text-lg">
+                            <h1 className="text-center text-base">
                               Thời gian bắt đầu và kết thúc
                             </h1>
 
                             {isLoading ? (
                               <div
-                                style={{ width: "325px", height: "280px" }}
+                                style={{ maxWidth: "325px", height: "280px" }}
                                 className="flex items-center justify-center"
                               >
                                 <Spin spinning={isLoading} />
@@ -198,7 +278,7 @@ const DoctorDetail = () => {
                             ) : freeSlots.length === 0 ? (
                               <div
                                 className="text-center mt-4 text-red-500"
-                                style={{ width: "320px" }}
+                                style={{ maxWidth: "320px" }}
                               >
                                 Không còn slot trống nào trong ngày hôm nay cả.
                               </div>
@@ -210,7 +290,7 @@ const DoctorDetail = () => {
                                   <div
                                     key={item.slot}
                                     id={item.slot}
-                                    className={`item-slot text-center cursor-pointer ${
+                                    className={`item-slot text-center text-sm cursor-pointer ${
                                       selectedSlot === item.slot
                                         ? "selected-item-slot"
                                         : ""
@@ -224,16 +304,121 @@ const DoctorDetail = () => {
                             )}
                           </div>
 
-                          {/* <div className="mt-4">
-                            <h1 className="text-center text-lg">
-                              Chọn gói khám
-                            </h1>
-                          </div> */}
+                          {selectedSlot && (
+                            <div className="mt-4">
+                              <h1 className="text-center text-base">
+                                Chọn gói khám
+                              </h1>
+
+                              <div>
+                                <select
+                                  className="w-full mt-2 p-2 border"
+                                  onChange={handleSelectChange}
+                                >
+                                  <option value="">Chọn gói khám</option>
+                                  {LIST_SESSION.map((session) => (
+                                    <option key={session.id} value={session.id}>
+                                      {session.product_name}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+                              {selectedSession && (
+                                <div
+                                  className="mt-4"
+                                  style={{ maxWidth: "320px" }}
+                                >
+                                  <h2 className="font-semibold text-sm">
+                                    Chi tiết:
+                                  </h2>
+                                  <div className="ml-2">
+                                    <p className="text-sm">
+                                      Tên gói:{" "}
+                                      <span className="font-semibold">
+                                        {selectedSession.product_name}
+                                      </span>
+                                    </p>
+                                    <p className="text-sm">
+                                      Giá:{" "}
+                                      <span className="font-semibold">
+                                        {" "}
+                                        {selectedSession.price} VNĐ
+                                      </span>
+                                    </p>
+                                    <p className="text-sm">
+                                      Mô tả:{" "}
+                                      <span className="font-semibold">
+                                        {" "}
+                                        {selectedSession.description}
+                                      </span>
+                                    </p>
+                                    <p className="text-sm">
+                                      Số buổi:{" "}
+                                      <span className="font-semibold">
+                                        {" "}
+                                        {selectedSession.number_lesson}
+                                      </span>
+                                    </p>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          )}
+
+                          {selectedSession && (
+                            <div className="mt-4">
+                              <h1 className="text-center text-base">
+                                Chọn phương thức thanh toán
+                              </h1>
+
+                              <div className="flex justify-center gap-5 mt-3">
+                                <PaymentOption
+                                  src="https://play-lh.googleusercontent.com/dQbjuW6Jrwzavx7UCwvGzA_sleZe3-Km1KISpMLGVf1Be5N6hN6-tdKxE5RDQvOiGRg"
+                                  alt="MoMo"
+                                  paymentMethod={PaymentMethodEnum.MOMO}
+                                  selectedPaymentMethod={selectedPaymentMethod}
+                                  handlePaymentSelection={
+                                    handlePaymentSelection
+                                  }
+                                />
+
+                                <PaymentOption
+                                  src="https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/cong-ty-cp-giai-phap-thanh-toan-viet-nam-vnpay-6194ba1fa3d66.jpg"
+                                  alt="VNPay"
+                                  paymentMethod={PaymentMethodEnum.VNPAY}
+                                  selectedPaymentMethod={selectedPaymentMethod}
+                                  handlePaymentSelection={
+                                    handlePaymentSelection
+                                  }
+                                />
+
+                                <PaymentOption
+                                  src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png"
+                                  alt="Visa"
+                                  paymentMethod={PaymentMethodEnum.STRIPE}
+                                  selectedPaymentMethod={selectedPaymentMethod}
+                                  handlePaymentSelection={
+                                    handlePaymentSelection
+                                  }
+                                />
+
+                                <PaymentOption
+                                  src="https://static.vecteezy.com/system/resources/previews/035/692/634/non_2x/wallet-icon-design-template-simple-and-clean-vector.jpg"
+                                  alt="Wallet"
+                                  paymentMethod={PaymentMethodEnum.WALLET}
+                                  selectedPaymentMethod={selectedPaymentMethod}
+                                  handlePaymentSelection={
+                                    handlePaymentSelection
+                                  }
+                                />
+                              </div>
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
                   ) : (
-                    <div>
+                    <div id="doctor-info">
                       <h1 className="font-bold text-xl">1. Chuyên môn</h1>
                       <ul className="ml-10">
                         <li className="font-bold text-lg">
@@ -278,6 +463,20 @@ const DoctorDetail = () => {
                 <div
                   className="btn-scheduled mt-20 text-xl"
                   onClick={async () => {
+                    if (!selectedSlot) {
+                      toast.error("Vui lòng chọn slot khám!");
+                      return;
+                    }
+
+                    if (!selectedSession) {
+                      toast.error("Vui lòng chọn gói khám!");
+                      return;
+                    }
+                    if (!selectedPaymentMethod) {
+                      toast.error("Vui lòng chọn phương thức thanh toán!");
+                      return;
+                    }
+
                     confirm({
                       cancelText: "Quay lại",
                       okText: "Xác nhận",

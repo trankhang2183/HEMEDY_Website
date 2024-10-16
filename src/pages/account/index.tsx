@@ -22,6 +22,7 @@ import { RiCalendarCheckLine } from "react-icons/ri";
 import { useRouter } from "next/navigation";
 import { LIST_PRODUCT_SESSION, TIME_SLOT } from "@utils/constants";
 import moment from "moment";
+import ScrollToTopButton from "@components/scroll/ScrollToTopButton";
 
 const HomeLayoutNoSSR = dynamic(() => import("@layout/HomeLayout"), {
   ssr: false,
@@ -348,6 +349,7 @@ const AccountPage = () => {
               </div>
             </>
           )}
+          <ScrollToTopButton />
         </div>
       }
     />

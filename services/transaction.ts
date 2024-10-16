@@ -3,6 +3,8 @@ import {
   PayProductByMoMo,
   PayProductByStripe,
   PayProductByVnPay,
+  PayProductByWallet,
+  PayScheduledType,
   TransactionType,
 } from "@/types/transaction.type";
 import apiLinks from "@utils/api-links";
@@ -100,6 +102,66 @@ const addFundsByVnPay = async (
   return response.data;
 };
 
+const payProductByWallet = async (
+  token: string,
+  model: PayProductByWallet
+): Promise<any> => {
+  const response = await httpClient.post({
+    url: `${apiLinks.transaction.payProductByWallet}`,
+    token: token,
+    data: model,
+  });
+  return response.data;
+};
+
+const payScheduledByWallet = async (
+  token: string,
+  model: PayScheduledType
+): Promise<any> => {
+  const response = await httpClient.post({
+    url: `${apiLinks.transaction.payScheduledByWallet}`,
+    token: token,
+    data: model,
+  });
+  return response.data;
+};
+
+const payScheduledByVnPay = async (
+  token: string,
+  model: PayScheduledType
+): Promise<any> => {
+  const response = await httpClient.post({
+    url: `${apiLinks.transaction.payScheduledByVnPay}`,
+    token: token,
+    data: model,
+  });
+  return response.data;
+};
+
+const payScheduledByMoMo = async (
+  token: string,
+  model: PayScheduledType
+): Promise<any> => {
+  const response = await httpClient.post({
+    url: `${apiLinks.transaction.payScheduledByMoMo}`,
+    token: token,
+    data: model,
+  });
+  return response.data;
+};
+
+const payScheduledByStripe = async (
+  token: string,
+  model: PayScheduledType
+): Promise<any> => {
+  const response = await httpClient.post({
+    url: `${apiLinks.transaction.payScheduledByStripe}`,
+    token: token,
+    data: model,
+  });
+  return response.data;
+};
+
 const transaction = {
   getAllTransactionOfCustomer,
   getAllTransactionByAdmin,
@@ -109,6 +171,11 @@ const transaction = {
   addFundsByStripe,
   payProductByVnPay,
   addFundsByVnPay,
+  payProductByWallet,
+  payScheduledByStripe,
+  payScheduledByVnPay,
+  payScheduledByMoMo,
+  payScheduledByWallet,
 };
 
 export default transaction;

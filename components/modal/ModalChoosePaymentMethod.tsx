@@ -14,7 +14,7 @@ interface Props {
   handlePaymentByMoMo: () => void;
   handlePaymentByStripe: () => void;
   handlePaymentByVnPay: () => void;
-  handlePaymentByWallet?: () => void;
+  handlePaymentByWallet: () => void;
 }
 
 const ModalChoosePaymentMethod: React.FC<Props> = (props) => {
@@ -67,7 +67,7 @@ const ModalChoosePaymentMethod: React.FC<Props> = (props) => {
 
               case PaymentMethodEnum.WALLET:
                 if (paymentPurpose === TransactionTypeEnum.Pay) {
-                  // do something
+                  handlePaymentByWallet();
                 }
                 break;
 

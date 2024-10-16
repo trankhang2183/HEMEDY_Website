@@ -14,6 +14,7 @@ import {
   PayProductByMoMo,
   PayProductByStripe,
   PayProductByVnPay,
+  PayProductByWallet,
 } from "@/types/transaction.type";
 import { moneyStringToNumber } from "@utils/helpers";
 import { toast } from "react-toastify";
@@ -21,6 +22,8 @@ import SpinnerLoading from "@components/loading/SpinnerLoading";
 import { loadStripe } from "@stripe/stripe-js";
 import ModalChoosePaymentMethod from "@components/modal/ModalChoosePaymentMethod";
 import { TransactionTypeEnum } from "@utils/enum";
+import ScrollToTopButton from "@components/scroll/ScrollToTopButton";
+import { checkTheMoneyInWallet } from "@utils/global";
 
 const { confirm } = Modal;
 
@@ -38,6 +41,7 @@ const SessionPage: React.FC = () => {
     const dataBody: PayProductByMoMo = {
       amount: moneyStringToNumber(item.price),
       product_type: item.product_type,
+      name: item.product_name,
     };
 
     try {
@@ -78,7 +82,6 @@ const SessionPage: React.FC = () => {
         dataBody
       );
 
-      console.log("responseCreateLinkStripe: ", responseCreateLinkStripe);
       const redirectUrl = responseCreateLinkStripe;
 
       window.location.href = redirectUrl;
@@ -94,18 +97,19 @@ const SessionPage: React.FC = () => {
     const dataBody: PayProductByVnPay = {
       amount: moneyStringToNumber(item.price),
       product_type: item.product_type,
+      name: item.product_name,
     };
 
     try {
       setIsLoading(true);
       toast.success("Bạn sẽ được chuyển đến trang thanh toán trong chốc lát!");
 
-      const responseCreateLinkMoMo = await transaction.payProductByVnPay(
+      const responseCreateLinkVnPay = await transaction.payProductByVnPay(
         token?.user.access_token!,
         dataBody
       );
 
-      const redirectUrl = responseCreateLinkMoMo;
+      const redirectUrl = responseCreateLinkVnPay;
 
       window.location.href = redirectUrl;
     } catch (error) {
@@ -116,7 +120,38 @@ const SessionPage: React.FC = () => {
     }
   };
 
-  const handlePaymentByWallet = async () => {};
+  const handlePaymentByWallet = async (item: ProductSession) => {
+    const dataBody: PayProductByWallet = {
+      amount: moneyStringToNumber(item.price),
+      product_type: item.product_type,
+      name: item.product_name,
+    };
+
+    setIsLoading(true);
+
+    const checkWallet = await checkTheMoneyInWallet(dataBody.amount, token);
+
+    if (!checkWallet) {
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      const responseCreateByWallet = await transaction.payProductByWallet(
+        token?.user.access_token!,
+        dataBody
+      );
+
+      toast.success("Thanh toán thành công!");
+
+      console.log("responseCreateByWallet:", responseCreateByWallet);
+    } catch (error) {
+      toast.error("Có lỗi khi tạo thanh toán bằng ví cá nhân!");
+      console.error("Error fetching data: ", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const [isOpenModalChoosePaymentMethod, setIsOpenModalChoosePaymentMethod] =
     React.useState<boolean>(false);
@@ -216,6 +251,9 @@ const SessionPage: React.FC = () => {
                             handlePaymentByVnPay={() =>
                               handlePaymentByVnPay(item)
                             }
+                            handlePaymentByWallet={() =>
+                              handlePaymentByWallet(item)
+                            }
                           />
                         )}
                       </div>
@@ -226,6 +264,7 @@ const SessionPage: React.FC = () => {
             </div>
           </div>
           {isLoading && <SpinnerLoading />}
+          <ScrollToTopButton />
         </>
       }
     />

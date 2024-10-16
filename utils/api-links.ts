@@ -20,6 +20,11 @@ const apiLinks = {
     payProductByStripe: `${urlServerSide}/transaction/stripe/payProduct`,
     addFundsByVnPay: `${urlServerSide}/transaction/vnPay/addFunds`,
     payProductByVnPay: `${urlServerSide}/transaction/vnPay/payProduct`,
+    payProductByWallet: `${urlServerSide}/transaction/accountBalance/payProduct`,
+    payScheduledByWallet: `${urlServerSide}/transaction/accountBalance/paySchedule`,
+    payScheduledByVnPay: `${urlServerSide}/transaction/vnPay/paySchedule`,
+    payScheduledByMoMo: `${urlServerSide}/transaction/MoMo/paySchedule`,
+    payScheduledByStripe: `${urlServerSide}/transaction/stripe/paySchedule`,
   },
   scheduled: {
     getAllScheduledOfCustomer: `${urlServerSide}/doctor-schedules/customer`,

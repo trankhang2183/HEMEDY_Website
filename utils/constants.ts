@@ -122,79 +122,37 @@ export const TIME_SLOT: TimeSlot[] = [
 export const depressionResults = [
   {
     minScore: 0,
-    maxScore: 5,
-    result: "Không có triệu chứng",
+    maxScore: 14,
+    result: "Tuyệt vời, bạn hoàn toàn bình thường khỏe mạnh ",
     suggestion:
-      "Bạn không có dấu hiệu của trầm cảm. Hãy duy trì lối sống lành mạnh và chăm sóc sức khỏe tâm lý.",
+      "Nếu bạn bị stress nhẹ, bạn nên cải thiện các nguyên nhân dẫn đến stress của bạn và điều chỉnh lối sống lành mạnh hơn. Bạn có thể sử dụng các thực phẩm giảm stress, nến thơm hay các loại nước uống giảm stress. Ngoài ra, bạn có thể duy trì lối sống khoa học để giúp cơ thể khỏe mạnh và tinh thần luôn ở trạng thái tốt nhất. Bạn cũng có thể áp dụng các giải pháp giúp giải tỏa stress.",
   },
   {
-    minScore: 6,
-    maxScore: 10,
-    result: "Trầm cảm nhẹ",
+    minScore: 15,
+    maxScore: 18,
+    result: "Có vẻ bạn đang bị lo âu nhẹ.",
     suggestion:
-      "Bạn có một vài triệu chứng của trầm cảm. Nên theo dõi tâm trạng của mình và cân nhắc thay đổi lối sống lành mạnh hơn.",
+      "Nếu bạn bị stress nhẹ, bạn nên cải thiện các nguyên nhân dẫn đến stress của bạn và điều chỉnh lối sống lành mạnh hơn. Bạn có thể sử dụng các thực phẩm giảm stress, nến thơm hay các loại nước uống giảm stress. Ngoài ra, bạn có thể duy trì lối sống khoa học để giúp cơ thể khỏe mạnh và tinh thần luôn ở trạng thái tốt nhất. Bạn cũng có thể áp dụng các giải pháp giúp giải tỏa stress.",
   },
   {
-    minScore: 11,
-    maxScore: 15,
-    result: "Trầm cảm nhẹ",
-    suggestion:
-      "Triệu chứng của bạn đang ở mức nhẹ. Hãy tìm sự hỗ trợ từ người thân và cân nhắc trò chuyện với chuyên gia tâm lý nếu cần.",
-  },
-  {
-    minScore: 16,
-    maxScore: 20,
-    result: "Trầm cảm vừa",
-    suggestion:
-      "Bạn có các triệu chứng của trầm cảm mức vừa. Hãy tìm đến chuyên gia tâm lý để được tư vấn và hỗ trợ.",
-  },
-  {
-    minScore: 21,
+    minScore: 19,
     maxScore: 25,
-    result: "Trầm cảm vừa",
+    result: "Bạn stress ở mức độ trung bình.",
     suggestion:
-      "Triệu chứng của bạn có thể ảnh hưởng đến cuộc sống hằng ngày. Cần hỗ trợ từ chuyên gia và thực hiện các thay đổi tích cực trong cuộc sống.",
+      "Nếu bạn bị stress nhẹ, bạn nên cải thiện các nguyên nhân dẫn đến stress của bạn và điều chỉnh lối sống lành mạnh hơn. Bạn có thể sử dụng các thực phẩm giảm stress, nến thơm hay các loại nước uống giảm stress. Ngoài ra, bạn có thể duy trì lối sống khoa học để giúp cơ thể khỏe mạnh và tinh thần luôn ở trạng thái tốt nhất. Bạn cũng có thể áp dụng các giải pháp giúp giải tỏa stress.",
   },
   {
     minScore: 26,
-    maxScore: 30,
-    result: "Trầm cảm nặng",
+    maxScore: 33,
+    result: "Có khả năng bạn bị stress nặng.",
     suggestion:
-      "Bạn đang gặp trầm cảm mức độ nặng. Hãy liên hệ với chuyên gia y tế để được tư vấn và điều trị ngay lập tức.",
+      "Nếu bài kiểm tra trên cho thấy bạn đang bị stress nặng, bạn nên tìm kiếm sự giúp đỡ từ chuyên gia tâm lý. Lúc này, bạn sẽ gặp nhiều phiền toái do khó kiểm soát cảm xúc và không thể ngừng lo lắng về những áp lực trong cuộc sống. Khi có triệu chứng hãy liên hệ khám ngay với các bác sĩ hoặc chuyên gia tâm lý. Bệnh được điều trị càng sớm, các tác hại của bệnh càng được giảm thiểu. Tìm gặp một chuyên gia tâm lý sẽ giúp bạn giải tỏa stress và tránh các nguy cơ bị các rối loạn tâm thần.",
   },
   {
-    minScore: 31,
-    maxScore: 35,
-    result: "Trầm cảm nặng",
-    suggestion:
-      "Triệu chứng của bạn có thể ảnh hưởng nghiêm trọng đến sức khỏe. Nên cân nhắc các phương pháp điều trị chuyên sâu.",
-  },
-  {
-    minScore: 36,
-    maxScore: 40,
-    result: "Trầm cảm nghiêm trọng",
-    suggestion:
-      "Bạn đang có triệu chứng trầm cảm nghiêm trọng. Cần điều trị khẩn cấp từ chuyên gia y tế để bảo vệ sức khỏe tâm lý của mình.",
-  },
-  {
-    minScore: 41,
-    maxScore: 50,
-    result: "Trầm cảm nghiêm trọng",
-    suggestion:
-      "Tình trạng trầm cảm nghiêm trọng. Hãy tìm sự giúp đỡ từ các chuyên gia và người thân để hỗ trợ điều trị lâu dài.",
-  },
-  {
-    minScore: 51,
-    maxScore: 60,
-    result: "Trầm cảm cực kỳ nghiêm trọng",
-    suggestion:
-      "Bạn đang gặp trầm cảm ở mức rất nghiêm trọng. Cần được điều trị và hỗ trợ ngay lập tức để ngăn ngừa những hậu quả nghiêm trọng.",
-  },
-  {
-    minScore: 61,
+    minScore: 34,
     maxScore: 160,
-    result: "Trầm cảm cực kỳ nghiêm trọng",
+    result: "Bị stress rất nặng và cần gặp bác sĩ trong thời gian sớm nhất.",
     suggestion:
-      "Triệu chứng của bạn rất đáng lo ngại. Cần liên hệ với chuyên gia tâm lý và y tế ngay để được hỗ trợ điều trị.",
+      "Nếu bài kiểm tra trên cho thấy bạn đang bị stress nặng, bạn nên tìm kiếm sự giúp đỡ từ chuyên gia tâm lý. Lúc này, bạn sẽ gặp nhiều phiền toái do khó kiểm soát cảm xúc và không thể ngừng lo lắng về những áp lực trong cuộc sống. Khi có triệu chứng hãy liên hệ khám ngay với các bác sĩ hoặc chuyên gia tâm lý. Bệnh được điều trị càng sớm, các tác hại của bệnh càng được giảm thiểu. Tìm gặp một chuyên gia tâm lý sẽ giúp bạn giải tỏa stress và tránh các nguy cơ bị các rối loạn tâm thần.",
   },
 ];
