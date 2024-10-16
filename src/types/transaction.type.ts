@@ -35,4 +35,4 @@ export interface PayScheduledType extends PaymentDetailsBase {
   image?: string;
 }
 export interface AddFundsType
-  extends Omit<PaymentDetailsBase, "product_type"> {}
+  extends Omit<PaymentDetailsBase, "product_type" | "name"> {}
