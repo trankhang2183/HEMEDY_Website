@@ -114,7 +114,7 @@ const HeaderHomePage = () => {
                   loading="lazy"
                 />
 
-                <p className="name">{session.user.name}</p>
+                <p className="name text-center" style={{maxWidth: "150px"}}>{session.user.name}</p>
               </div>
               <BiLogOut
                 onClick={() => {

@@ -12,7 +12,7 @@ const apiLinks = {
     registerByCustomer: `${urlServerSide}/auth/signup`,
   },
   transaction: {
-    getAllTransaction: `${urlServerSide}/transaction/all-courses`,
+    getAllTransaction: `${urlServerSide}/transaction`,
     getAllTransactionByAdmin: `${urlServerSide}/transaction/admin`,
     addFundsByMoMo: `${urlServerSide}/transaction/MoMo/addFunds`,
     payProductByMoMo: `${urlServerSide}/transaction/MoMo/payProduct`,

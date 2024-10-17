@@ -57,6 +57,29 @@ export const LIST_SESSION: ProductSession[] = [
 
 export const LIST_PRODUCT_SESSION: ProductSession[] = [
   {
+    id: 1,
+    product_name: "Gói cơ bản",
+    description: "Phù hợp cho những ai cần hỗ trợ tâm lý cơ bản.",
+    product_type: ProductType.BasicMedicalExamination,
+    price: "400,000",
+    number_lesson: "3 buổi",
+    detail: ["3 buổi khám", "Tư vấn qua video", "Bảo mật thông tin"],
+  },
+  {
+    id: 2,
+    product_name: "Gói chuyên sâu",
+    description: "Dành cho những ai cần hỗ trợ tâm lý chuyên sâu và liên tục.",
+    product_type: ProductType.VipMedicalExamination,
+    price: "1,000,000",
+    number_lesson: "8 buổi",
+    detail: [
+      "8 buổi khám",
+      "Tư vấn qua video",
+      "Hỗ trợ khẩn cấp 24/7",
+      "Bảo mật thông tin",
+    ],
+  },
+  {
     id: 3,
     product_name: "Yoga",
     product_type: ProductType.YogaLesson,

@@ -23,6 +23,7 @@ import { useRouter } from "next/navigation";
 import { LIST_PRODUCT_SESSION, TIME_SLOT } from "@utils/constants";
 import moment from "moment";
 import ScrollToTopButton from "@components/scroll/ScrollToTopButton";
+import { ProductType } from "@utils/enum";
 
 const HomeLayoutNoSSR = dynamic(() => import("@layout/HomeLayout"), {
   ssr: false,
@@ -34,8 +35,8 @@ const AccountPage = () => {
   const router = useRouter();
 
   const [dataUser, setDataUser] = useState<UserType>();
-  const [transactionList, setTransactionList] = useState<TransactionType[]>();
-  const [scheduledList, setScheduledList] = useState<ScheduledType[]>();
+  const [transactionList, setTransactionList] = useState<TransactionType[]>([]);
+  const [scheduledList, setScheduledList] = useState<ScheduledType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const [transactionPage, setTransactionPage] = useState(1);
@@ -70,6 +71,8 @@ const AccountPage = () => {
 
           const [userResult, transactionResult, scheduledResult] =
             await Promise.all([userProfile, transactions, schedules]);
+
+          console.log("transactionResult:", transactionResult);
 
           const sortedTransactions = transactionResult.sort(
             (a, b) =>
@@ -222,6 +225,7 @@ const AccountPage = () => {
                           <th className="py-2 px-4">Mã đơn hàng</th>
                           <th className="py-2 px-4">Trạng thái thanh toán</th>
                           <th className="py-2 px-4">Hình thức thanh toán</th>
+                          <th className="py-2 px-4">Loại giao dịch</th>
                           <th className="py-2 px-4">Ngày mua</th>
                         </tr>
                       </thead>
@@ -230,15 +234,31 @@ const AccountPage = () => {
                           (transaction: TransactionType, index) => (
                             <tr key={index} className="border-b">
                               <td className="py-2 px-4">
-                                Khoá học{" "}
+                                {transaction.product_type ===
+                                  ProductType.BasicMedicalExamination ||
+                                transaction.product_type ===
+                                  ProductType.VipMedicalExamination
+                                  ? "Gói khám"
+                                  : "Khoá học"}{" "}
                                 {getProductName(transaction.product_type)}
                               </td>
-                              <td className="py-2 px-4">{transaction._id}</td>
                               <td className="py-2 px-4">
-                                {transaction.status}
+                                {transaction.transaction_code}
                               </td>
                               <td className="py-2 px-4">
-                                {transaction.payment_type}
+                                {transaction.status === "Success" ? "Thành Công" : "Thất bại"}
+                              </td>
+                              <td className="py-2 px-4">
+                                {transaction.payment_type === "AccountBalance"
+                                  ? "Ví cá nhân"
+                                  : transaction.payment_type === "Stripe"
+                                  ? "Visa"
+                                  : transaction.payment_type}
+                              </td>
+                              <td className="py-2 px-4">
+                                {transaction.transaction_type === "Scheduled"
+                                  ? "Đặt lịch khám"
+                                  : "Mua khóa học"}
                               </td>
                               <td className="py-2 px-4">
                                 {moment(transaction.createdAt).format(

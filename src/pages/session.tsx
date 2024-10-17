@@ -143,6 +143,7 @@ const SessionPage: React.FC = () => {
       );
 
       toast.success("Thanh toán thành công!");
+      router.push("/account");
 
       console.log("responseCreateByWallet:", responseCreateByWallet);
     } catch (error) {
