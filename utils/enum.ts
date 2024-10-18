@@ -29,6 +29,7 @@ export enum ProductVietNameseType {
 export enum TransactionTypeEnum {
   AddFunds = "AddFunds",
   Pay = "Pay",
+  Schedule = "Schedule",
 }
 
 export enum PaymentMethodEnum {

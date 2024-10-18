@@ -49,7 +49,11 @@ const columns = [
     key: "payment_type",
     width: "150px",
     render: (paymentType: string) => {
-      return paymentType === "Stripe" ? "Visa" : paymentType;
+      return paymentType === "Stripe"
+        ? "Visa"
+        : paymentType === "AccountBalance"
+        ? "Ví cá nhân"
+        : paymentType;
     },
   },
   {
@@ -90,7 +94,7 @@ const columns = [
 
 const Order = () => {
   const { data: session } = useSession();
-  
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [originalData, setOriginalData] = useState<TransactionType[]>([]);
   const [processingData, setProcessingData] = useState<TransactionType[]>([]);
@@ -118,13 +122,16 @@ const Order = () => {
           const filteredAndSortedData = (responseGetAllTransaction || [])
             .filter(
               (transaction: TransactionType) =>
-                transaction.transaction_type === TransactionTypeEnum.Pay
+                transaction.transaction_type === TransactionTypeEnum.Pay ||
+                transaction.transaction_type === TransactionTypeEnum.Schedule
             )
             .sort(
               (a: TransactionType, b: TransactionType) =>
                 new Date(b.createdAt!).getTime() -
                 new Date(a.createdAt!).getTime()
             );
+
+          console.log("filteredAndSortedData: ", filteredAndSortedData);
 
           setOriginalData(filteredAndSortedData);
           setProcessingData(filteredAndSortedData);
