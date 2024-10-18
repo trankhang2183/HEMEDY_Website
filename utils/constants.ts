@@ -1,4 +1,4 @@
-import { ProductSession } from "@/types/session.type";
+import { ProductSession, VideoListSession } from "@/types/session.type";
 import { ProductType } from "./enum";
 import { DoctorType } from "@/types/user.type";
 
@@ -123,6 +123,39 @@ export const LIST_PRODUCT_SESSION: ProductSession[] = [
       "https://bizweb.dktcdn.net/100/262/937/files/thuc-hanh-thien-vipassana-ket-hop-yoga.jpg?v=1676267248821",
     description:
       "Gói học kết hợp Yoga và Thiền, mang lại lợi ích toàn diện cho cơ thể và tinh thần.",
+  },
+];
+
+export const VIDEO_LIST_SESSION: VideoListSession[] = [
+  {
+    product_type: ProductType.YogaLesson,
+    total_duration: "",
+    list_video: [
+      {
+        link_video: "",
+        title: "",
+        duration: "",
+      },
+    ],
+    created_at: "",
+    language: "",
+    total_video: "",
+    description: "",
+  },
+  {
+    product_type: ProductType.MeditationLesson,
+    total_duration: "",
+    list_video: [
+      {
+        link_video: "",
+        title: "",
+        duration: "",
+      },
+    ],
+    created_at: "",
+    language: "",
+    total_video: "",
+    description: "",
   },
 ];
 

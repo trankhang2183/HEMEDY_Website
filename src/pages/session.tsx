@@ -21,7 +21,7 @@ import { toast } from "react-toastify";
 import SpinnerLoading from "@components/loading/SpinnerLoading";
 import { loadStripe } from "@stripe/stripe-js";
 import ModalChoosePaymentMethod from "@components/modal/ModalChoosePaymentMethod";
-import { TransactionTypeEnum } from "@utils/enum";
+import { ProductType, TransactionTypeEnum } from "@utils/enum";
 import ScrollToTopButton from "@components/scroll/ScrollToTopButton";
 import { checkTheMoneyInWallet } from "@utils/global";
 
@@ -188,78 +188,79 @@ const SessionPage: React.FC = () => {
                 </p>
 
                 <div className="list-suitable-session grid grid-cols-3 gap-6">
-                  {LIST_PRODUCT_SESSION.map(
-                    (item: ProductSession, index: number) => (
-                      <div
-                        key={index}
-                        className="item flex justify-center flex-col items-center"
-                      >
-                        <div className="w-4/5 h-5/6">
-                          <img
-                            src={item.image}
-                            alt={item.product_name}
-                            className="w-full h-full object-cover"
-                            loading="lazy"
-                          />
-                        </div>
-                        <h1 className="text-center text-3xl font-medium mb-3 mt-4">
-                          {item.product_name}
-                        </h1>
-                        <p
-                          style={{ color: "#fbf4e2" }}
-                          className="text-center text-5xl font-medium"
-                        >
-                          {item.price} VNĐ
-                        </p>
-                        <p
-                          style={{ color: "#fbf4e2" }}
-                          className="text-center mt-3 text-xl"
-                        >
-                          mỗi tháng
-                        </p>
-                        <div className="flex flex-col gap-4 mt-10">
-                          {item.detail.map((option, indexOption) => (
-                            <div
-                              className="option flex flex-row gap-4 items-center"
-                              key={indexOption}
-                            >
-                              <FaCheck style={{ color: "#95c082" }} />
-                              <p className="text-xl font-medium">{option}</p>
-                            </div>
-                          ))}
-                        </div>
-                        <div
-                          className="btn-register-session mt-12"
-                          onClick={() => handleCheckLoginBeforePayProduct()}
-                        >
-                          Đăng ký ngay
-                        </div>
-
-                        {isOpenModalChoosePaymentMethod && (
-                          <ModalChoosePaymentMethod
-                            open={isOpenModalChoosePaymentMethod}
-                            onClose={() =>
-                              setIsOpenModalChoosePaymentMethod(false)
-                            }
-                            paymentPurpose={TransactionTypeEnum.Pay}
-                            title={`Bạn có chắc muốn mua khóa học "${item?.product_name}" này?`}
-                            handlePaymentByMoMo={() =>
-                              handleRedirectToMoMo(item)
-                            }
-                            handlePaymentByStripe={() =>
-                              handleRedirectStripe(item)
-                            }
-                            handlePaymentByVnPay={() =>
-                              handlePaymentByVnPay(item)
-                            }
-                            handlePaymentByWallet={() =>
-                              handlePaymentByWallet(item)
-                            }
-                          />
-                        )}
+                  {LIST_PRODUCT_SESSION.filter(
+                    (item: ProductSession) =>
+                      item.product_type !==
+                        ProductType.BasicMedicalExamination &&
+                      item.product_type !== ProductType.VipMedicalExamination
+                  ).map((item: ProductSession, index: number) => (
+                    <div
+                      key={index}
+                      className="item flex justify-center flex-col items-center"
+                    >
+                      <div className="w-4/5 h-5/6">
+                        <img
+                          src={item.image}
+                          alt={item.product_name}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
                       </div>
-                    )
-                  )}
+                      <h1 className="text-center text-3xl font-medium mb-3 mt-4">
+                        {item.product_name}
+                      </h1>
+                      <p
+                        style={{ color: "#fbf4e2" }}
+                        className="text-center text-5xl font-medium"
+                      >
+                        {item.price} VNĐ
+                      </p>
+                      <p
+                        style={{ color: "#fbf4e2" }}
+                        className="text-center mt-3 text-xl"
+                      >
+                        mỗi tháng
+                      </p>
+                      <div className="flex flex-col gap-4 mt-10">
+                        {item.detail.map((option, indexOption) => (
+                          <div
+                            className="option flex flex-row gap-4 items-center"
+                            key={indexOption}
+                          >
+                            <FaCheck style={{ color: "#95c082" }} />
+                            <p className="text-xl font-medium">{option}</p>
+                          </div>
+                        ))}
+                      </div>
+                      <div
+                        className="btn-register-session mt-12"
+                        onClick={() => handleCheckLoginBeforePayProduct()}
+                      >
+                        Đăng ký ngay
+                      </div>
+
+                      {isOpenModalChoosePaymentMethod && (
+                        <ModalChoosePaymentMethod
+                          open={isOpenModalChoosePaymentMethod}
+                          onClose={() =>
+                            setIsOpenModalChoosePaymentMethod(false)
+                          }
+                          paymentPurpose={TransactionTypeEnum.Pay}
+                          title={`Bạn có chắc muốn mua khóa học "${item?.product_name}" này?`}
+                          handlePaymentByMoMo={() => handleRedirectToMoMo(item)}
+                          handlePaymentByStripe={() =>
+                            handleRedirectStripe(item)
+                          }
+                          handlePaymentByVnPay={() =>
+                            handlePaymentByVnPay(item)
+                          }
+                          handlePaymentByWallet={() =>
+                            handlePaymentByWallet(item)
+                          }
+                        />
+                      )}
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>

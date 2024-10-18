@@ -11,4 +11,18 @@ export interface ProductSession {
   image?: string;
 }
 
+export interface VideoListSession {
+  product_type: ProductType;
+  total_duration: string;
+  list_video: VideoItemSession[];
+  created_at: string;
+  language: string;
+  total_video: string;
+  description: string;
+}
 
+export interface VideoItemSession {
+  link_video: string;
+  title: string;
+  duration: string;
+}
