@@ -159,67 +159,67 @@ export const VIDEO_LIST_SESSION: VideoListSession[] = [
       },
       {
         link_video:
-          "https://www.youtube.com/watch?v=ubK5xWzl1bQ&list=PLHJP_ixQJqndlLEiogNpq0COykHTzEt7o&index=5",
+          "https://www.youtube.com/embed/ubK5xWzl1bQ?si=4NvJjctgi5LV-hxC",
         title: "Ngày 5 | YOGA SĂN CHẮC TOÀN THÂN",
         duration: "39 phút 42 giây",
       },
       {
         link_video:
-          "https://www.youtube.com/watch?v=8vSJtBtL95E&list=PLHJP_ixQJqndlLEiogNpq0COykHTzEt7o&index=6",
+          "https://www.youtube.com/embed/8vSJtBtL95E?si=xONqy24XqwtR7GuI",
         title: "Ngày 6 | YOGA TRỊ LIỆU ĐAU MỎI CỔ VAI GÁY",
         duration: "32 phút 22 giây",
       },
       {
         link_video:
-          "https://www.youtube.com/watch?v=7DmHGaiIE1c&list=PLHJP_ixQJqndlLEiogNpq0COykHTzEt7o&index=7",
+          "https://www.youtube.com/embed/7DmHGaiIE1c?si=yOG1OEcXPpqd9peQ",
         title: "Ngày 7 | YOGA CHO ĐÔI CHÂN CHẮC KHỎE",
         duration: "36 phút 19 giây",
       },
       {
         link_video:
-          "https://www.youtube.com/watch?v=LQfmq6lWa6Q&list=PLHJP_ixQJqndlLEiogNpq0COykHTzEt7o&index=8",
+          "https://www.youtube.com/embed/LQfmq6lWa6Q?si=glb_80Iyo8OWDh9Z",
         title: "Ngày 8 | CỘT SỐNG LINH HOẠT",
         duration: "33 phút 11 giây",
       },
       {
         link_video:
-          "https://www.youtube.com/watch?v=llqKJwFrYgA&list=PLHJP_ixQJqndlLEiogNpq0COykHTzEt7o&index=9",
+          "https://www.youtube.com/embed/llqKJwFrYgA?si=Z9szQ_NMDiojElLg",
         title: "Ngày 9 | YOGA CHO BẮP TAY THON GỌN",
         duration: "31 phút 14 giây",
       },
       {
         link_video:
-          "https://www.youtube.com/watch?v=MjoMh7Uyo1Q&list=PLHJP_ixQJqndlLEiogNpq0COykHTzEt7o&index=10",
+          "https://www.youtube.com/embed/MjoMh7Uyo1Q?si=8QAWf662m82Y4NO8",
         title: "Ngày 10 | YOGA THẢI ĐỘC CƠ THỂ",
         duration: "29 phút 49 giây",
       },
       {
         link_video:
-          "https://www.youtube.com/watch?v=lsY5MRGPGgM&list=PLHJP_ixQJqndlLEiogNpq0COykHTzEt7o&index=11",
+          "https://www.youtube.com/embed/lsY5MRGPGgM?si=GzPXi56hxMHt-aVD",
         title: "Ngày 11 | YOGA CHO BỤNG NHỎ EO THON",
         duration: "33 phút 52 giây",
       },
       {
         link_video:
-          "https://www.youtube.com/watch?v=R8vRNaqa8ng&list=PLHJP_ixQJqndlLEiogNpq0COykHTzEt7o&index=12",
+          "https://www.youtube.com/embed/R8vRNaqa8ng?si=lYXQpPWVX--uSTj0",
         title: "Ngày 12 | YOGA KÉO GIÃN ĐÔI CHÂN",
         duration: "32 phút 10 giây",
       },
       {
         link_video:
-          "https://www.youtube.com/watch?v=Pk35XuqB4AM&list=PLHJP_ixQJqndlLEiogNpq0COykHTzEt7o&index=13",
+          "https://www.youtube.com/embed/Pk35XuqB4AM?si=hvu_9ZvoX3C9pI6r",
         title: "NGÀY 13 | YOGA TỐT CHO HỆ TIM MẠCH",
         duration: "37 phút 52 giây",
       },
       {
         link_video:
-          "https://www.youtube.com/watch?v=qPyPAHB_A7s&list=PLHJP_ixQJqndlLEiogNpq0COykHTzEt7o&index=14",
+          "https://www.youtube.com/embed/qPyPAHB_A7s?si=UzH2-aUV-uFM-HkO",
         title: "NGÀY 14 | YOGA GIẢM CĂNG THẲNG STRESS",
         duration: "41 phút 09 giây",
       },
       {
         link_video:
-          "https://www.youtube.com/watch?v=OaUnfZo4Ib4&list=PLHJP_ixQJqndlLEiogNpq0COykHTzEt7o&index=15",
+          "https://www.youtube.com/embed/OaUnfZo4Ib4?si=s4jXvfY_dBazEOcZ",
         title: "NGÀY 15 | YOGA THĂNG BẰNG CHÂN",
         duration: "35 phút 07 giây",
       },

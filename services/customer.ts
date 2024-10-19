@@ -20,7 +20,10 @@ const getCustomerProfile = async (
 };
 
 const addProductToMyLesson = async (model: LessonType): Promise<any> => {
-  const lessonExists = await checkLessonExists(model.user_email, model.product_type);
+  const lessonExists = await checkLessonExists(
+    model.user_email,
+    model.product_type
+  );
 
   if (lessonExists) {
     throw new Error("Bạn đã mua khóa học này rồi");
@@ -30,7 +33,7 @@ const addProductToMyLesson = async (model: LessonType): Promise<any> => {
     url: `${apiLinks.lesson.addProductToMyLesson}`,
     data: model,
   });
-  
+
   return response.data;
 };
 
@@ -40,15 +43,17 @@ const checkLessonExists = async (
 ): Promise<boolean> => {
   const response = await httpClient.get({
     url: `${apiLinks.lesson.checkLessonExists}`,
-    params: { user_email },
   });
-  return response.data.some((lesson) => lesson.product_type === product_type);
+
+  return response.data.some(
+    (lesson) =>
+      lesson.user_email === user_email && lesson.product_type === product_type
+  );
 };
 
 const viewAllMyLesson = async (user_email: string): Promise<LessonType[]> => {
   const response = await httpClient.get({
     url: `${apiLinks.lesson.viewAllMyLesson}`,
-    params: { user_email },
   });
   return response.data.filter((lesson) => lesson.user_email === user_email);
 };
