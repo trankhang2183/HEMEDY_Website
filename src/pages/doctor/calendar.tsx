@@ -56,14 +56,14 @@ const Calendar = () => {
             session.user.access_token
           );
 
-          const filteredAndSortedData = (responseGetAllScheduled || []).sort(
-            (a: DoctorScheduledType, b: DoctorScheduledType) =>
-              new Date(b.createdAt!).getTime() -
-              new Date(a.createdAt!).getTime()
-          );
+          // const filteredAndSortedData = (responseGetAllScheduled || []).sort(
+          //   (a: DoctorScheduledType, b: DoctorScheduledType) =>
+          //     new Date(b.createdAt!).getTime() -
+          //     new Date(a.createdAt!).getTime()
+          // );
 
-          setOriginalData(filteredAndSortedData);
-          setProcessingData(filteredAndSortedData);
+          setOriginalData(responseGetAllScheduled);
+          setProcessingData(responseGetAllScheduled);
         } catch (error: any) {
           toast.error("Có lỗi khi tải dữ liệu");
           toast.error(error!.response?.data?.message);
