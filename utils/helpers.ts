@@ -136,6 +136,19 @@ export const getAccountStatusVietNamese = (status: boolean): string => {
   }
 };
 
+export const getScheduledStatus = (status: string): string => {
+  switch (status) {
+    case "Pending":
+      return "Đang chờ tới khám";
+    case "Completed":
+      return "Đã hoàn thành";
+    case "Canceled":
+      return "Đã hủy";
+    default:
+      return "Không xác định";
+  }
+};
+
 export const handleUploadToFirebase = async (file: File, folder: string) => {
   const storageRef = ref(storage, `${folder}/${file.name}`);
   const uploadTask = uploadBytesResumable(storageRef, file);

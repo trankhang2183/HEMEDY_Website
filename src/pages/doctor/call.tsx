@@ -6,7 +6,7 @@ const ManagerLayoutNoSSR = dynamic(() => import("@layout/ManagerLayout"), {
 });
 
 const Call = () => {
-  return <ManagerLayoutNoSSR content={<div>Call</div>} />;
+  return <ManagerLayoutNoSSR content={<div>Chưa hỗ trợ</div>} />;
 }
 
 export default Call

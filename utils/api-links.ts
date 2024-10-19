@@ -36,7 +36,9 @@ const apiLinks = {
   scheduled: {
     getAllScheduledOfCustomer: `${urlServerSide}/doctor-schedules/customer`,
     getAllSlotFreeOfDoctor: `${urlServerSide}/doctor-schedules/free-slots`,
+    getScheduledOfDoctor: `${urlServerSide}/doctor-schedules/doctor`,
     createScheduled: `${urlServerSide}/doctor-schedules`,
+    changeToCompleteScheduled: `${urlServerSide}/doctor-schedules/doctor/complete`,
   },
   musicPodcast: {
     getAllMusicPodCastList: `${urlServerSide}/podcasts`,

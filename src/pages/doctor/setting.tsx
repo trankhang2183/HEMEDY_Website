@@ -6,7 +6,7 @@ const ManagerLayoutNoSSR = dynamic(() => import("@layout/ManagerLayout"), {
 });
 
 const Setting = () => {
-  return <ManagerLayoutNoSSR content={<div>Setting</div>} />;
+  return <ManagerLayoutNoSSR content={<div>Chưa hỗ trợ</div>} />;
 };
 
 export default Setting;

@@ -6,7 +6,7 @@ const ManagerLayoutNoSSR = dynamic(() => import("@layout/ManagerLayout"), {
 });
 
 const Patient = () => {
-  return <ManagerLayoutNoSSR content={<div>Patient</div>} />;
+  return <ManagerLayoutNoSSR content={<div>Chưa hỗ trợ</div>} />;
 };
 
 export default Patient;

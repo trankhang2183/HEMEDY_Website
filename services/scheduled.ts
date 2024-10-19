@@ -24,6 +24,25 @@ const getAllSlotFreeOfDoctor = async (
   return response.data;
 };
 
+const getScheduledOfDoctor = async (token: string): Promise<any> => {
+  const response = await httpClient.get({
+    url: `${apiLinks.scheduled.getScheduledOfDoctor}`,
+    token: token,
+  });
+  return response.data;
+};
+
+const changeToCompleteScheduled = async (
+  token: string,
+  scheduledId: string
+): Promise<any> => {
+  const response = await httpClient.patch({
+    url: `${apiLinks.scheduled.changeToCompleteScheduled}/${scheduledId}`,
+    token: token,
+  });
+  return response.data;
+};
+
 const createScheduled = async (
   token: string,
   model: BodyCreateScheduledType
@@ -38,8 +57,10 @@ const createScheduled = async (
 
 const scheduled = {
   getAllScheduledOfCustomer,
+  getScheduledOfDoctor,
   getAllSlotFreeOfDoctor,
   createScheduled,
+  changeToCompleteScheduled,
 };
 
 export default scheduled;
