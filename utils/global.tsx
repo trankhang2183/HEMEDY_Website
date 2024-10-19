@@ -103,7 +103,7 @@ export const toastError = (error: any) => {
     const combinedMessage = messages.join("\n");
     toast.error(combinedMessage);
   } else {
-    toast.error(messages || "An error occurred");
+    toast.error(messages || error.message || "An error occurred");
   }
 };
 

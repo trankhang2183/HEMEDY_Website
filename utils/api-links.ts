@@ -1,6 +1,13 @@
 export const urlServerSide = "https://hemedy-server.onrender.com";
+export const urlMockup =
+  "https://67133a276c5f5ced6625b923.mockapi.io/my-lesson";
 
 const apiLinks = {
+  lesson: {
+    checkLessonExists: `${urlMockup}`,
+    addProductToMyLesson: `${urlMockup}`,
+    viewAllMyLesson: `${urlMockup}`,
+  },
   customer: {
     getProfile: `${urlServerSide}/users`,
     loginWithCustomerEmail: `${urlServerSide}/auth/signInForCustomer`,
@@ -79,8 +86,8 @@ const apiLinks = {
     getAnswerById: `${urlServerSide}/questions`,
   },
   statistics: {
-    countContent: `${urlServerSide}/admin`
-  }
+    countContent: `${urlServerSide}/admin`,
+  },
 };
 
 export default apiLinks;

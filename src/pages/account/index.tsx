@@ -19,11 +19,14 @@ import { toast } from "react-toastify";
 import { BiPlus } from "react-icons/bi";
 import { PiMoneyFill } from "react-icons/pi";
 import { RiCalendarCheckLine } from "react-icons/ri";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { LIST_PRODUCT_SESSION, TIME_SLOT } from "@utils/constants";
 import moment from "moment";
 import ScrollToTopButton from "@components/scroll/ScrollToTopButton";
 import { ProductType } from "@utils/enum";
+import { LessonType, ProductSession } from "@/types/session.type";
+import { MdOutlinePlayLesson } from "react-icons/md";
+import { FaCheck } from "react-icons/fa6";
 
 const HomeLayoutNoSSR = dynamic(() => import("@layout/HomeLayout"), {
   ssr: false,
@@ -35,6 +38,7 @@ const AccountPage = () => {
   const router = useRouter();
 
   const [dataUser, setDataUser] = useState<UserType>();
+  const [lessonList, setLessonList] = useState<LessonType[]>([]);
   const [transactionList, setTransactionList] = useState<TransactionType[]>([]);
   const [scheduledList, setScheduledList] = useState<ScheduledType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -49,6 +53,13 @@ const AccountPage = () => {
       (item) => item.product_type === productType
     );
     return product ? product.product_name : "Unknown";
+  };
+
+  const handleLearnLesson = (item: string) => {
+    router.push({
+      pathname: "/lesson",
+      query: { name: item },
+    });
   };
 
   useEffect(() => {
@@ -69,10 +80,9 @@ const AccountPage = () => {
             token.user.access_token
           );
 
-          const [userResult, transactionResult, scheduledResult] =
-            await Promise.all([userProfile, transactions, schedules]);
-
-          console.log("transactionResult:", transactionResult);
+          const lessons = customer.viewAllMyLesson(token.user.email);
+          const [userResult, transactionResult, scheduledResult, lessonResult] =
+            await Promise.all([userProfile, transactions, schedules, lessons]);
 
           const sortedTransactions = transactionResult.sort(
             (a, b) =>
@@ -87,6 +97,7 @@ const AccountPage = () => {
           setDataUser(userResult);
           setTransactionList(sortedTransactions);
           setScheduledList(sortedSchedules);
+          setLessonList(lessonResult);
         } catch (error) {
           toast.error("Có lỗi xảy ra khi tải dữ liệu cá nhân!");
           console.error("Error fetching data: ", error);
@@ -206,6 +217,60 @@ const AccountPage = () => {
                 </div>
               </div>
 
+              <div className="account-transactions mt-10 select-suitable-session">
+                <div className="title-section">
+                  <MdOutlinePlayLesson className="icon" />
+
+                  <h1 className="font-semibold">Khóa học của tôi</h1>
+                </div>
+                {lessonList?.length === 0 ? (
+                  <div className="no-data text-center mt-6 text-2xl">
+                    Bạn chưa có khóa học nào cả!
+                  </div>
+                ) : (
+                  <div
+                    className="list-suitable-session grid grid-cols-3 gap-6 mt-4"
+                    style={{ display: "gird" }}
+                  >
+                    {LIST_PRODUCT_SESSION.map(
+                      (item: ProductSession, index: number) => {
+                        const matchedLesson = lessonList.find(
+                          (lesson) => lesson.product_type === item.product_type
+                        );
+                        if (matchedLesson) {
+                          return (
+                            <div
+                              key={index}
+                              className="item flex justify-center flex-col items-center"
+                            >
+                              <div className="w-4/5 h-5/6">
+                                <img
+                                  src={item.image}
+                                  alt={item.product_name}
+                                  className="w-full h-full object-cover"
+                                  loading="lazy"
+                                />
+                              </div>
+                              <h1 className="text-center text-3xl font-medium mb-3 mt-4">
+                                {item.product_name}
+                              </h1>
+
+                              <div
+                                className="btn-register-session mt-7"
+                                onClick={() => handleLearnLesson(item.product_name)}
+                              >
+                                Học ngay
+                              </div>
+                            </div>
+                          );
+                        }
+                        return null;
+                      }
+                    )}
+                  </div>
+                )}
+              </div>
+
               <div className="account-transactions mt-10">
                 <div className="title-section">
                   <PiMoneyFill className="icon" />
@@ -246,7 +311,9 @@ const AccountPage = () => {
                                 {transaction.transaction_code}
                               </td>
                               <td className="py-2 px-4">
-                                {transaction.status === "Success" ? "Thành Công" : "Thất bại"}
+                                {transaction.status === "Success"
+                                  ? "Thành Công"
+                                  : "Thất bại"}
                               </td>
                               <td className="py-2 px-4">
                                 {transaction.payment_type === "AccountBalance"

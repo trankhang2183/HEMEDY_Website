@@ -232,3 +232,17 @@
     cursor: pointer;
   }
 }
+
+.lesson-container {
+  .left {
+  }
+
+  .ant-layout-sider {
+    max-height: 86vh;
+    overflow-y: scroll;
+    transition: 0.3s ease-in-out;
+    background-color: white !important;
+  }
+
+
+}

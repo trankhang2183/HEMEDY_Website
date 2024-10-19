@@ -23,7 +23,8 @@ import { loadStripe } from "@stripe/stripe-js";
 import ModalChoosePaymentMethod from "@components/modal/ModalChoosePaymentMethod";
 import { ProductType, TransactionTypeEnum } from "@utils/enum";
 import ScrollToTopButton from "@components/scroll/ScrollToTopButton";
-import { checkTheMoneyInWallet } from "@utils/global";
+import { checkTheMoneyInWallet, toastError } from "@utils/global";
+import customer from "@services/customer";
 
 const { confirm } = Modal;
 
@@ -36,6 +37,9 @@ const SessionPage: React.FC = () => {
   const { data: token } = useSession();
 
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedSession, setSelectedSession] = useState<ProductSession | null>(
+    null
+  );
 
   const handleRedirectToMoMo = async (item: ProductSession) => {
     const dataBody: PayProductByMoMo = {
@@ -46,7 +50,16 @@ const SessionPage: React.FC = () => {
 
     try {
       setIsLoading(true);
-      toast.success("Bạn sẽ được chuyển đến trang thanh toán trong chốc lát!");
+      const responseAddProduct = await customer.addProductToMyLesson({
+        product_type: item.product_type,
+        user_email: token?.user.email!,
+      });
+
+      if (responseAddProduct) {
+        toast.success(
+          "Bạn sẽ được chuyển đến trang thanh toán trong chốc lát!"
+        );
+      }
 
       const responseCreateLinkMoMo = await transaction.payProductByMoMo(
         token?.user.access_token!,
@@ -58,7 +71,7 @@ const SessionPage: React.FC = () => {
       window.location.href = redirectUrl;
     } catch (error) {
       toast.error("Có lỗi khi tạo thanh toán momo!");
-      console.error("Error fetching data: ", error);
+      toastError(error);
     } finally {
       setIsLoading(false);
     }
@@ -75,7 +88,16 @@ const SessionPage: React.FC = () => {
 
     try {
       setIsLoading(true);
-      toast.success("Bạn sẽ được chuyển đến trang thanh toán trong chốc lát!");
+      const responseAddProduct = await customer.addProductToMyLesson({
+        product_type: item.product_type,
+        user_email: token?.user.email!,
+      });
+
+      if (responseAddProduct) {
+        toast.success(
+          "Bạn sẽ được chuyển đến trang thanh toán trong chốc lát!"
+        );
+      }
 
       const responseCreateLinkStripe = await transaction.payProductByStripe(
         token?.user.access_token!,
@@ -87,7 +109,7 @@ const SessionPage: React.FC = () => {
       window.location.href = redirectUrl;
     } catch (error) {
       toast.error("Có lỗi khi tạo thanh toán visa!");
-      console.error("Error fetching data: ", error);
+      toastError(error);
     } finally {
       setIsLoading(false);
     }
@@ -102,7 +124,16 @@ const SessionPage: React.FC = () => {
 
     try {
       setIsLoading(true);
-      toast.success("Bạn sẽ được chuyển đến trang thanh toán trong chốc lát!");
+      const responseAddProduct = await customer.addProductToMyLesson({
+        product_type: item.product_type,
+        user_email: token?.user.email!,
+      });
+
+      if (responseAddProduct) {
+        toast.success(
+          "Bạn sẽ được chuyển đến trang thanh toán trong chốc lát!"
+        );
+      }
 
       const responseCreateLinkVnPay = await transaction.payProductByVnPay(
         token?.user.access_token!,
@@ -114,7 +145,7 @@ const SessionPage: React.FC = () => {
       window.location.href = redirectUrl;
     } catch (error) {
       toast.error("Có lỗi khi tạo thanh toán bằng vnpay!");
-      console.error("Error fetching data: ", error);
+      toastError(error);
     } finally {
       setIsLoading(false);
     }
@@ -137,6 +168,11 @@ const SessionPage: React.FC = () => {
     }
 
     try {
+      const responseAddProduct = await customer.addProductToMyLesson({
+        product_type: item.product_type,
+        user_email: token?.user.email!,
+      });
+
       const responseCreateByWallet = await transaction.payProductByWallet(
         token?.user.access_token!,
         dataBody
@@ -144,11 +180,10 @@ const SessionPage: React.FC = () => {
 
       toast.success("Thanh toán thành công!");
       router.push("/account");
-
-      console.log("responseCreateByWallet:", responseCreateByWallet);
     } catch (error) {
       toast.error("Có lỗi khi tạo thanh toán bằng ví cá nhân!");
-      console.error("Error fetching data: ", error);
+      console.log(error);
+      toastError(error);
     } finally {
       setIsLoading(false);
     }
@@ -157,10 +192,11 @@ const SessionPage: React.FC = () => {
   const [isOpenModalChoosePaymentMethod, setIsOpenModalChoosePaymentMethod] =
     React.useState<boolean>(false);
 
-  const handleCheckLoginBeforePayProduct = () => {
+  const handleCheckLoginBeforePayProduct = (item: ProductSession) => {
     if (!token?.user.access_token) {
       toast.error("Vui lòng đăng nhập trước khi đăng ký mua khóa học!");
     } else {
+      setSelectedSession(item);
       setIsOpenModalChoosePaymentMethod(true);
     }
   };
@@ -234,7 +270,7 @@ const SessionPage: React.FC = () => {
                       </div>
                       <div
                         className="btn-register-session mt-12"
-                        onClick={() => handleCheckLoginBeforePayProduct()}
+                        onClick={() => handleCheckLoginBeforePayProduct(item)}
                       >
                         Đăng ký ngay
                       </div>
@@ -246,16 +282,18 @@ const SessionPage: React.FC = () => {
                             setIsOpenModalChoosePaymentMethod(false)
                           }
                           paymentPurpose={TransactionTypeEnum.Pay}
-                          title={`Bạn có chắc muốn mua khóa học "${item?.product_name}" này?`}
-                          handlePaymentByMoMo={() => handleRedirectToMoMo(item)}
+                          title={`Bạn có chắc muốn mua khóa học "${selectedSession?.product_name}" này?`}
+                          handlePaymentByMoMo={() =>
+                            handleRedirectToMoMo(selectedSession!)
+                          }
                           handlePaymentByStripe={() =>
-                            handleRedirectStripe(item)
+                            handleRedirectStripe(selectedSession!)
                           }
                           handlePaymentByVnPay={() =>
-                            handlePaymentByVnPay(item)
+                            handlePaymentByVnPay(selectedSession!)
                           }
                           handlePaymentByWallet={() =>
-                            handlePaymentByWallet(item)
+                            handlePaymentByWallet(selectedSession!)
                           }
                         />
                       )}

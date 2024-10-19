@@ -12,6 +12,8 @@ export interface ProductSession {
 }
 
 export interface VideoListSession {
+  description_name: string;
+  product_name: string;
   product_type: ProductType;
   total_duration: string;
   list_video: VideoItemSession[];
@@ -25,4 +27,9 @@ export interface VideoItemSession {
   link_video: string;
   title: string;
   duration: string;
+}
+
+export interface LessonType {
+  product_type: string;
+  user_email: string;
 }
