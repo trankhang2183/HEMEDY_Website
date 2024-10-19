@@ -225,91 +225,91 @@ export const VIDEO_LIST_SESSION: VideoListSession[] = [
       },
       {
         link_video:
-          "https://www.youtube.com/watch?v=Jufj67KweNo&list=PLHJP_ixQJqndlLEiogNpq0COykHTzEt7o&index=16",
+          "https://www.youtube.com/embed/Jufj67KweNo?si=kcNa8CGb2J83OSAc",
         title: "NGÀY 16 | YOGA CĂNG GIÃN TOÀN THÂN",
         duration: "34 phút 55 giây",
       },
       {
         link_video:
-          "https://www.youtube.com/watch?v=YtfrotL9GEg&list=PLHJP_ixQJqndlLEiogNpq0COykHTzEt7o&index=17",
+          "https://www.youtube.com/embed/Jufj67KweNo?si=oohiNNc28tC03leD",
         title: "Ngày 17 | YOGA TĂNG CƯỜNG SỨC BỀN",
         duration: "36 phút 39 giây",
       },
       {
         link_video:
-          "https://www.youtube.com/watch?v=4MtgtesFN-s&list=PLHJP_ixQJqndlLEiogNpq0COykHTzEt7o&index=18",
+          "https://www.youtube.com/embed/4MtgtesFN-s?si=gIN0lHnZD8BlTtT3",
         title: "NGÀY 18 | YOGA XOẠC NGANG MỞ KHỚP HÁNG",
         duration: "39 phút 13 giây",
       },
       {
         link_video:
-          "https://www.youtube.com/watch?v=1ipF9KXXklY&list=PLHJP_ixQJqndlLEiogNpq0COykHTzEt7o&index=19",
+          "https://www.youtube.com/embed/1ipF9KXXklY?si=uIRoXt50X0zSjTPL",
         title: "NGÀY 19 | YOGA GIẢM MỠ TOÀN THÂN",
         duration: "46 phút 35 giây",
       },
       {
         link_video:
-          "https://www.youtube.com/watch?v=A_oF_IGinA4&list=PLHJP_ixQJqndlLEiogNpq0COykHTzEt7o&index=20",
+          "https://www.youtube.com/embed/A_oF_IGinA4?si=yfjSYO_zacLekK5X",
         title: "NGÀY 20 | YOGA LINH HOẠT VÀ NĂNG LƯỢNG",
         duration: "33 phút 43 giây",
       },
       {
         link_video:
-          "https://www.youtube.com/watch?v=Bi9pn1qtPpc&list=PLHJP_ixQJqndlLEiogNpq0COykHTzEt7o&index=21",
+          "https://www.youtube.com/embed/Bi9pn1qtPpc?si=DSJhSvrK-RgGcM31",
         title: "NGÀY 21 | YOGA GIẢM MỠ LƯNG BỤNG",
         duration: "35 phút 42 giây",
       },
       {
         link_video:
-          "https://www.youtube.com/watch?v=AgafI_Nv3Nk&list=PLHJP_ixQJqndlLEiogNpq0COykHTzEt7o&index=22",
+          "https://www.youtube.com/embed/AgafI_Nv3Nk?si=YsoU_VcMhBEHoMRk",
         title: "NGÀY 22 | YOGA KÉO GIÃN TOÀN THÂN",
         duration: "46 phút 00 giây",
       },
       {
         link_video:
-          "https://www.youtube.com/watch?v=8uisSKWaJsI&list=PLHJP_ixQJqndlLEiogNpq0COykHTzEt7o&index=23",
+          "https://www.youtube.com/embed/8uisSKWaJsI?si=AmV8T-v6vAENAxGE",
         title: "NGÀY 23 | YOGA CHO CƠ MÔNG ĐÙI ĐIÊU KHẮC VÒNG 3",
         duration: "38 phút 12 giây",
       },
       {
         link_video:
-          "https://www.youtube.com/watch?v=1_DutIxhfaY&list=PLHJP_ixQJqndlLEiogNpq0COykHTzEt7o&index=24",
+          "https://www.youtube.com/embed/1_DutIxhfaY?si=W_4LTDbVSJ1NRUnK",
         title: "NGÀY 24 | YOGA PHỤC HỒI ĐAU LƯNG CỰC HIỆU QUẢ",
         duration: "39 phút 47 giây",
       },
       {
         link_video:
-          "https://www.youtube.com/watch?v=gItdLceQ1MU&list=PLHJP_ixQJqndlLEiogNpq0COykHTzEt7o&index=25",
+          "https://www.youtube.com/embed/gItdLceQ1MU?si=HiskF3yp4jvQReni",
         title: "NGÀY 25 |YOGA CHO LƯNG CHẮC KHỎE TẠO RÃNH LƯNG",
         duration: "41 phút 00 giây",
       },
       {
         link_video:
-          "https://www.youtube.com/watch?v=bwmRJt1xbk4&list=PLHJP_ixQJqndlLEiogNpq0COykHTzEt7o&index=26",
+          "https://www.youtube.com/embed/bwmRJt1xbk4?si=XHSfKCGXtqROsA6f",
         title: "NGÀY 26 | YOGA MỞ KHỚP HÔNG",
         duration: "36 phút 23 giây",
       },
       {
         link_video:
-          "https://www.youtube.com/watch?v=thoXT5CYUzo&list=PLHJP_ixQJqndlLEiogNpq0COykHTzEt7o&index=27",
+          "https://www.youtube.com/embed/thoXT5CYUzo?si=6OBn6oE18-z7eCfi",
         title: "NGÀY 27 | YOGA THĂNG BẰNG TAY",
         duration: "34 phút 19 giây",
       },
       {
         link_video:
-          "https://www.youtube.com/watch?v=BrYzUmmscMw&list=PLHJP_ixQJqndlLEiogNpq0COykHTzEt7o&index=28",
+          "https://www.youtube.com/embed/BrYzUmmscMw?si=7Lj7p-y6nttfovyz",
         title: "NGÀY 28 | YOGA MỞ VAI VÀ LƯNG TRÊN",
         duration: "30 phút 35 giây",
       },
       {
         link_video:
-          "https://www.youtube.com/watch?v=7pZoR1Sy3Rw&list=PLHJP_ixQJqndlLEiogNpq0COykHTzEt7o&index=29",
+          "https://www.youtube.com/embed/7pZoR1Sy3Rw?si=eiUIcy1YpCFLIpQp",
         title: "NGÀY 29 | YOGA TỐT CHO TRÍ NÃO",
         duration: "35 phút 35 giây",
       },
       {
         link_video:
-          "https://www.youtube.com/watch?v=bL1n7PIbMOg&list=PLHJP_ixQJqndlLEiogNpq0COykHTzEt7o&index=30",
+          "https://www.youtube.com/embed/bL1n7PIbMOg?si=nh-R6kVbLwNXdcPx",
         title: "NGÀY 30 | YOGA CHO GIẤC NGỦ NGON",
         duration: "1 tiếng 00 phút 01 giây",
       },
@@ -349,25 +349,25 @@ Cho dù bạn chưa từng thử yoga trước đây hay đã có chút kinh ngh
       },
       {
         link_video:
-          "https://www.youtube.com/watch?v=5--BMxE70oI&list=PLNFJ4436BTfu4O8lbr0Kw7B1QS518fqJi&index=4",
+          "https://www.youtube.com/embed/5--BMxE70oI?si=fzM7XgmZuHgeebwv",
         title: "Bài 4 - Để tâm trí trở về với cơ thể",
         duration: "12 phút 03 giây",
       },
       {
         link_video:
-          "https://www.youtube.com/watch?v=Wu1OV_bvCV0&list=PLNFJ4436BTfu4O8lbr0Kw7B1QS518fqJi&index=5",
+          "https://www.youtube.com/embed/Wu1OV_bvCV0?si=PYVOEPgMg1KkELyr",
         title: "Bài 5 - Nuôi dưỡng sự tập trung",
         duration: "12 phút 03 giây",
       },
       {
         link_video:
-          "https://www.youtube.com/watch?v=a7MOYpJt3qg&list=PLNFJ4436BTfu4O8lbr0Kw7B1QS518fqJi&index=6",
+          "https://www.youtube.com/embed/a7MOYpJt3qg?si=VVxNpJhXtZbtZxRG",
         title: "Bài 6 - Làm bạn với suy nghĩ",
         duration: "12 phút 03 giây",
       },
       {
         link_video:
-          "https://www.youtube.com/watch?v=bPwo6RPUZAo&list=PLNFJ4436BTfu4O8lbr0Kw7B1QS518fqJi&index=7",
+          "https://www.youtube.com/embed/bPwo6RPUZAo?si=HdZt_km1MLTT64XV",
         title: "Bài 7 - Nuôi dưỡng thái độ tích cực",
         duration: "12 phút 02 giây",
       },
