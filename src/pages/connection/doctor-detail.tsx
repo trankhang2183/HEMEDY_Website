@@ -41,13 +41,15 @@ const DoctorDetail = () => {
   const [isScheduleMode, setIsScheduleMode] = useState(false);
   const [selectedDate, onChange] = useState<Value>(new Date());
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
-  const [freeSlots, setFreeSlots] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isLoadingCreate, setIsLoadingCreate] = useState<boolean>(false);
-
   const [selectedSession, setSelectedSession] = useState<ProductSession | null>(
     null
   );
+  const [selectedExaminationForm, setSelectedExaminationForm] = useState<
+    string | null
+  >(null);
+  const [freeSlots, setFreeSlots] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoadingCreate, setIsLoadingCreate] = useState<boolean>(false);
 
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<
     string | null
@@ -57,6 +59,12 @@ const DoctorDetail = () => {
     const selectedId = parseInt(e.target.value, 10);
     const session = LIST_SESSION.find((item) => item.id === selectedId);
     setSelectedSession(session || null);
+  };
+
+  const handleSelectExaminationForm = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setSelectedExaminationForm(e.target.value || null);
   };
 
   useEffect(() => {
@@ -133,7 +141,7 @@ const DoctorDetail = () => {
       name: selectedSession?.product_name!,
       product_type: selectedSession?.product_type!,
       image: selectedSession?.product_type!,
-      examination_form: "Online"
+      examination_form: selectedExaminationForm!,
     };
 
     try {
@@ -327,6 +335,7 @@ const DoctorDetail = () => {
                                   ))}
                                 </select>
                               </div>
+
                               {selectedSession && (
                                 <div
                                   className="mt-4"
@@ -363,16 +372,33 @@ const DoctorDetail = () => {
                                         {selectedSession.number_lesson}
                                       </span>
                                     </p>
-                                    <p className="text-sm">
-                                     Hình thức:{" "}
-                                      <span className="font-semibold">
-                                        {" "}
-                                        Online
-                                      </span>
-                                    </p>
                                   </div>
                                 </div>
                               )}
+                            </div>
+                          )}
+
+                          {selectedSession && (
+                            <div className="mt-4">
+                              <h1 className="text-center text-base">
+                                Chọn hình thức khám
+                              </h1>
+
+                              <div>
+                                <select
+                                  className="w-full mt-2 p-2 border"
+                                  onChange={handleSelectExaminationForm}
+                                >
+                                  <option value="">Chọn hình thức khám</option>
+
+                                  <option key={"online"} value={"Online"}>
+                                    Online
+                                  </option>
+                                  <option key={"offline"} value={"Offline"}>
+                                    Offline
+                                  </option>
+                                </select>
+                              </div>
                             </div>
                           )}
 
@@ -483,6 +509,11 @@ const DoctorDetail = () => {
                       toast.error("Vui lòng chọn gói khám!");
                       return;
                     }
+
+                    if(!selectedExaminationForm) {
+                      toast.error("Vui lòng chọn hình thức khám!")
+                    }
+
                     if (!selectedPaymentMethod) {
                       toast.error("Vui lòng chọn phương thức thanh toán!");
                       return;
