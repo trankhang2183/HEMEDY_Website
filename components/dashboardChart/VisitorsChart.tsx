@@ -1,4 +1,3 @@
-// components/VisitorsChart.js
 import { Line } from "react-chartjs-2";
 
 const VisitorsChart = () => {
@@ -77,17 +76,18 @@ const VisitorsChart = () => {
               },
               boxWidth: 12,
               padding: 15,
-              generateLabels: (chart) => {
-                const originalLabels = chart.data.datasets.map(
-                  (dataset, i) => ({
+              generateLabels: (chart: any) => {
+                const originalLabels = chart.data.datasets.map((dataset, i) => {
+                  return {
                     text: dataset.label,
-                    fillStyle: dataset.borderColor, // Set box background color to border color
+                    fillStyle: dataset.borderColor,
                     strokeStyle: dataset.borderColor,
                     lineWidth: 2,
                     hidden: !chart.isDatasetVisible(i),
                     datasetIndex: i,
-                  })
-                );
+                  };
+                });
+
                 return originalLabels;
               },
             },
