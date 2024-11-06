@@ -16,8 +16,11 @@ import PaymentOption from "@components/modal/PaymentOption";
 import { PaymentMethodEnum } from "@utils/enum";
 import { PayScheduledType } from "@/types/transaction.type";
 import transaction from "@services/transaction";
-import { checkTheMoneyInWallet, scrollToElement, toastError } from "@utils/global";
-import customer from "@services/customer";
+import {
+  checkTheMoneyInWallet,
+  scrollToElement,
+  toastError,
+} from "@utils/global";
 
 const { confirm } = Modal;
 
@@ -130,6 +133,7 @@ const DoctorDetail = () => {
       name: selectedSession?.product_name!,
       product_type: selectedSession?.product_type!,
       image: selectedSession?.product_type!,
+      examination_form: "Online"
     };
 
     try {
@@ -204,7 +208,7 @@ const DoctorDetail = () => {
     if (!token?.user.access_token) {
       toast.error("Vui lòng đăng nhập trước khi đặt lịch khám!");
     } else {
-      scrollToElement("selected-date-scheduled")
+      scrollToElement("selected-date-scheduled");
       setIsScheduleMode(true);
     }
   };
@@ -357,6 +361,13 @@ const DoctorDetail = () => {
                                       <span className="font-semibold">
                                         {" "}
                                         {selectedSession.number_lesson}
+                                      </span>
+                                    </p>
+                                    <p className="text-sm">
+                                     Hình thức:{" "}
+                                      <span className="font-semibold">
+                                        {" "}
+                                        Online
                                       </span>
                                     </p>
                                   </div>

@@ -19,45 +19,6 @@ const getCustomerProfile = async (
   return response.data;
 };
 
-const addProductToMyLesson = async (model: LessonType): Promise<any> => {
-  const lessonExists = await checkLessonExists(
-    model.user_email,
-    model.product_type
-  );
-
-  if (lessonExists) {
-    throw new Error("Bạn đã mua khóa học này rồi");
-  }
-
-  const response = await httpClient.post({
-    url: `${apiLinks.lesson.addProductToMyLesson}`,
-    data: model,
-  });
-
-  return response.data;
-};
-
-const checkLessonExists = async (
-  user_email: string,
-  product_type: string
-): Promise<boolean> => {
-  const response = await httpClient.get({
-    url: `${apiLinks.lesson.checkLessonExists}`,
-  });
-
-  return response.data.some(
-    (lesson) =>
-      lesson.user_email === user_email && lesson.product_type === product_type
-  );
-};
-
-const viewAllMyLesson = async (user_email: string): Promise<LessonType[]> => {
-  const response = await httpClient.get({
-    url: `${apiLinks.lesson.viewAllMyLesson}`,
-  });
-  return response.data.filter((lesson) => lesson.user_email === user_email);
-};
-
 const getAllDoctorByGuest = async (): Promise<ResponseGetAllDoctorType> => {
   const response = await httpClient.get({
     url: `${apiLinks.customer.getAllDoctorByGuest}`,
@@ -140,9 +101,6 @@ const registerByCustomer = async (
 };
 
 const customer = {
-  addProductToMyLesson,
-  checkLessonExists,
-  viewAllMyLesson,
   getCustomerProfile,
   loginWithCustomerEmail,
   loginWithGoogle,

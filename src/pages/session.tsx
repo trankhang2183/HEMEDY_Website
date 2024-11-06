@@ -2,9 +2,7 @@
 import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import { Modal } from "antd";
-import HomeLayout from "@layout/HomeLayout";
 import { useRouter } from "next/router";
-import Image from "next/image";
 import { LIST_PRODUCT_SESSION } from "@utils/constants";
 import { ProductSession } from "@/types/session.type";
 import { FaCheck } from "react-icons/fa";
@@ -19,12 +17,10 @@ import {
 import { moneyStringToNumber } from "@utils/helpers";
 import { toast } from "react-toastify";
 import SpinnerLoading from "@components/loading/SpinnerLoading";
-import { loadStripe } from "@stripe/stripe-js";
 import ModalChoosePaymentMethod from "@components/modal/ModalChoosePaymentMethod";
 import { ProductType, TransactionTypeEnum } from "@utils/enum";
 import ScrollToTopButton from "@components/scroll/ScrollToTopButton";
 import { checkTheMoneyInWallet, toastError } from "@utils/global";
-import customer from "@services/customer";
 
 const { confirm } = Modal;
 
@@ -50,16 +46,6 @@ const SessionPage: React.FC = () => {
 
     try {
       setIsLoading(true);
-      const responseAddProduct = await customer.addProductToMyLesson({
-        product_type: item.product_type,
-        user_email: token?.user.email!,
-      });
-
-      if (responseAddProduct) {
-        toast.success(
-          "Bạn sẽ được chuyển đến trang thanh toán trong chốc lát!"
-        );
-      }
 
       const responseCreateLinkMoMo = await transaction.payProductByMoMo(
         token?.user.access_token!,
@@ -88,16 +74,7 @@ const SessionPage: React.FC = () => {
 
     try {
       setIsLoading(true);
-      const responseAddProduct = await customer.addProductToMyLesson({
-        product_type: item.product_type,
-        user_email: token?.user.email!,
-      });
 
-      if (responseAddProduct) {
-        toast.success(
-          "Bạn sẽ được chuyển đến trang thanh toán trong chốc lát!"
-        );
-      }
 
       const responseCreateLinkStripe = await transaction.payProductByStripe(
         token?.user.access_token!,
@@ -124,16 +101,6 @@ const SessionPage: React.FC = () => {
 
     try {
       setIsLoading(true);
-      const responseAddProduct = await customer.addProductToMyLesson({
-        product_type: item.product_type,
-        user_email: token?.user.email!,
-      });
-
-      if (responseAddProduct) {
-        toast.success(
-          "Bạn sẽ được chuyển đến trang thanh toán trong chốc lát!"
-        );
-      }
 
       const responseCreateLinkVnPay = await transaction.payProductByVnPay(
         token?.user.access_token!,
@@ -168,11 +135,6 @@ const SessionPage: React.FC = () => {
     }
 
     try {
-      const responseAddProduct = await customer.addProductToMyLesson({
-        product_type: item.product_type,
-        user_email: token?.user.email!,
-      });
-
       const responseCreateByWallet = await transaction.payProductByWallet(
         token?.user.access_token!,
         dataBody

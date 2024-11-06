@@ -9,6 +9,9 @@ export interface ScheduledType {
   status: string;
   createdAt: string;
   updatedAt: string;
+  examination_form: string;
+  max_examination_session: number;
+  examined_session: number;
 }
 
 export interface DoctorScheduledType {

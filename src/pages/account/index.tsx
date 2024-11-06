@@ -26,7 +26,9 @@ import ScrollToTopButton from "@components/scroll/ScrollToTopButton";
 import { ProductType } from "@utils/enum";
 import { LessonType, ProductSession } from "@/types/session.type";
 import { MdOutlinePlayLesson } from "react-icons/md";
-import { FaCheck } from "react-icons/fa6";
+import { CoursesType } from "@/types/courses.type";
+import course from "@services/courses";
+import { toastError } from "@utils/global";
 
 const HomeLayoutNoSSR = dynamic(() => import("@layout/HomeLayout"), {
   ssr: false,
@@ -38,9 +40,9 @@ const AccountPage = () => {
   const router = useRouter();
 
   const [dataUser, setDataUser] = useState<UserType>();
-  const [lessonList, setLessonList] = useState<LessonType[]>([]);
   const [transactionList, setTransactionList] = useState<TransactionType[]>([]);
   const [scheduledList, setScheduledList] = useState<ScheduledType[]>([]);
+  const [coursesList, setCoursesList] = useState<CoursesType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const [transactionPage, setTransactionPage] = useState(1);
@@ -80,9 +82,21 @@ const AccountPage = () => {
             token.user.access_token
           );
 
-          const lessons = customer.viewAllMyLesson(token.user.email);
-          const [userResult, transactionResult, scheduledResult, lessonResult] =
-            await Promise.all([userProfile, transactions, schedules, lessons]);
+          const courses = course.getAllCoursesList(token.user.access_token);
+
+          const [
+            userResult,
+            transactionResult,
+            scheduledResult,
+            coursesResult,
+          ] = await Promise.all([
+            userProfile,
+            transactions,
+            schedules,
+            courses,
+          ]);
+
+          console.log("scheduledResult: ", scheduledResult);
 
           const sortedTransactions = transactionResult.sort(
             (a, b) =>
@@ -93,13 +107,13 @@ const AccountPage = () => {
             (a, b) =>
               new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
           );
-
           setDataUser(userResult);
           setTransactionList(sortedTransactions);
           setScheduledList(sortedSchedules);
-          setLessonList(lessonResult);
+          setCoursesList(coursesResult);
         } catch (error) {
           toast.error("Có lỗi xảy ra khi tải dữ liệu cá nhân!");
+          toastError(error);
           console.error("Error fetching data: ", error);
         } finally {
           setIsLoading(false);
@@ -223,9 +237,9 @@ const AccountPage = () => {
 
                   <h1 className="font-semibold">Khóa học của tôi</h1>
                 </div>
-                {lessonList?.length === 0 ? (
+                {coursesList?.length === 0 ? (
                   <div className="no-data text-center mt-6 text-2xl">
-                    Bạn chưa có khóa học nào cả!
+                    Bạn chưa mua khóa học nào cả!
                   </div>
                 ) : (
                   <div
@@ -234,7 +248,7 @@ const AccountPage = () => {
                   >
                     {LIST_PRODUCT_SESSION.map(
                       (item: ProductSession, index: number) => {
-                        const matchedLesson = lessonList.find(
+                        const matchedLesson = coursesList.find(
                           (lesson) => lesson.product_type === item.product_type
                         );
                         if (matchedLesson) {
@@ -257,7 +271,9 @@ const AccountPage = () => {
 
                               <div
                                 className="btn-register-session mt-7"
-                                onClick={() => handleLearnLesson(item.product_name)}
+                                onClick={() =>
+                                  handleLearnLesson(item.product_name)
+                                }
                               >
                                 Học ngay
                               </div>
@@ -415,8 +431,21 @@ const AccountPage = () => {
                               Trạng thái:{" "}
                               <span className="font-normal">
                                 {scheduled.status === "Pending"
-                                  ? "Chờ tới khám"
+                                  ? "Chờ khám"
                                   : "Đã khám"}
+                              </span>
+                            </p>
+                            <p className="font-semibold text-xl">
+                              Hình thức:{" "}
+                              <span className="font-normal">
+                                {scheduled?.examination_form}
+                              </span>
+                            </p>
+                            <p className="font-semibold text-xl">
+                              Số buổi khám:{" "}
+                              <span className="font-normal">
+                                {scheduled.examined_session} /{" "}
+                                {scheduled.max_examination_session}
                               </span>
                             </p>
                           </div>

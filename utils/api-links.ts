@@ -3,11 +3,6 @@ export const urlMockup =
   "https://67133a276c5f5ced6625b923.mockapi.io/my-lesson";
 
 const apiLinks = {
-  lesson: {
-    checkLessonExists: `${urlMockup}`,
-    addProductToMyLesson: `${urlMockup}`,
-    viewAllMyLesson: `${urlMockup}`,
-  },
   customer: {
     getProfile: `${urlServerSide}/users`,
     loginWithCustomerEmail: `${urlServerSide}/auth/signInForCustomer`,
@@ -89,6 +84,16 @@ const apiLinks = {
   },
   statistics: {
     countContent: `${urlServerSide}/admin`,
+  },
+  course: {
+    getCoursesById: `${urlServerSide}/courses`,
+    getAllCourses: `${urlServerSide}/courses`,
+    createCourses: `${urlServerSide}/courses`,
+  },
+  notifications: {
+    getAllNotification: `${urlServerSide}/notifications`,
+    markAllNotifications: `${urlServerSide}/notifications/read-all`,
+    markOneNotification: `${urlServerSide}/notifications/read`,
   },
 };
 

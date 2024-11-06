@@ -17,6 +17,7 @@ interface PaymentDetailsBase {
   amount: number;
   product_type: string;
   name: string;
+  examination_form?: string;
 }
 export interface PayProductByStripe extends PaymentDetailsBase {
   image: string;
