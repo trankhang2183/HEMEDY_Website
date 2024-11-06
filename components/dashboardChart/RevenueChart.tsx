@@ -31,7 +31,7 @@ const RevenueChart = () => {
         plugins: {
           title: {
             display: true,
-            text: "Tổng doanh thu",
+            text: "Doanh thu trong tuần",
             color: "#333", // Title color
             align: "start",
             font: {

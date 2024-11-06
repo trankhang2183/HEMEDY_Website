@@ -15,7 +15,7 @@ const GoalsChart = () => {
         borderRadius: 4,
       },
       {
-        label: "Target", // Target Revenue
+        label: "Mục tiêu", // Target Revenue
         data: [4000, 4500, 5000, 6000, 6500, 7000, 8000],
         backgroundColor: "#fece03",
         borderRadius: 4,
@@ -55,7 +55,7 @@ const GoalsChart = () => {
       },
       {
         icon: <PiChartLineDuotone color="#fece03" />,
-        title: "Doanh thu thực",
+        title: "Mục tiêu",
         type: "Commercial",
         text: thisMonthTotal,
         color: "#fece03",

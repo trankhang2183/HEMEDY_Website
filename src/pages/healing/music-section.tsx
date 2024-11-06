@@ -97,9 +97,7 @@ const MusicSection: React.FC<Props> = (props) => {
                   >
                     Những bài hát mới
                   </h1>
-                  <div
-                    className="field-name mt-7 mb-5 flex flex-row justify-between"
-                  >
+                  <div className="field-name mt-7 mb-5 flex flex-row justify-between">
                     <p className="font-semibold text-xl">Tên bài hát</p>
                     <p className="font-semibold text-xl">Thời lượng</p>
                   </div>

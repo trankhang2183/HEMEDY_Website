@@ -17,7 +17,6 @@ const createMusicPodcast = async (
   token: string,
   model: CreateMusicPodcastType
 ): Promise<MusicPodcastType> => {
-
   const response = await httpClient.post({
     url: `${apiLinks.musicPodcast.addNewMusicPodcast}`,
     token: token,
@@ -50,7 +49,17 @@ const deleteMusicPodcast = async (
   return response.data;
 };
 
+const updateListenQuantity = async (
+  podcastId: string
+): Promise<UpdateMusicPodcastType> => {
+  const response = await httpClient.put({
+    url: `${apiLinks.musicPodcast.updateListenQuantity}/listen-quantity/${podcastId}`,
+  });
+  return response.data;
+};
+
 const musicPodcast = {
+  updateListenQuantity,
   getAllMusicPodCastList,
   createMusicPodcast,
   deleteMusicPodcast,

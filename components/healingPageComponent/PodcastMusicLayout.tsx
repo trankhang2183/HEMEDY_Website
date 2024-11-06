@@ -5,6 +5,7 @@ import { AiOutlineSound } from "react-icons/ai";
 import { useRouter } from "next/router";
 import { MusicPodcastType } from "@/types/music-podcast.type";
 import { scrollToElement } from "@utils/global";
+import musicPodcast from "@services/music-podcast";
 
 interface Props {
   list_podcast_music: MusicPodcastType[];
@@ -54,11 +55,14 @@ const PodcastMusicLayout: React.FC<Props> = (props) => {
     }
   }, [audio]);
 
-  const playAudio = (index: number) => {
+  const playAudio = async (index: number) => {
     if (audio) {
       audio.pause();
     }
     const newAudio = new Audio(list_podcast_music[index].audio_link);
+
+    await handleUpdateQuantityListen(list_podcast_music[index]._id!);
+
     newAudio.play();
     setAudio(newAudio);
     setCurrentIndex(index);
@@ -97,6 +101,16 @@ const PodcastMusicLayout: React.FC<Props> = (props) => {
         (currentIndex - 1 + list_podcast_music.length) %
         list_podcast_music.length;
       playAudio(prevIndex);
+    }
+  };
+
+  const handleUpdateQuantityListen = async (id: string) => {
+    try {
+      const updateQuantityList = await musicPodcast.updateListenQuantity(id);
+      console.log("updateQuantityList: ", updateQuantityList);
+    } catch (error: any) {
+      console.error("Có lỗi cập nhập listen quantity:", error);
+    } finally {
     }
   };
 

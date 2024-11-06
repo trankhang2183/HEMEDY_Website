@@ -41,6 +41,7 @@ const apiLinks = {
     deleteMusicPodcast: `${urlServerSide}/podcasts`,
     getMusicPodcast: `${urlServerSide}/podcasts`,
     addNewMusicPodcast: `${urlServerSide}/podcasts`,
+    updateListenQuantity: `${urlServerSide}/podcasts`,
   },
   blog: {
     getAllBlogList: `${urlServerSide}/blogs`,

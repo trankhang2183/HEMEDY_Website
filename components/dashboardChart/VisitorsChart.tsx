@@ -18,7 +18,7 @@ const VisitorsChart = () => {
     ],
     datasets: [
       {
-        label: "Loyal Customers",
+        label: "Regular Customers",
         data: [190, 300, 100],
         borderColor: "#b233f5",
         backgroundColor: "#b233f5",
