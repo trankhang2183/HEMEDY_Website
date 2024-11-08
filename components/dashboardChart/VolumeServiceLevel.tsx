@@ -2,7 +2,11 @@
 import { Chart } from "chart.js";
 import { Bar } from "react-chartjs-2";
 
-const VolumeServiceLevel = () => {
+interface Props {
+  
+}
+
+const VolumeServiceLevel: React.FC<Props> = (props) => {
   const data = {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
     datasets: [

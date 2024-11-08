@@ -1,36 +1,39 @@
 // components/TopServices.js
 
+import { DataSaleType } from "@models/statistic";
 import { AiOutlineBarChart, AiFillTag } from "react-icons/ai";
 import { BsFillPersonPlusFill } from "react-icons/bs";
 import { PiExport } from "react-icons/pi";
 
-const TodaySalesSummary = () => {
+interface Props {
+  dataSale: DataSaleType;
+}
+
+const TodaySalesSummary: React.FC<Props> = (props) => {
+  const { dataSale } = props;
   const summaryData = [
     {
       icon: <AiOutlineBarChart size={24} color="white" />,
       iconBackGroundColor: "#fb597e",
-      value: "$570",
+      value: `${dataSale.income.totalIncomeToday.toLocaleString()} VNĐ`,
       label: "Tổng doanh số",
-      scale: 1.2,
-      scaleType: "+",
+      scale: dataSale.income.differencePercent,
       backGroundColor: "#ffe2e6",
     },
     {
       icon: <AiFillTag size={24} color="white" />,
       iconBackGroundColor: "#3cd856",
-      value: "5",
+      value: dataSale.courses.totalCoursesToday.toString(),
       label: "Khoá học đã bán",
-      scale: 1.5,
-      scaleType: "+",
+      scale: dataSale.courses.differencePercent,
       backGroundColor: "#dcfce7",
     },
     {
       icon: <BsFillPersonPlusFill size={24} color="white" />,
       iconBackGroundColor: "#bf84ff",
-      value: "5",
+      value: dataSale.newUsers.totalNewUsersToday.toString(),
       label: "Khách hàng mới",
-      scale: 1.5,
-      scaleType: "+",
+      scale: dataSale.newUsers.differencePercent,
       backGroundColor: "#f4e8fe",
     },
   ];
@@ -50,10 +53,7 @@ const TodaySalesSummary = () => {
         </div>
         <div className="summary_card_value">{item.value}</div>
         <div className="summary_card_label">{item.label}</div>
-        <div className="summary_card_scale">
-          {item.scaleType}
-          {item.scale}% so với hôm qua
-        </div>
+        <div className="summary_card_scale">{item.scale}% so với hôm qua</div>
       </div>
     );
   };

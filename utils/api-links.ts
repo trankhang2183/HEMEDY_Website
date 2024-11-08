@@ -1,3 +1,4 @@
+
 export const urlServerSide = "https://hemedy-server.onrender.com";
 export const urlMockup =
   "https://67133a276c5f5ced6625b923.mockapi.io/my-lesson";
@@ -85,6 +86,10 @@ const apiLinks = {
   },
   statistics: {
     countContent: `${urlServerSide}/admin`,
+    dateSale: `${urlServerSide}/admin/statistic-date-sales`,
+    topServices: `${urlServerSide}/admin/statistic-top-services`,
+    revenueMonthly: `${urlServerSide}/admin/statistic-revenue-monthly`,
+    revenueCurrentWeek: `${urlServerSide}/admin/statistic-revenue-current-week`,
   },
   course: {
     getCoursesById: `${urlServerSide}/courses`,

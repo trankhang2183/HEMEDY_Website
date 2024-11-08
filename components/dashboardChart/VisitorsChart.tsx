@@ -1,6 +1,8 @@
 import { Line } from "react-chartjs-2";
 
-const VisitorsChart = () => {
+interface Props {}
+
+const VisitorsChart: React.FC<Props> = (props) => {
   const data = {
     labels: [
       // "Jan",

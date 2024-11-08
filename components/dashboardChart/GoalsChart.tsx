@@ -3,35 +3,36 @@ import React from "react";
 import { Bar } from "react-chartjs-2";
 import { TbMoneybag } from "react-icons/tb";
 import { PiChartLineDuotone } from "react-icons/pi";
+import { formatNumberWithCommas } from "@utils/helpers";
 
-const GoalsChart = () => {
+interface Props {
+  revenueMonthly: number[];
+}
+
+const GoalsChart: React.FC<Props> = (props) => {
+  const { revenueMonthly } = props;
+
+  const targetMultiplier = 1.2;
+
+  const targetMonthly = revenueMonthly.map((revenue) => Math.round(revenue * targetMultiplier));
+
   const data = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+    // labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+    labels: ["Sep", "Oct", "Nov", "Dec"],
     datasets: [
       {
-        label: "Doanh thu thực", // Actual Revenue
-        data: [3000, 4000, 3500, 4500, 5000, 5500, 6000],
+        label: "Doanh thu thực",
+        data: revenueMonthly,
         backgroundColor: "#49b58c",
         borderRadius: 4,
       },
       {
-        label: "Mục tiêu", // Target Revenue
-        data: [4000, 4500, 5000, 6000, 6500, 7000, 8000],
+        label: "Mục tiêu",
+        data: targetMonthly,
         backgroundColor: "#fece03",
         borderRadius: 4,
       },
     ],
-  };
-
-  const formatPrice = (price: number) => {
-    const numberString = String(price);
-    const numberArray = numberString.split("");
-    const dotPosition = numberArray.length % 3 || 3;
-    for (let i = dotPosition; i < numberArray.length; i += 4) {
-      numberArray.splice(i, 0, ".");
-    }
-    const formattedNumber = numberArray.join("");
-    return formattedNumber;
   };
 
   const lastMonthTotal = data.datasets[0].data.reduce(
@@ -43,7 +44,6 @@ const GoalsChart = () => {
     0
   );
 
-  // Custom legend component
   const CustomLegend = () => {
     const legends = [
       {
@@ -117,7 +117,7 @@ const GoalsChart = () => {
                 fontWeight: "bold",
               }}
             >
-              {formatPrice(legend.text)}$
+              {formatNumberWithCommas(legend.text)} VNĐ
             </span>
           </div>
         ))}
@@ -146,7 +146,7 @@ const GoalsChart = () => {
                 },
               },
               legend: {
-                display: false, // Hide default legend to use custom legend
+                display: false, 
               },
             },
             scales: {
@@ -172,7 +172,7 @@ const GoalsChart = () => {
           }}
         />
       </div>
-      <CustomLegend /> {/* Render custom legend below the chart */}
+      <CustomLegend /> 
     </>
   );
 };

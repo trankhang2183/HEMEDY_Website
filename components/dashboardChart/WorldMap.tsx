@@ -6,9 +6,7 @@ const WorldMap = () => {
   const [tooltip, setTooltip] = useState<string | null>(null);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
   const countryColors = {
-    China: "#FFCCCB",
     Vietnam: "#ADD8E6",
-    Brazil: "#90EE90",
   };
 
   const handleMouseEnter = (event: React.MouseEvent, countryName: string) => {

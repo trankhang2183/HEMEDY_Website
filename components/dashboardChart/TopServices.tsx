@@ -1,11 +1,12 @@
+import { TopServicesType } from "@models/statistic";
+
 // components/TopServices.js
-const TopServices = () => {
-  const data = [
-    { name: "Khóa học online", popularity: 45, color: "#1299fa" },
-    { name: "Khóa học offline", popularity: 29, color: "#26dfa0" },
-    { name: "Gọi điện tư vấn", popularity: 18, color: "#8554e6" },
-    { name: "Đặt lịch tư vấn", popularity: 25, color: "#fe8f0e" },
-  ];
+interface Props {
+  topServices: TopServicesType[];
+}
+
+const TopServices: React.FC<Props> = (props) => {
+  const { topServices } = props;
 
   return (
     <>
@@ -22,7 +23,7 @@ const TopServices = () => {
           </tr>
         </thead>
         <tbody>
-          {data.map((item, index) => (
+          {topServices.map((item, index) => (
             <tr key={index}>
               <td className="summary_table_text">{index + 1}</td>
               <td className="summary_table_text">{item.name}</td>
