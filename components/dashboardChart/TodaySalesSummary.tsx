@@ -6,6 +6,7 @@ import { Spin } from "antd";
 import { AiOutlineBarChart, AiFillTag } from "react-icons/ai";
 import { BsFillPersonPlusFill } from "react-icons/bs";
 import { PiExport } from "react-icons/pi";
+import { formatToTwoDecimalPlaces } from "../../utils/helpers";
 
 interface Props {
   statisticSale: DataSaleType;
@@ -27,7 +28,7 @@ const TodaySalesSummary: React.FC<Props> = (props) => {
       iconBackGroundColor: "#fb597e",
       value: `${statisticSale?.income.totalIncomeCurrent.toLocaleString()} VNĐ`,
       label: "Tổng doanh số",
-      scale: statisticSale?.income.differencePercent,
+      scale: formatToTwoDecimalPlaces(statisticSale?.income.differencePercent),
       backGroundColor: "#ffe2e6",
     },
     {
@@ -35,7 +36,7 @@ const TodaySalesSummary: React.FC<Props> = (props) => {
       iconBackGroundColor: "#3cd856",
       value: statisticSale?.courses.totalCoursesCurrent.toString(),
       label: "Khoá học đã bán",
-      scale: statisticSale?.courses.differencePercent,
+      scale: formatToTwoDecimalPlaces(statisticSale?.courses.differencePercent),
       backGroundColor: "#dcfce7",
     },
     {
@@ -43,7 +44,9 @@ const TodaySalesSummary: React.FC<Props> = (props) => {
       iconBackGroundColor: "#bf84ff",
       value: statisticSale?.newUsers.totalNewUsersCurrent.toString(),
       label: "Khách hàng mới",
-      scale: statisticSale?.newUsers.differencePercent,
+      scale: formatToTwoDecimalPlaces(
+        statisticSale?.newUsers.differencePercent
+      ),
       backGroundColor: "#f4e8fe",
     },
   ];

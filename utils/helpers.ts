@@ -156,3 +156,6 @@ export const handleUploadToFirebase = async (file: File, folder: string) => {
   return await getDownloadURL(storageRef);
 };
 
+export const formatToTwoDecimalPlaces = (num: number) => {
+  return Number.isInteger(num) ? num.toString() : num.toFixed(2);
+};
