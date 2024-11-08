@@ -1,16 +1,26 @@
 // components/TopServices.js
 
 import { DataSaleType } from "@models/statistic";
+import { handleActionNotSupport } from "@utils/global";
+import { Spin } from "antd";
 import { AiOutlineBarChart, AiFillTag } from "react-icons/ai";
 import { BsFillPersonPlusFill } from "react-icons/bs";
 import { PiExport } from "react-icons/pi";
 
 interface Props {
   statisticSale: DataSaleType;
+  selectedSearchDateSale: string;
+  setSelectedSearchDateSale: (value: string) => void;
+  isLoadingDateSale: boolean;
 }
 
 const TodaySalesSummary: React.FC<Props> = (props) => {
-  const { statisticSale } = props;
+  const {
+    statisticSale,
+    selectedSearchDateSale,
+    setSelectedSearchDateSale,
+    isLoadingDateSale,
+  } = props;
   const summaryData = [
     {
       icon: <AiOutlineBarChart size={24} color="white" />,
@@ -38,6 +48,10 @@ const TodaySalesSummary: React.FC<Props> = (props) => {
     },
   ];
 
+  const handleDateChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedSearchDateSale(event.target.value);
+  };
+
   const renderCard = (item: any, key: any) => {
     return (
       <div
@@ -61,16 +75,39 @@ const TodaySalesSummary: React.FC<Props> = (props) => {
   return (
     <>
       <div className="summary_header">
-        <p>Doanh số hôm nay</p>
-        <button>
+        <select
+          className="cursor-pointer"
+          value={selectedSearchDateSale}
+          onChange={handleDateChange}
+          style={{ fontSize: "20px", fontWeight: "bold", color: "#004c4c" }}
+        >
+          <option value="today" className="cursor-pointer">
+            Doanh số hôm nay
+          </option>
+          <option value="week" className="cursor-pointer">
+            Doanh số tuần này
+          </option>
+          <option value="month" className="cursor-pointer">
+            Doanh số tháng này
+          </option>
+          <option value="year" className="cursor-pointer">
+            Doanh số năm nay
+          </option>
+        </select>
+
+        <button onClick={handleActionNotSupport}>
           {" "}
           <PiExport />
           Xuất
         </button>
       </div>
-      <div className="summary_item_container">
-        {summaryData.map((item, key) => renderCard(item, key))}
-      </div>
+      {isLoadingDateSale ? (
+        <Spin />
+      ) : (
+        <div className="summary_item_container">
+          {summaryData.map((item, key) => renderCard(item, key))}
+        </div>
+      )}
     </>
   );
 };

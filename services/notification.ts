@@ -13,7 +13,7 @@ const markOneNotification = async (
   token: string,
   notiId: string
 ): Promise<any> => {
-  const response = await httpClient.get({
+  const response = await httpClient.patch({
     url: `${apiLinks.notifications.markOneNotification}/${notiId}`,
     token: token,
   });
@@ -21,7 +21,7 @@ const markOneNotification = async (
 };
 
 const markAllNotifications = async (token: string): Promise<any> => {
-  const response = await httpClient.get({
+  const response = await httpClient.patch({
     url: `${apiLinks.notifications.markAllNotifications}`,
     token: token,
   });

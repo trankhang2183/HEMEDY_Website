@@ -35,7 +35,28 @@ const HeaderManagePage = () => {
 
   const seenAllNotifications = async () => {};
 
-  const seenNotification = async (id: number) => {};
+  const seenNotification = async (id: string) => {
+    if (session?.user.access_token) {
+      try {
+        const responseGetNotifications = await notification.markOneNotification(
+          session?.user.access_token,
+          id
+        );
+
+        setNotifications((prevNotifications) =>
+          prevNotifications.map((noti) =>
+            noti._id === id ? { ...noti, is_new: false } : noti
+          )
+        );
+
+        setNewNotifyCount((prevCount) => (prevCount > 0 ? prevCount - 1 : 0));
+      } catch (error: any) {
+        toastError(error);
+        console.error("Có lỗi:", error);
+      } finally {
+      }
+    }
+  };
 
   useEffect(() => {
     if (session?.user?.roles) {
@@ -55,6 +76,7 @@ const HeaderManagePage = () => {
             "responseGetNotifications: ",
             responseGetNotifications[1]
           );
+          console.log(responseGetNotifications[0])
           setNewNotifyCount(responseGetNotifications[0]);
           setNotifications(responseGetNotifications[1]);
         } catch (error: any) {
@@ -172,28 +194,31 @@ const HeaderManagePage = () => {
                       <div
                         key={index}
                         className={`h-fit flex px-4 py-3 hover:bg-gray-100 hover:cursor-pointer
-                  ${!noti.seen && "bg-blue-100"} `}
+                  ${noti.is_new && "bg-blue-100"} `}
                         onClick={() => {
-                          seenNotification(noti.id);
+                          seenNotification(noti._id);
                         }}
                       >
                         <div className="w-full pl-2">
                           <div className="text-gray-500 text-sm mb-1.5">
                             <span className="font-semibold text-gray-900">
-                              {`${noti.title} `}
+                              {`${noti?.notification_type?.replace(
+                                /_/g,
+                                " "
+                              )} `}
                             </span>
                           </div>
                           <div className="text-gray-500 text-sm mb-1.5">
-                            <span className="text-gray-900">{`${noti.body} `}</span>
+                            <span className="text-gray-900">{`${noti.information} `}</span>
                           </div>
                           <div
                             className={`text-xs ${
-                              noti.seen ? "text-gray-600" : "text-blue-600"
+                              !noti.is_new ? "text-gray-600" : "text-blue-600"
                             } `}
                           >
-                            {moment(noti.dateCreated).hour() > 1
-                              ? moment(noti.dateCreated).fromNow()
-                              : moment(noti.dateCreated)
+                            {moment(noti.createdAt).hour() > 1
+                              ? moment(noti.createdAt).fromNow()
+                              : moment(noti.createdAt)
                                   .locale("en")
                                   .format("MMM DD HH:mm")}
                           </div>
@@ -203,11 +228,11 @@ const HeaderManagePage = () => {
                             <FaDotCircle
                               onClick={
                                 () => {
-                                  !noti.seen && seenNotification(noti.id!);
+                                  noti.is_new && seenNotification(noti.id!);
                                 }
-                                // !noti.seen && seenNotification(noti.id!)
+                                // !noti.is_new && seenNotification(noti.id!)
                               }
-                              color={` ${noti.seen ? "gray" : "#01a0e9"}`}
+                              color={` ${!noti.is_new ? "gray" : "#01a0e9"}`}
                             />
                           </div>
                         </div>

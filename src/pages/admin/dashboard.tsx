@@ -36,8 +36,8 @@ const Dashboard = () => {
     useState<string>("today");
   const [revenueCurrentWeek, setRevenueCurrentWeek] = useState<RevenueWeekType>(
     {
-      dayOfWeekRevenuePayProduct: [0, 0, 0, 0, 0, 0, 0], 
-      dayOfWeekRevenuePaySchedule: [0, 0, 0, 0, 0, 0, 0], 
+      dayOfWeekRevenuePayProduct: [0, 0, 0, 0, 0, 0, 0],
+      dayOfWeekRevenuePaySchedule: [0, 0, 0, 0, 0, 0, 0],
     }
   );
   const [revenueMonthly, setRevenueMonthly] = useState<number[]>([]);
@@ -48,16 +48,35 @@ const Dashboard = () => {
     survey: [0, 0, 0, 0],
   });
   const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingDateSale, setIsLoadingDateSale] = useState<boolean>(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (token?.user.access_token) {
+        try {
+          setIsLoadingDateSale(true);
+          const statisticSales = await statistics.getStatisticSale(
+            token.user.access_token,
+            selectedSearchDateSale
+          );
+
+          setDataSale(statisticSales);
+        } catch (error) {
+          toastError(error);
+          console.error("Error fetching data: ", error);
+        } finally {
+          setIsLoadingDateSale(false);
+        }
+      }
+    };
+    fetchData();
+  }, [token?.user.access_token, selectedSearchDateSale]);
 
   useEffect(() => {
     const fetchData = async () => {
       if (token?.user.access_token) {
         try {
           setIsLoading(true);
-          const statisticSales = statistics.getStatisticSale(
-            token.user.access_token,
-            selectedSearchDateSale
-          );
 
           const revenueCurrentWeeks = statistics.getRevenueCurrentWeek(
             token.user.access_token
@@ -76,20 +95,17 @@ const Dashboard = () => {
           );
 
           const [
-            statisticSaleResult,
             revenueCurrentWeekResult,
             revenueMonthlyResult,
             topServicesResult,
             domainDataResult,
           ] = await Promise.all([
-            statisticSales,
             revenueCurrentWeeks,
             revenueMonthlys,
             topServicesDatas,
             domainDatas,
           ]);
 
-          setDataSale(statisticSaleResult);
           setRevenueCurrentWeek(revenueCurrentWeekResult);
           setRevenueMonthly(revenueMonthlyResult);
           setTopServices(topServicesResult);
@@ -118,7 +134,12 @@ const Dashboard = () => {
           ) : (
             <>
               <div className="today_sales_summary dashboard_boxshadow">
-                <TodaySalesSummary statisticSale={statisticSale!} />
+                <TodaySalesSummary
+                  statisticSale={statisticSale!}
+                  setSelectedSearchDateSale={setSelectedSearchDateSale}
+                  selectedSearchDateSale={selectedSearchDateSale}
+                  isLoadingDateSale={isLoadingDateSale}
+                />
               </div>
               <div className="visitors_Chart dashboard_boxshadow">
                 <VisitorsChart domainData={domainData!} />
