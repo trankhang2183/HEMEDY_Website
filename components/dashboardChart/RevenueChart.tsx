@@ -1,24 +1,26 @@
 // components/RevenueChart.js
+import { RevenueWeekType } from "@models/statistic";
 import { Bar } from "react-chartjs-2";
 
 interface Props {
-  revenueCurrentWeek: number[];
+  revenueCurrentWeek: RevenueWeekType;
 }
 
 const RevenueChart: React.FC<Props> = (props) => {
+  const {revenueCurrentWeek} = props
   const data = {
     labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
     datasets: [
       {
         label: "Khoá học",
-        data: [30, 50, 70, 90, 50, 40, 60],
+        data: revenueCurrentWeek.dayOfWeekRevenuePayProduct,
         backgroundColor: "#0096fe",
         maxBarThickness: 15,
         borderRadius: 4,
       },
       {
         label: "Đặt lịch",
-        data: [20, 40, 60, 80, 40, 30, 50],
+        data: revenueCurrentWeek.dayOfWeekRevenuePaySchedule,
         backgroundColor: "#00e097",
         maxBarThickness: 15,
         borderRadius: 4,

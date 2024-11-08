@@ -16,7 +16,12 @@ import statistics from "@services/statistics";
 import { toast } from "react-toastify";
 import { toastError } from "@utils/global";
 import { Spin } from "antd";
-import { DataSaleType, TopServicesType } from "@models/statistic";
+import {
+  DataSaleType,
+  DomainType,
+  RevenueWeekType,
+  TopServicesType,
+} from "@models/statistic";
 ChartJS.register(...registerables);
 
 const ManagerLayoutNoSSR = dynamic(() => import("@layout/ManagerLayout"), {
@@ -26,10 +31,22 @@ const ManagerLayoutNoSSR = dynamic(() => import("@layout/ManagerLayout"), {
 const Dashboard = () => {
   const { data: token } = useSession();
 
-  const [dataSale, setDataSale] = useState<DataSaleType | null>(null);
-  const [revenueCurrentWeek, setRevenueCurrentWeek] = useState<number[]>([]);
+  const [statisticSale, setDataSale] = useState<DataSaleType | null>(null);
+  const [selectedSearchDateSale, setSelectedSearchDateSale] =
+    useState<string>("today");
+  const [revenueCurrentWeek, setRevenueCurrentWeek] = useState<RevenueWeekType>(
+    {
+      dayOfWeekRevenuePayProduct: [0, 0, 0, 0, 0, 0, 0], 
+      dayOfWeekRevenuePaySchedule: [0, 0, 0, 0, 0, 0, 0], 
+    }
+  );
   const [revenueMonthly, setRevenueMonthly] = useState<number[]>([]);
   const [topServices, setTopServices] = useState<TopServicesType[]>([]);
+  const [domainData, setDomainData] = useState<DomainType>({
+    visit: [0, 0, 0, 0],
+    podcast: [0, 0, 0, 0],
+    survey: [0, 0, 0, 0],
+  });
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -37,7 +54,10 @@ const Dashboard = () => {
       if (token?.user.access_token) {
         try {
           setIsLoading(true);
-          const dataSale = statistics.getDateSale(token.user.access_token);
+          const statisticSales = statistics.getStatisticSale(
+            token.user.access_token,
+            selectedSearchDateSale
+          );
 
           const revenueCurrentWeeks = statistics.getRevenueCurrentWeek(
             token.user.access_token
@@ -51,22 +71,29 @@ const Dashboard = () => {
             token.user.access_token
           );
 
+          const domainDatas = statistics.getDomainMonthly(
+            token.user.access_token
+          );
+
           const [
-            dataSalesResult,
+            statisticSaleResult,
             revenueCurrentWeekResult,
             revenueMonthlyResult,
             topServicesResult,
+            domainDataResult,
           ] = await Promise.all([
-            dataSale,
+            statisticSales,
             revenueCurrentWeeks,
             revenueMonthlys,
             topServicesDatas,
+            domainDatas,
           ]);
 
-          setDataSale(dataSalesResult);
+          setDataSale(statisticSaleResult);
           setRevenueCurrentWeek(revenueCurrentWeekResult);
           setRevenueMonthly(revenueMonthlyResult);
           setTopServices(topServicesResult);
+          setDomainData(domainDataResult);
         } catch (error) {
           toast.error("Có lỗi xảy ra khi tải dữ liệu cá nhân!");
           toastError(error);
@@ -91,10 +118,10 @@ const Dashboard = () => {
           ) : (
             <>
               <div className="today_sales_summary dashboard_boxshadow">
-                <TodaySalesSummary dataSale={dataSale!} />
+                <TodaySalesSummary statisticSale={statisticSale!} />
               </div>
               <div className="visitors_Chart dashboard_boxshadow">
-                <VisitorsChart />
+                <VisitorsChart domainData={domainData!} />
               </div>
 
               <div className="revenue_chart dashboard_boxshadow">
@@ -113,7 +140,7 @@ const Dashboard = () => {
                 <WorldMap />
               </div>
               <div className="volume_service_level dashboard_boxshadow">
-                <VolumeServiceLevel />
+                <VolumeServiceLevel domainData={domainData!} />
               </div>
             </>
           )}

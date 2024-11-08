@@ -1,24 +1,28 @@
 // components/VolumeServiceLevel.js
+import { DomainType } from "@models/statistic";
 import { Chart } from "chart.js";
 import { Bar } from "react-chartjs-2";
 
 interface Props {
-  
+  domainData: DomainType;
 }
 
 const VolumeServiceLevel: React.FC<Props> = (props) => {
+  const { domainData } = props;
+
   const data = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+    // labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+    labels: ["Sep", "Oct", "Nov"],
     datasets: [
       {
-        label: "Volume",
-        data: [1000, 1100, 1200, 1300, 1400, 1500, 1600],
+        label: "Listen",
+        data: domainData.podcast,
         backgroundColor: "#0195fe",
         barThickness: 15,
       },
       {
-        label: "Services",
-        data: [600, 700, 800, 900, 1000, 1100, 1200],
+        label: "Survey",
+        data: domainData.survey,
         backgroundColor: "#03de97",
         barThickness: 15,
         borderRadius: 4,
@@ -44,7 +48,7 @@ const VolumeServiceLevel: React.FC<Props> = (props) => {
         plugins: {
           title: {
             display: true,
-            text: "Volume vs Services Level",
+            text: "Number of Listen and Survey",
             color: "#333",
             align: "start",
             font: {

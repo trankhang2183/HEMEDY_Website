@@ -6,34 +6,34 @@ import { BsFillPersonPlusFill } from "react-icons/bs";
 import { PiExport } from "react-icons/pi";
 
 interface Props {
-  dataSale: DataSaleType;
+  statisticSale: DataSaleType;
 }
 
 const TodaySalesSummary: React.FC<Props> = (props) => {
-  const { dataSale } = props;
+  const { statisticSale } = props;
   const summaryData = [
     {
       icon: <AiOutlineBarChart size={24} color="white" />,
       iconBackGroundColor: "#fb597e",
-      value: `${dataSale.income.totalIncomeToday.toLocaleString()} VNĐ`,
+      value: `${statisticSale?.income.totalIncomeCurrent.toLocaleString()} VNĐ`,
       label: "Tổng doanh số",
-      scale: dataSale.income.differencePercent,
+      scale: statisticSale?.income.differencePercent,
       backGroundColor: "#ffe2e6",
     },
     {
       icon: <AiFillTag size={24} color="white" />,
       iconBackGroundColor: "#3cd856",
-      value: dataSale.courses.totalCoursesToday.toString(),
+      value: statisticSale?.courses.totalCoursesCurrent.toString(),
       label: "Khoá học đã bán",
-      scale: dataSale.courses.differencePercent,
+      scale: statisticSale?.courses.differencePercent,
       backGroundColor: "#dcfce7",
     },
     {
       icon: <BsFillPersonPlusFill size={24} color="white" />,
       iconBackGroundColor: "#bf84ff",
-      value: dataSale.newUsers.totalNewUsersToday.toString(),
+      value: statisticSale?.newUsers.totalNewUsersCurrent.toString(),
       label: "Khách hàng mới",
-      scale: dataSale.newUsers.differencePercent,
+      scale: statisticSale?.newUsers.differencePercent,
       backGroundColor: "#f4e8fe",
     },
   ];

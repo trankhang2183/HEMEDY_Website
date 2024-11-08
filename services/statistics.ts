@@ -9,9 +9,9 @@ const getCountContentManage = async (token: string): Promise<any> => {
   return response.data;
 };
 
-const getDateSale = async (token: string): Promise<any> => {
+const getStatisticSale = async (token: string, param: string): Promise<any> => {
   const response = await httpClient.get({
-    url: `${apiLinks.statistics.dateSale}`,
+    url: `${apiLinks.statistics.statisticSale}/${param}`,
     token: token,
   });
   return response.data;
@@ -41,12 +41,21 @@ const getTopServices = async (token: string): Promise<any> => {
   return response.data;
 };
 
+const getDomainMonthly = async (token: string): Promise<any> => {
+  const response = await httpClient.get({
+    url: `${apiLinks.statistics.domainMonthly}`,
+    token: token,
+  });
+  return response.data;
+};
+
 const statistics = {
   getCountContentManage,
   getTopServices,
   getRevenueMonthly,
   getRevenueCurrentWeek,
-  getDateSale,
+  getStatisticSale,
+  getDomainMonthly,
 };
 
 export default statistics;

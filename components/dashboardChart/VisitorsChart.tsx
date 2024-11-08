@@ -1,27 +1,33 @@
+import { DomainType } from "@models/statistic";
 import { Line } from "react-chartjs-2";
 
-interface Props {}
+interface Props {
+  domainData: DomainType;
+}
 
 const VisitorsChart: React.FC<Props> = (props) => {
+  const { domainData } = props;
+
   const data = {
-    labels: [
-      // "Jan",
-      // "Feb",
-      // "Mar",
-      // "Apr",
-      // "May",
-      // "Jun",
-      // "Jul",
-      // "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      // "Dec",
-    ],
+    // labels: [
+    //   "Jan",
+    //   "Feb",
+    //   "Mar",
+    //   "Apr",
+    //   "May",
+    //   "Jun",
+    //   "Jul",
+    //   "Aug",
+    //   "Sep",
+    //   "Oct",
+    //   "Nov",
+    //   "Dec",
+    // ],
+    labels: ["Sep", "Oct", "Nov"],
     datasets: [
       {
-        label: "Regular Customers",
-        data: [190, 300, 100],
+        label: "Visiter",
+        data: domainData.visit,
         borderColor: "#b233f5",
         backgroundColor: "#b233f5",
         fill: false,
@@ -29,16 +35,16 @@ const VisitorsChart: React.FC<Props> = (props) => {
         pointBackgroundColor: "#b233f5",
         pointRadius: 0,
       },
-      {
-        label: "New Customers",
-        data: [230, 320, 120],
-        borderColor: "#ed6a69",
-        backgroundColor: "#ed6a69",
-        fill: false,
-        tension: 0.4,
-        pointBackgroundColor: "#ed6a69",
-        pointRadius: 0,
-      },
+      // {
+      //   label: "New Customers",
+      //   data: domainData.visit,
+      //   borderColor: "#ed6a69",
+      //   backgroundColor: "#ed6a69",
+      //   fill: false,
+      //   tension: 0.4,
+      //   pointBackgroundColor: "#ed6a69",
+      //   pointRadius: 0,
+      // },
       // {
       //   label: "Unique Customers",
       //   data: [100, 170, 250, 350, 150, 270, 370, 100, 170, 250, 350, 150],

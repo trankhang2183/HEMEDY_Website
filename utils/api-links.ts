@@ -86,10 +86,11 @@ const apiLinks = {
   },
   statistics: {
     countContent: `${urlServerSide}/admin`,
-    dateSale: `${urlServerSide}/admin/statistic-date-sales`,
+    statisticSale: `${urlServerSide}/admin/statistic-sales`,
     topServices: `${urlServerSide}/admin/statistic-top-services`,
     revenueMonthly: `${urlServerSide}/admin/statistic-revenue-monthly`,
     revenueCurrentWeek: `${urlServerSide}/admin/statistic-revenue-current-week`,
+    domainMonthly: `${urlServerSide}/admin/statistic-domain-monthly`,
   },
   course: {
     getCoursesById: `${urlServerSide}/courses`,
@@ -101,6 +102,12 @@ const apiLinks = {
     markAllNotifications: `${urlServerSide}/notifications/read-all`,
     markOneNotification: `${urlServerSide}/notifications/read`,
   },
+  counter: {
+    increaseQuantityUserVisit: `${urlServerSide}/auth/increase-quantity-user-visit`,
+    increaseQuantityListenMusic: `${urlServerSide}/auth/increase-quantity-listen-music`,
+    increaseQuantityListenPodcast: `${urlServerSide}/auth/increase-quantity-listen-podcast`,
+    increaseQuantitySurvey: `${urlServerSide}/auth/increase-quantity-take-survey`,
+  }
 };
 
 export default apiLinks;

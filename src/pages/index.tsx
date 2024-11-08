@@ -23,6 +23,8 @@ import { IoIosCall } from "react-icons/io";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import ScrollToTopButton from "@components/scroll/ScrollToTopButton";
+import { toast } from "react-toastify";
+import counter from "@services/counter";
 
 const HomeLayoutNoSSR = dynamic(() => import("@layout/HomeLayout"), {
   ssr: false,
@@ -33,6 +35,19 @@ const HomePage: React.FC = () => {
 
   useEffect(() => {
     Aos.init({ duration: 2000 });
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await counter.increaseQuantityUserVisit();
+      } catch (error) {
+        console.error("Error increase visit: ", error);
+      } finally {
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (

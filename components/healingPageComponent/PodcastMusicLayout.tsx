@@ -6,6 +6,8 @@ import { useRouter } from "next/router";
 import { MusicPodcastType } from "@/types/music-podcast.type";
 import { scrollToElement } from "@utils/global";
 import musicPodcast from "@services/music-podcast";
+import counter from "@services/counter";
+import { HealingPageType } from "@utils/enum";
 
 interface Props {
   list_podcast_music: MusicPodcastType[];
@@ -63,6 +65,12 @@ const PodcastMusicLayout: React.FC<Props> = (props) => {
 
     await handleUpdateQuantityListen(list_podcast_music[index]._id!);
 
+    if (list_podcast_music[index].category === HealingPageType.Music) {
+      await counter.increaseQuantityListenMusic();
+    } else {
+      await counter.increaseQuantityListenPodcast();
+    }
+
     newAudio.play();
     setAudio(newAudio);
     setCurrentIndex(index);
@@ -107,7 +115,6 @@ const PodcastMusicLayout: React.FC<Props> = (props) => {
   const handleUpdateQuantityListen = async (id: string) => {
     try {
       const updateQuantityList = await musicPodcast.updateListenQuantity(id);
-      console.log("updateQuantityList: ", updateQuantityList);
     } catch (error: any) {
       console.error("Có lỗi cập nhập listen quantity:", error);
     } finally {

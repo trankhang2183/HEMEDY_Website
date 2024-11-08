@@ -1,19 +1,25 @@
 export interface DataSaleType {
-  income: {
-    totalIncomeToday: number;
-    totalIncomeYesterday: number;
-    differencePercent: number;
-  };
-  courses: {
-    totalCoursesToday: number;
-    totalCoursesYesterday: number;
-    differencePercent: number;
-  };
-  newUsers: {
-    totalNewUsersToday: number;
-    totalNewUsersYesterday: number;
-    differencePercent: number;
-  };
+  income: Income;
+  courses: Courses;
+  newUsers: NewUsers;
+}
+
+export interface Income {
+  totalIncomeCurrent: number;
+  totalIncomePrevious: number;
+  differencePercent: number;
+}
+
+export interface Courses {
+  totalCoursesCurrent: number;
+  totalCoursesPrevious: number;
+  differencePercent: number;
+}
+
+export interface NewUsers {
+  totalNewUsersCurrent: number;
+  totalNewUsersPrevious: number;
+  differencePercent: number;
 }
 
 export interface TopServicesType {
@@ -21,3 +27,16 @@ export interface TopServicesType {
   popularity: number;
   color: string;
 }
+
+export interface DomainType {
+  visit: number[]
+  podcast: number[]
+  survey: number[]
+}
+
+export interface RevenueWeekType {
+  dayOfWeekRevenuePayProduct: number[]
+  dayOfWeekRevenuePaySchedule: number[]
+}
+
+
