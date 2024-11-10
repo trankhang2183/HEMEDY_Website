@@ -70,9 +70,26 @@ const TodaySalesSummary: React.FC<Props> = (props) => {
         </div>
         <div className="summary_card_value">{item.value}</div>
         <div className="summary_card_label">{item.label}</div>
-        <div className="summary_card_scale">{item.scale}% so với hôm qua</div>
+        <div className="summary_card_scale">
+          {item.scale}% so với {renderComparisonText()}
+        </div>
       </div>
     );
+  };
+
+  const renderComparisonText = () => {
+    switch (selectedSearchDateSale) {
+      case "day":
+        return "hôm qua";
+      case "week":
+        return "tuần trước";
+      case "month":
+        return "tháng trước";
+      case "year":
+        return "năm trước";
+      default:
+        return "khoảng thời gian trước đó";
+    }
   };
 
   return (
