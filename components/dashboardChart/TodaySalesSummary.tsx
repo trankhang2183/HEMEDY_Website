@@ -79,7 +79,7 @@ const TodaySalesSummary: React.FC<Props> = (props) => {
 
   const renderComparisonText = () => {
     switch (selectedSearchDateSale) {
-      case "day":
+      case "today":
         return "hôm qua";
       case "week":
         return "tuần trước";
